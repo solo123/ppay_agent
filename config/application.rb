@@ -33,7 +33,6 @@ module Ppay
     config.time_zone = 'Beijing'
     #config.active_record.default_timezone = 'Beijing'
 
-    config.active_job.queue_adapter = :sidekiq
-
+  
   end
 end
