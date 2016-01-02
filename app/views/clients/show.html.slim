@@ -1,0 +1,176 @@
+h2 商户生命周期
+.row
+  .col-md-2
+    h1.text-warning ==@object.join_days
+    b 入网时间
+  .col-md-2
+    h1.text-warning ==@object.trade_counts
+    b 交易笔数
+  .col-md-2
+    h1.text-warning ==@object.trade_amounts
+    b 交易总金额
+  .col-md-6
+    h1.text-warning ==@object.last_trade_datetime
+    b 最后交易时间
+.panel.panel-success
+  .panel-heading
+    h4.panel-title #{@object.shop_name}
+  .panel-body
+    h4 入网信息
+    .row
+      .col-md-6
+        p 经营类型: #{@object.shop_category.name}
+        p T1登录帐号:
+      .col-md-6
+        p 入网时间: #{@object.join_date}
+        p T0登录帐号:
+    h4 联系信息
+    .row
+      .col-md-6
+        p 联系人:
+        p 地区:
+      .col-md-6
+        p 联系手机: #{@object.shop_tel}
+        p 详细地址:
+    h4 终端信息
+    .row
+      .col-md-6
+        p 终端编号
+        p 15100000030010055
+        p 15100000030010044
+      .col-md-6
+        p 设备类型
+        p xxxxxx
+        p xxxxxx
+    h4 渠道信息
+    .row
+      .col-md-6
+        p 渠道名称:
+        p 业务员姓名: #{@object.salesman_info.name}
+      .col-md-6
+        p 渠道合作时间:
+        p 业务员手机:
+    h4 费率限额
+    .row
+      .col-md-6
+        p POS刷卡结算方式: T1
+        p 信用卡单笔限额:
+        p 借记卡单笔限额:
+        p POS刷卡结算方式: T0
+        p 信用卡单笔限额:
+        p 借记卡单笔限额:
+      .col-md-6
+        p 费率: #{@object.rate}
+        p 信用卡月限额:
+        p 借记卡月限额:
+        p 费率: 
+        p 信用卡月限额:
+        p 借记卡月限额:
+.panel.panel-success
+  .panel-heading
+    .btn-group.pull-right
+      button.btn.btn-warning.btn-xs 显示所有
+    h4.panel-title 客户服务信息
+  .panel-body#beizhuxinxi
+    .alert.alert-success.fade.in
+      .row
+        .col-md-6
+          strong success : 
+          span xxxxxxxxxxxxxxxxxxxxxxxx
+        .col-md-2
+          span xxx
+        .col-md-2
+          span xxxx
+        .col-md-2
+          button.btn.btn-xs.btn-default 归档
+    .alert.alert-info.fade.in
+      .row
+        .col-md-6
+          strong success : 
+          span xxxxxxxxxxxxxxxxxxxxxxxx
+        .col-md-2
+          span xxx
+        .col-md-2
+          span xxxx
+        .col-md-2
+          button.btn.btn-xs.btn-default 归档
+    .alert.alert-danger.fade.in
+      .row
+        .col-md-6
+          strong success : 
+          span xxxxxxxxxxxxxxxxxxxxxxxx
+        .col-md-2
+          span xxx
+        .col-md-2
+          span xxxx
+        .col-md-2
+          button.btn.btn-xs.btn-default 归档
+  .row
+    .col-md-6
+      .container
+        h4 增加备注 
+        span 备注类型
+        label.radio-inline
+          input type='radio' value='一般' name='optionsRadios' checked=''
+          span 一般
+        label.radio-inline
+          input type='radio' value='普通' name='optionsRadios'
+          span 普通
+        label.radio-inline 
+          input type='radio' value='严重' name='optionsRadios'
+          span 严重
+        label.radio-inline
+          input type='radio' value='紧急' name='optionsRadios'
+          span 紧急
+      textarea.form-control#beizhutext rows='5' placeholder='Textarea'
+      button.btn.btn-danger.btn-lg#beizhubtn 提交备注
+    col-md-6
+      h4 用户标签
+      p#biaoqianxinxi ==@object.tag_list
+      span 自定义标签
+      input id='biaoqiantext' placeholder='' value='#{@object.tag_list}'
+      button id='biaoqianbtn' class="btn btn-default" type="button" 添加
+      br
+      span 常用标签
+      #cybq
+        button.btn.btn-primary.m-l-5.m-b-5 type="button" tag1
+        button.btn.btn-info.m-l-5.m-b-5 type="button" tag2
+        button.btn.btn-success.m-l-5.m-b-5 type="button" tag3
+        button.btn.btn-warning.m-l-5.m-b-5 type="button" tag4
+      p 
+      |暂时可以用get方式访问如下
+      |url http://localhost:3000/clients/1/tags?tags=<tags list>
+      |就可以更新当前标签
+.panel.panel-success
+  .panel-heading
+    h4.panel-title
+      p 交易信息
+  .panel-body
+    = paginate @trades_for_pages
+    table class='table'
+      thead
+        tr
+          th 操作员
+          th 交易时间
+          th 交易类型
+          th 交易结果
+          th 交易额
+          th 交易机具编号
+      tbody
+      - @trades_for_pages.each do |trade|
+        tr
+          td
+          td ==trade.trade_date
+          td
+          td
+          td ==trade.trade_amount
+          td
+
+
+    / h4 交易流水
+    
+    / h4 积分
+    / h4 授信
+    / h4 备注
+    / h4 风控
+    

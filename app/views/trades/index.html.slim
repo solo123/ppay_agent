@@ -1,0 +1,35 @@
+
+
+= search_form_for( @q, class: 'form-inline') do |f|
+  div class='form-group m-r-10'
+  = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
+  = f.search_field ('trade_date_cont') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
+  = f.search_field ('trade_result_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
+  = f.search_field ('trade_amount_gt') , class: 'form-control', placeholder: 'amount', value: params[:q][:trade_amount_gt]
+  /   = f.search_field ('salesman_name_cont') , class: 'form-control', placeholder: '业务员', value: params[:q][:salesman_name_cont]
+  = f.submit '查找',  class: 'btn btn-warning form-control'
+br
+
+
+div class='panel panel-success'
+  div class='panel-heading'  
+    h4 class='panel-title' == @table_head
+  div class='panel-body'
+    = paginate @collection
+    table class='table'
+      thead
+        tr
+          th 商户
+          th== sort_link @q, :sub_account, '子账户'
+          th== sort_link @q, :trade_amount, '交易量'
+          th 交易日期
+
+      tbody
+        - @collection.each do |obj|
+          tr
+            th== link_to "#{obj.client.shop_name}", client_path(obj.client_id)
+            td== obj.sub_account
+            td== obj.trade_amount
+            td== obj.trade_date
+            th
+              == link_to '详细', obj

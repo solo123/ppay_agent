@@ -1,0 +1,78 @@
+div class="row"
+  div class='col-md-12'
+    
+    = search_form_for( @q, class: 'form-inline') do |f|
+      div class='form-group m-r-12'
+        input class='form-control' name='all_query' value='' placeholder='输入任何字段进行查询'
+      br
+      - if pc?
+        -  @curmodel.attributes.keys[1..-3].each_index do |index|
+          div class='form-group m-r-10'
+            = f.search_field (@curmodel.attributes.keys[1..-3].at(index) + '_cont') , class: 'form-control', placeholder: @field_titles.at(index).to_s, value: ''
+    
+        br
+      = f.submit '查找',  class: 'btn btn-warning form-control'
+
+div class='row'
+  div class='col-md-12'
+  
+    - if @collection.count==0
+      h2 没有数据可供查看
+    - if pc?
+      div class='panel panel-success'
+        div class='panel-heading'
+          div class='panel-heading-btn'
+            a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-expand"
+              i class="fa fa-expand"
+          h4 class='panel-title' == @table_head
+        div class='panel-body'
+          = paginate @collection
+          div style='overflow: auto;'
+            table class='table'
+              thead
+                tr
+                  - for index in 0..(@field_titles.count-1)
+                    th 
+                      == sort_link(@q, @curmodel.attributes.keys.at(index),
+                                    @field_titles.at(index), 
+                                    default_order: 'asc')
+
+                    
+              tbody
+                / 汇总信息
+                tr class='info'
+                  - @summary.each do |sum|
+                    td
+                      == sum
+                
+                - @collection.each do |obj|
+                  tr
+                    - obj.attributes.values[1..-3].each do |v|
+                      td class=''
+                        == v
+                    td== link_to '详情', obj
+                    
+                    
+          = paginate @collection
+
+          
+    - else #if mobile?
+      h3 == @table_head
+
+      = paginate @collection
+      div class='container'
+        - @collection.each do |obj|
+          div class='note note-success' style="margin: auto -15px"
+            div class='row'
+              div class='col-xs-8'
+                ul
+                  - @m_fields[0..-2].each do |index|
+                    li
+                      h4 == @field_titles.at(index)
+                      == obj.attributes.values.at(index+1)
+              div class='col-xs-4'
+                h4 == @field_titles.at(@m_fields.last)
+                == obj.attributes.values.at(@m_fields.last+1)
+          br    
+                
+      = paginate @collection

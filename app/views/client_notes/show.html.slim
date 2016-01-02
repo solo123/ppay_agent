@@ -1,0 +1,13 @@
+p#notice
+  = notice
+p
+  strong
+    | Note:
+  = @client_note.note
+p
+  strong
+    | Type:
+  = @client_note.tip
+= link_to 'Edit', edit_client_note_path(@client_note)
+|  | 
+= link_to 'Back', client_notes_path

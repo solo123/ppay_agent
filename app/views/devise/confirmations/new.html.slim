@@ -1,0 +1,23 @@
+div class="login login-v2" data-pageload-addclass='animated fadeIn'
+  div class='login-header'
+    div class='brand'
+      span class='logo' 
+      span 普尔支付
+      small 欢迎访问普尔支付渠道系统  请登录
+    div class='icon'
+      i class='fa fa-sign-in'
+  div class='login-content'
+    h2 Resend confirmation instructions
+    = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| 
+      = f.error_notification 
+      = f.full_error :confirmation_token 
+
+      div class="form-inputs"
+        = f.input :email, required: true, autofocus: true 
+
+      div class="form-actions"
+        = f.button :submit, "Resend confirmation instructions" 
+
+== render "devise/shared/links" 
+
+

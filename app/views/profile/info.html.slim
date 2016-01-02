@@ -1,0 +1,28 @@
+
+/ 显示flash消息
+= flash.each do |type, message|
+  div class="flash"
+    javascript:
+      $(window).load( function() {
+        setTimeout( function() {
+          $.gritter.add({
+            title: 'Welcome ',
+            text: 'Lorem ipsum.',
+            image: '/favicon.png',
+            sticky: true,
+            time: '',
+            class_name: 'my-sticky-class'
+            });
+            }, 500);     
+        }
+      }  
+      
+div class='row'
+  div class='col-md-10'
+    h3 个人信息
+    p 手机号码: #{current_user.mobile}
+    p 用户名: #{current_user.name}
+
+  div class='col-md-2'
+    - if user_signed_in?
+      == link_to '退出登录', destroy_user_session_path, :method => :delete

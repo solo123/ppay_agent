@@ -1,0 +1,61 @@
+= link_to 'Back', agents_path
+
+h1 代理商生命周期
+p 合作时长 #{@join_days}
+p 最近入网时间 #{@last_date}
+p 上月交易总额
+
+ul#selector
+  li 总交易金额 #{@trade_amount_sum}
+  li 微信支付
+  li 预计分润
+  li 总商户数 #{@client_count}
+  
+h1 合作商基础信息
+h4 机构信息
+p 企业全称 创建时间 简称 经营地址
+
+h4 联系信息
+p 联系人角色 联系人 邮箱 地址
+h4 业务信息
+p 合作形式 状态 合作收单类型(微信、支付宝、QPOS) 是否开通T+0 合作区域
+h4 结算信息
+p 开户行 开户支行 账户名 银行帐号
+h4 财务信息
+p 保证金 待结算分润
+
+h1 渠道信息
+
+
+
+/ 后面的东西不要修改
+.row
+  .col-md-6
+    == simple_form_for @agent, :html => {:class => 'well form-horizontal'}  do |f|
+      == f.error_notification
+      == f.input :name
+      == f.input :mobile
+      .form-actions
+        == f.submit "save", :class => "btn btn-primary" 
+        == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+  .col-md-6
+    = simple_form_for @agent, :html => {:class => 'well form-horizontal'}  do |f|
+      == f.error_notification
+      = f.input :password
+      = f.input :password_confirmation
+      .form-actions
+        = f.submit 'save', :class => "btn btn-primary" 
+        = submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+
+
+.row#salesmen
+  .col-md-6
+    .list-group
+      .list-group-item.active 相关商户
+      - @agent.salesmen.each do |s|
+        = link_to "#{s.name}", del_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+  .col-md-6
+    .list-group
+      .list-group-item.active 未关联的商户
+      - Salesman.free_salesmen.each do |s|
+        = link_to "#{s.name}", add_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"

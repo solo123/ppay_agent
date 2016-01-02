@@ -1,0 +1,33 @@
+== render 'shared/left_menu_item',
+  :local => {:title => '首页',
+  :class => 'fa-laptop'}
+  
+== render 'shared/left_menu_item',
+  :local => {:title => '商户数据',
+  :data =>  [ ['商户资料', clients_path],
+  ['业务员', salesmen_path],
+  ['联系人', contacts_path]], 
+  :class => 'fa-2x fa-credit-card'}
+    
+== render 'shared/left_menu_item',
+  :local => {:title => '交易数据',
+  :data => [['交易数据', trades_path], ['清算数据',  clearings_path]], 
+  :class => 'fa-2x fa-database'}
+      
+== render 'shared/left_menu_item',
+  :local => {:title => '管理工具',
+  :data => [['用户管理', users_path],
+  ['代理管理', agents_path],
+  ['数据管理', data_manage_index_path ] ], 
+  :class => ' fa-2x fa-users' }
+          
+== render 'shared/left_menu_item',
+  :local => {:title => '代理商',
+  :data => [ ['contact', contacts_path], ['address', addresses_path], ['pos_machine', pos_machines_path] ],
+  :class => 'fa-2x' }
+            
+== render 'shared/left_menu_item',
+  :local => {:title => '个人设置',
+  :data => [['资料', profile_info_path ] ], 
+  :class => 'fa-2x' }
+              

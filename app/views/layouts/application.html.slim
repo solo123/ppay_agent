@@ -1,0 +1,119 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    == favicon_link_tag '/favicon.png'
+    meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"
+
+    title Ppay
+
+    link href="/color_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+    link href="/color_admin/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+    link href="/color_admin/assets/css/animate.min.css" rel="stylesheet"
+    link href="/color_admin/assets/css/style.min.css" rel="stylesheet"
+    link href="/color_admin/assets/css/style-responsive.min.css" rel="stylesheet"
+    link href="/color_admin/assets/css/theme/red.css" rel="stylesheet"
+
+    link href="/color_admin/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" 
+    link href="/color_admin/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" 
+    link href="/color_admin/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" 
+    link href="/color_admin/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" 
+    
+    script src="/color_admin/assets/plugins/jquery/jquery-1.9.1.min.js"
+    == stylesheet_link_tag    "application", media: "all"
+    == javascript_include_tag "application"
+    
+     
+  body
+    div id="page-loader" class="fade in"
+      span class='spinner'
+    div id="page-container" class="fade in page-sidebar-fixed page-header-fixed"
+      div id="header" class="header navbar navbar-default navbar-fixed-top"
+        div class='container-fluid'
+          div class='navbar-header'
+            ==link_to image_tag('Logo.jpg'), '/', class:'navbar-brand'
+            button class='navbar-toggle' data-click='sidebar-toggled' type='button'
+              span class='icon-bar'
+              span class='icon-bar'
+              span class='icon-bar'
+
+      div id="sidebar" class="sidebar"
+        ul class="nav"
+          li class='nav-profile'
+            div class='info'
+              big 普尔支付 
+              span 渠道系统
+        ul class='nav' id='sidemenu'
+          == render 'shared/left_menu'
+          li
+            a href='javascript:;' class='sidebar-minify-btn' data-click='sidebar-minify'
+              i class="fa fa-angle-double-left"
+                              
+
+      div class='content'  id='content'
+        == yield
+
+      .footer#footer 
+        .row
+          .col-md-12
+            p Copyright © 2012–2015 深圳市普尔瀚达科技有限公司. All rights reserved. Version：0.1beta
+        div class='row'
+          div class='col-md-4'
+          div class='col-md-8'
+            /- if Rails.env.development?
+            /  == debug(params)
+
+      a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"
+        i class="fa fa-angle-up"
+
+    script src="/color_admin/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"
+    script src="/color_admin/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"
+    script src="/color_admin/assets/plugins/bootstrap/js/bootstrap.min.js"
+    script src="/color_admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"
+    script src="/color_admin/assets/plugins/jquery-cookie/jquery.cookie.js"
+    script src="/color_admin/assets/plugins/pace/pace.min.js"
+
+    / script src="/color_admin/assets/js/login-v2.demo.min.js"
+    script src="/color_admin/assets/js/apps.min.js"
+    
+    - if false
+      script src="/color_admin/assets/crossbrowserjs/html5shiv.js"
+      script src="/color_admin/assets/crossbrowserjs/respond.min.js"
+      script src="/color_admin/assets/crossbrowserjs/excanvas.min.js"
+
+    script src="/color_admin/assets/plugins/gritter/js/jquery.gritter.js"
+    script src="/color_admin/assets/plugins/flot/jquery.flot.min.js"
+    script src="/color_admin/assets/plugins/flot/jquery.flot.time.min.js"
+    script src="/color_admin/assets/plugins/flot/jquery.flot.resize.min.js"
+    script src="/color_admin/assets/plugins/flot/jquery.flot.pie.min.js"
+    script src="/color_admin/assets/plugins/sparkline/jquery.sparkline.js"
+    script src="/color_admin/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js"
+    script src="/color_admin/assets/plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en.js"
+    script src="/color_admin/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"
+    / script src="/color_admin/assets/js/dashboard.js"
+    
+    javascript:
+      //myjs();
+      App.init();
+      // Dashboard.init();
+      
+    / 显示flash消息
+    = flash.each do |type, message|
+      div class="flash"
+        javascript:
+          setTimeout( function() {
+            $.gritter.add({
+              title: 'Welcome ',
+              text: 'Lorem ipsum.',
+              image: '/favicon.png',
+              sticky: true,
+              time: '',
+              class_name: 'my-sticky-class'
+              });
+              }, 500);     
+          }
+        
+      
+      
+  

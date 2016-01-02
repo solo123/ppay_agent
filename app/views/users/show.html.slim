@@ -1,0 +1,18 @@
+p#notice
+  = notice
+p
+  strong
+    | Name:
+  = @user.name
+p
+  strong
+    | Mobile:
+  = @user.mobile
+
+p
+  strong
+    | Email:
+  = @user.email
+= link_to 'Edit', edit_user_path(@user)
+|  | 
+= link_to 'Back', users_path

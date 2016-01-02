@@ -1,0 +1,27 @@
+p#notice
+  = notice
+h1
+  | Listing Client Notes
+table
+  thead
+    tr
+      th
+        | Note
+      th
+        | Type
+      th[colspan="3"]
+  tbody
+    - @client_notes.each do |client_note|
+      tr
+        td
+          = client_note.note
+        td
+          = client_note.tip
+        td
+          = link_to 'Show', client_note
+        td
+          = link_to 'Edit', edit_client_note_path(client_note)
+        td
+          = link_to 'Destroy', client_note, method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Client note', new_client_note_path

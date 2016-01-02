@@ -1,0 +1,127 @@
+
+
+.row
+  .col-md-3
+    .widget.widget-stats.bg-blue
+      .stats-icon
+        i.fa.fa-desktop
+      .stats-info
+        h3 总交易金额
+        p ==@trade_sum
+      .stats-link
+        a href='#'
+          span 查看详情
+          i.fa.fa-arrow-circle-o-down
+  .col-md-3
+    .widget.widget-stats.bg-green#weixin
+      .stats-icon
+        i.fa.fa-comments.fa-fw
+      .stats-info
+        h3 微信交易金额
+        p unknow
+      .stats-link
+        a href='#' 
+            span 查看详情
+            i.fa.fa-arrow-circle-o-down
+    ul.list-group#weixinjy style='display:none;position:absolute;z-index:999;top:0;'
+      - @trade_detail_sum.each do |t|
+        li.list-group-item
+          == t['type']
+          == t['sum']
+
+  .col-md-3
+    .widget.widget-stats.bg-purple
+      .stats-icon
+        i.fa.fa-clock-o
+      .stats-info
+        h3 预计分润
+        p 7567
+      .stats-link
+        a href='#'
+          span 查看详情
+          i.fa.fa-arrow-circle-o-down
+  .col-md-3
+    .widget.widget-stats.bg-red
+      .stats-icon
+        i.fa.fa-users
+      .stats-info
+        h3 总商户数量
+        p ==@client_sum
+      .stats-link
+        a href='#'
+          span 查看详情
+          i.fa.fa-arrow-circle-o-down
+  
+
+br
+.row
+  .col-md-8
+    .panel.panel-inverse
+      .panel-heading
+        h4.panel-title 系统公告
+      .panel-body
+        .jumbotron
+          h2 单月销售额度超过20万的 将会有额外的奖励
+    
+  .col-md-4
+    .panel.panel-inverse
+      .panel-heading
+        h4.panel-title 优惠活动
+      .panel-body
+        .list-group
+          <a href="#" class="list-group-item active">
+            | Cras justo odio
+          </a>
+          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item">Morbi leo risus</a>
+          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item">Vestibulum at eros</a>
+
+
+    
+    
+.row
+  .col-md-6
+    .panel.panel-inverse
+      .panel-heading
+        h4.panel-title 新增加商户
+      .panel-body
+        ul.list-group
+          - @new_clients.each do |c|
+            a href="#{client_path(c)}" class="list-group-item"
+              ==c.shop_name 
+              span.badge ==c.shid
+
+
+  .col-md-6
+    .panel.panel-inverse
+      .panel-heading
+        h4.panel-title 活跃用户
+      .panel-body
+        ul.list-group
+          - @active_clients.each do |c|
+            a href="#{client_path(c)}" class="list-group-item"
+              ==c.shop_name 
+              span.badge ==c.shid
+
+
+
+
+p Lorem ipsum...
+== high_chart("some_id", @chart)
+
+.pagination.m-t-0.m-b-10
+  li.disabled
+    a href='#' <<
+  li.active
+    a href='#' 1
+  li
+    a href='#' 2
+  li
+    a href='#' 3
+  li
+    a ...
+  li
+    a href='#' 99
+  li
+    a href='#' >>

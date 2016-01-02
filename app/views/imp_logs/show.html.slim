@@ -1,0 +1,5 @@
+h2 #{@object.id} #{@object.title}
+ul
+  li== link_to "客户信息：#{@object.imp_qf_customers.count} 条", imp_qf_customers_path("q[imp_log_id_eq]" => @object.id), target: 'imp_detail_win'
+  li== link_to "交易信息：#{@object.imp_qf_trades.count} 条", imp_qf_trades_path("q[imp_log_id_eq]" => @object.id), target: 'imp_detail_win'
+  li== link_to "清算信息：#{@object.imp_qf_clearings.count} 条", imp_qf_clearings_path("q[imp_log_id_eq]" => @object.id), target: 'imp_detail_win'

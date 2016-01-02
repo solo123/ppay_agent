@@ -1,0 +1,39 @@
+div class='row'
+  div class='col-md-12'
+    div class='panel panel-success'
+      div class='panel-heading'
+        div class='panel-heading-btn'
+          == link_to '导入Email', import_do_import_path, class: "btn btn-xs btn-primary", remote: true
+          == link_to "数据处理", import_parse_data_path, class: 'btn btn-xs btn-primary', remote: true
+          a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-expand"
+            i class="fa fa-expand"
+        h4 class='panel-title' == @table_head
+      div class='panel-body'
+        = paginate @collection
+        table class='table'
+          thead
+            tr
+              th 邮件id
+              th 邮件标题
+              th 接收日期
+              th 发件人
+              th 导入信息
+              th 详细数据
+              
+          tbody
+            - @collection.each do |obj|
+              tr
+                td== obj.uid
+                td== obj.title
+                td== obj.received_at
+                td== obj.mail_from
+                td== obj.detail
+                td nowrap = "nowrap"
+                  - if obj.status == 8
+                    == link_to 'xls文件| ', download_import_xls_path(name: "#{obj.uid}.xls")
+                    br
+                    == link_to "商户：#{obj.imp_qf_customers.count}条/#{obj.imp_qf_customers.where(zt: 1).count}/#{obj.imp_qf_customers.where('zt <> 1').count}, ", imp_qf_customers_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
+                    br
+                    == link_to "交易：#{obj.imp_qf_trades.count}条/#{obj.imp_qf_trades.where(zt: 1).count}/#{obj.imp_qf_trades.where('zt <> 1').count}, ", imp_qf_trades_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
+                    br
+                    == link_to "清算：#{obj.imp_qf_clearings.count}条/#{obj.imp_qf_clearings.where(zt: 1).count}/#{obj.imp_qf_clearings.where('zt <> 1').count}", imp_qf_clearings_path("q[imp_log_id_eq]" => obj.id), target: 'imp_detail_win'
