@@ -1,0 +1,8 @@
+== simple_form_for @object,  :html => {:class => 'well form-horizontal'}  do |f|
+  == f.error_notification
+  == text_field('province', :province)
+  == f.input :street
+  == f.input :post_code
+  == f.input :status
+  == f.submit
+  

@@ -1,4 +1,4 @@
-class ContactsController < ResourceController
+class ContactsController < NestedResourcesController
   def initialize
     super
     @m_fields = [1, 3, 4]

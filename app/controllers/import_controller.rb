@@ -44,4 +44,11 @@ class ImportController < ApplicationController
 
     redirect_to root_path
   end
+
+
+  def do_statistic
+    $redis.lpush :parse_log, "0. 准备统计数据..."
+    TradesTotalsJob.perform_later nil
+
+  end
 end

@@ -1,2 +1,0 @@
-class DataManageController < ApplicationController
-end

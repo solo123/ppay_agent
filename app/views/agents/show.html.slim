@@ -1,61 +1,151 @@
-= link_to 'Back', agents_path
-
-h1 代理商生命周期
-p 合作时长 #{@join_days}
-p 最近入网时间 #{@last_date}
-p 上月交易总额
-
-ul#selector
-  li 总交易金额 #{@trade_amount_sum}
-  li 微信支付
-  li 预计分润
-  li 总商户数 #{@client_count}
-  
-h1 合作商基础信息
-h4 机构信息
-p 企业全称 创建时间 简称 经营地址
-
-h4 联系信息
-p 联系人角色 联系人 邮箱 地址
-h4 业务信息
-p 合作形式 状态 合作收单类型(微信、支付宝、QPOS) 是否开通T+0 合作区域
-h4 结算信息
-p 开户行 开户支行 账户名 银行帐号
-h4 财务信息
-p 保证金 待结算分润
-
-h1 渠道信息
-
-
-
-/ 后面的东西不要修改
+ol.breadcrumb.pull-right
+  li ==link_to 'Home', root_path
+  li ==link_to '代理管理', '#'
+  li 详细信息
+h1 
+  span 代理商生命周期
+  small  合作时长: #{@join_days}, 最近入网时间: #{@last_date}, 上月交易总额: 
 .row
-  .col-md-6
-    == simple_form_for @agent, :html => {:class => 'well form-horizontal'}  do |f|
-      == f.error_notification
-      == f.input :name
-      == f.input :mobile
-      .form-actions
-        == f.submit "save", :class => "btn btn-primary" 
-        == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
-  .col-md-6
-    = simple_form_for @agent, :html => {:class => 'well form-horizontal'}  do |f|
-      == f.error_notification
-      = f.input :password
-      = f.input :password_confirmation
-      .form-actions
-        = f.submit 'save', :class => "btn btn-primary" 
-        = submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+  .col-md-3
+    .widget.widget-stats.bg-blue
+      .stats-icon
+        i.fa.fa-desktop
+      .stats-info
+        h3 本月总交易金额
+        p #{@trade_amount_sum}
+      .stats-link
+        a href='#'
+          span 总笔数 : 
+          span 8383
+  .col-md-3
+    .widget.widget-stats.bg-green#weixin
+      .stats-icon
+        i.fa.fa-comments.fa-fw
+      .stats-info
+        h3 本月微信交易金额
+        p unknow
+      .stats-link
+        a href='#' 
+            span  正扫: 
+            span 5650, 
+            span  反扫: 
+            span 5650, 
+  .col-md-3
+    .widget.widget-stats.bg-purple
+      .stats-icon
+        i.fa.fa-clock-o
+      .stats-info
+        h3 本月预计分润
+        p 7567
+      .stats-link
+        a href='#'
+          span 微信:
+          span 9393, 
+          span 支付宝:
+          span 222, 
+          span T0:
+          span 234
+  .col-md-3
+    .widget.widget-stats.bg-red
+      .stats-icon
+        i.fa.fa-users
+      .stats-info
+        h3 总商户数
+        p #{@client_count}
+      .stats-link
+        a href='#'
+          span 本月新增商户 : 
+          span ==@client_sum
 
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 合作商基础信息
+  .panel-body
+    h4 机构信息
+    table
+      tr
+        td 公司
+        td= @object.company_id
+      tr
+        td 合作类型
+        td= @object.cooperation_type_id
+      tr
+        td 合作日期
+        td= @object.cooperation_date
+      tr
+        td T0
+        td= @object.t0_enabled
+      tr
+        td 合作收单类型
+        td= @object.bank_biz_types
+      tr
+        td 合作区域
+        td= @object.cooperation_location
+      tr
+        td 保证金
+        td= @object.deposit
+      tr
+        td 待结算分润
+        td= @object.amounts_payable
 
-.row#salesmen
-  .col-md-6
-    .list-group
-      .list-group-item.active 相关商户
-      - @agent.salesmen.each do |s|
-        = link_to "#{s.name}", del_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
-  .col-md-6
-    .list-group
-      .list-group-item.active 未关联的商户
-      - Salesman.free_salesmen.each do |s|
-        = link_to "#{s.name}", add_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+    h4 联系信息
+    .row
+      .col-md-4
+        - @object.contacts.each do |cc|
+          ul
+            li 联系人
+            | #{cc.name}
+            li 联系人角色
+            | #{cc.roles}
+            li 联系人手机
+            | #{cc.tel}
+    /
+    h4 业务信息
+    .row
+      .col-md-8
+        
+        
+    h4 结算信息
+    .row
+      .col-md-8
+
+    h4 财务信息
+    .row
+      .col-md-8
+    
+    h4 分润比例
+    .row
+      .col-md-12
+        label.btn.btn-success  
+        / = link_to '分润比例', agents_sales_commissions_path("q"=>@agent.id), id:'sales_commission_content_btn', remote: true
+        .panel-body#sales_commission_content
+
+    
+
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 渠道信息
+  .panel-body
+    h3 业务员
+
+    .row#salesmen
+      .col-md-6
+        .list-group
+          .list-group-item.active 相关业务员
+          - @object.salesmen.each do |s|
+            == link_to "#{s.name}", del_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+      .col-md-6
+        .list-group
+          .list-group-item.active 未关联的业务员
+          - Salesman.free_salesmen.each do |s|
+            == link_to "#{s.name}", add_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+      /
+hr
+
+- Salesman.free_salesmen.each do |s|
+  == link_to "#{s.name}", add_salesman_agent_path(@agent, salesman_id: s.id), method: :post, class: "list-group-item"
+/  
+javascript:
+  $(document).ready(function(){
+    $("#sales_commission_content_btn").trigger("click");
+  });

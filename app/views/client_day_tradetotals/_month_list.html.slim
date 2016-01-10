@@ -1,0 +1,25 @@
+table.table
+  thead
+    tr
+      th 日期
+      th 总交易
+      th 总笔数
+      th 微金额
+      th 微笔数
+      th 支金额
+      th 支笔数
+      th T0金额
+      th T0笔数
+  tbody
+    - @collection.each do |r|
+      tr
+        td= r.trade_date
+        td= r.total_amount
+        td= r.total_count
+        td= r.wechat_amount
+        td= r.wechat_count
+        td= r.alipay_amount
+        td= r.alipay_count
+        td= r.t0_amount
+        td= r.t0_count
+          

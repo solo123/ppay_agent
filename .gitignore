@@ -21,3 +21,4 @@
 *.keep
 dump*
 /config/database.yml
+/Gemfile.lock

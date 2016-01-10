@@ -1,7 +1,19 @@
-== simple_form_for @agent,  :html => {:class => 'well form-horizontal'}  do |f|
-  == f.error_notification
-  == f.input :name
-  == f.input :mobile
+
+= simple_form_for @object,  :html => {:class => 'well form-horizontal'}  do |f|
+  = f.error_notification
+  
+  == f.association :cooperation_type, collection: CodeTable.childs('cooperation_type')
+  == f.input :cooperation_date
+  == f.input :t0_enabled
+  == f.input :bank_biz_types
+  == f.input :cooperation_location
+  == f.input :deposit
+  == f.input :amounts_payable
+
+
   .form-actions
-    == f.submit "save", :class => "btn btn-primary" 
-    == submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+    = f.submit "save", :class => "btn btn-primary" 
+    = submit_tag 'cancel', :type => :reset, :class => "btn btn-danger" 
+
+/
+= debug(params)

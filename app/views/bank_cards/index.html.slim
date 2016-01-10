@@ -1,0 +1,35 @@
+p#notice
+  = notice
+h1
+  | Listing Bank Cards
+table
+  thead
+    tr
+      th
+        | Bank name
+      th
+        | Bank sub branch
+      th
+        | Account name
+      th
+        | Account number
+      th[colspan="3"]
+  tbody
+    - @bank_cards.each do |bank_card|
+      tr
+        td
+          = bank_card.bank_name
+        td
+          = bank_card.bank_sub_branch
+        td
+          = bank_card.account_name
+        td
+          = bank_card.account_number
+        td
+          = link_to 'Show', bank_card
+        td
+          = link_to 'Edit', edit_bank_card_path(bank_card)
+        td
+          = link_to 'Destroy', bank_card, method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Bank card', new_bank_card_path

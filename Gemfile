@@ -37,8 +37,9 @@ gem 'best_in_place'
 gem 'rails4-autocomplete'
 gem 'simple_form'
 gem 'comfortable_mexican_sofa'
+gem 'spreadsheet'
 gem 'slim'
-gem 'redis'
+gem 'sidekiq'
 gem 'lazy_high_charts'
 gem 'acts-as-taggable-on' # 给model打tag
 

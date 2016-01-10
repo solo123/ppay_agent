@@ -9,6 +9,21 @@ class ApplicationController < ActionController::Base
       end
     end
 
-  before_action :authenticate_user!
 
+  before_action :require_agent_login
+
+  def require_agent_login
+    # 确保已经登录
+    authenticate_user!
+
+    # 如果在注册或者登录path的时候不需要判断
+    if current_user!=nil
+      if current_user.agent==nil
+          sign_out current_user
+          flash[:info]  = "您不是注册代理商，请先注册"
+          redirect_to root_path
+      end
+
+    end
+  end
 end

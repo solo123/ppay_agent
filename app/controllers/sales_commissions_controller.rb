@@ -1,0 +1,2 @@
+class SalesCommissionsController < ResourceController
+end

@@ -25,7 +25,7 @@ html
     == javascript_include_tag "application"
     
      
-  body
+  body style='font-size:14px;'
     div id="page-loader" class="fade in"
       span class='spinner'
     div id="page-container" class="fade in page-sidebar-fixed page-header-fixed"
@@ -94,9 +94,11 @@ html
     / script src="/color_admin/assets/js/dashboard.js"
     
     javascript:
-      //myjs();
+      homejs();
+      sidemenu();
+      //client_show();
       App.init();
-      // Dashboard.init();
+      //Dashboard.init();
       
     / 显示flash消息
     = flash.each do |type, message|

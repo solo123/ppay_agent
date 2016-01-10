@@ -1,0 +1,24 @@
+table.table
+  - @parents.each do |c|
+    tr
+      td= c.id
+      td= c.val
+      td= link_to c.name, code_tables_path(p: c.id)
+      td= CodeTable.childs(c).count
+      td= link_to '修改', code_tables_path(e: c.id)
+
+= simple_form_for @object do |f|
+  = f.input :val
+  = f.input :name
+  = f.input :parent_id
+  = f.submit
+
+- if @parent
+  h2 ##{@parent.id} #{@parent.val}(#{@parent.name})    
+table.table
+  - @collection.each do |c|
+    tr
+      td= c.id
+      td= c.val
+      td= c.name
+      td= link_to '修改', code_tables_path(p: @parent.id, e: c.id)

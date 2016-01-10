@@ -1,0 +1,77 @@
+<%= form_for(@salesman_day_tradetotal) do |f| %>
+  <% if @salesman_day_tradetotal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@salesman_day_tradetotal.errors.count, "error") %> prohibited this salesman_day_tradetotal from being saved:</h2>
+
+      <ul>
+      <% @salesman_day_tradetotal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :trade_date %><br>
+    <%= f.date_select :trade_date %>
+  </div>
+  <div class="field">
+    <%= f.label :total_amount %><br>
+    <%= f.text_field :total_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :total_count %><br>
+    <%= f.number_field :total_count %>
+  </div>
+  <div class="field">
+    <%= f.label :wechat_amount %><br>
+    <%= f.text_field :wechat_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :wechat_count %><br>
+    <%= f.number_field :wechat_count %>
+  </div>
+  <div class="field">
+    <%= f.label :alipay_amount %><br>
+    <%= f.text_field :alipay_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :alipay_count %><br>
+    <%= f.number_field :alipay_count %>
+  </div>
+  <div class="field">
+    <%= f.label :t0_amount %><br>
+    <%= f.text_field :t0_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :t0_count %><br>
+    <%= f.number_field :t0_count %>
+  </div>
+  <div class="field">
+    <%= f.label :t1_amount %><br>
+    <%= f.text_field :t1_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :t1_count %><br>
+    <%= f.number_field :t1_count %>
+  </div>
+  <div class="field">
+    <%= f.label :expected_amount %><br>
+    <%= f.text_field :expected_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :actual_amount %><br>
+    <%= f.text_field :actual_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :diff_amount %><br>
+    <%= f.text_field :diff_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :diff_total_amount %><br>
+    <%= f.text_field :diff_total_amount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

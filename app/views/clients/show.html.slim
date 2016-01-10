@@ -1,3 +1,7 @@
+ol.breadcrumb.pull-right
+  li ==link_to 'Home', '/'
+  li ==link_to '商户资料', 'clients_path'
+  li 详细信息
 h2 商户生命周期
 .row
   .col-md-2
@@ -27,8 +31,8 @@ h2 商户生命周期
     h4 联系信息
     .row
       .col-md-6
-        p 联系人:
-        p 地区:
+        p 联系人: #{@object.contact_info}
+        p 地区: #{@object.addr_info}
       .col-md-6
         p 联系手机: #{@object.shop_tel}
         p 详细地址:
@@ -54,15 +58,15 @@ h2 商户生命周期
     .row
       .col-md-6
         p POS刷卡结算方式: T1
-        p 信用卡单笔限额:
-        p 借记卡单笔限额:
+        p 信用卡单笔限额: #{@object.credit_card_limit_each/10000}万
+        p 借记卡单笔限额: #{@object.bank_card_limit_each/10000}万
         p POS刷卡结算方式: T0
-        p 信用卡单笔限额:
+        p 信用卡单笔限额: 
         p 借记卡单笔限额:
       .col-md-6
         p 费率: #{@object.rate}
-        p 信用卡月限额:
-        p 借记卡月限额:
+        p 信用卡月限额: #{@object.credit_card_limit_month/10000}万
+        p 借记卡月限额: #{@object.bank_card_limit_month/10000}万
         p 费率: 
         p 信用卡月限额:
         p 借记卡月限额:

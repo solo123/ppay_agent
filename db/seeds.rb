@@ -14,7 +14,6 @@ puts "已创建完毕公司员工默认用户."
 
 
 puts '创建代理商'
-Agent.create('name'=>'ivy', 'mobile'=>'13826554535')
-Agent.create('name'=>'jimmy', 'mobile'=>'18682320151')
-Agent.create('name'=>'alei', 'mobile'=>'15817329272')
+Agent.create('cooperation_location'=>'深圳')
+Agent.create('cooperation_location'=>'德国')
 puts "已创建完毕代理商默认用户"

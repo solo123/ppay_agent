@@ -1,0 +1,28 @@
+= form_for(@bank_card) do |f|
+  - if @bank_card.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@bank_card.errors.count, "error")
+        |  prohibited this bank_card from being saved:
+      ul
+        - @bank_card.errors.full_messages.each do |message|
+          li
+            = message
+  .field
+    = f.label :bank_name
+    br
+    = f.text_field :bank_name
+  .field
+    = f.label :bank_sub_branch
+    br
+    = f.text_field :bank_sub_branch
+  .field
+    = f.label :account_name
+    br
+    = f.text_field :account_name
+  .field
+    = f.label :account_number
+    br
+    = f.text_field :account_number
+  .actions
+    = f.submit

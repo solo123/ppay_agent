@@ -1,6 +1,14 @@
 h1
   | Editing Agent
 = render 'form'
-= link_to 'Show', @agent
+
+#login_user
+  = render 'login_user'
+
+- @parent = @object  
+#contacts_div
+  = render 'contacts/contacts'
+
+= link_to 'Show', @object
 |  | 
 = link_to 'Back', agents_path

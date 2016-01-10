@@ -1,23 +1,21 @@
 class HomeController < ApplicationController
   def index
-    @trade_sum = 0
-    @client_sum = 0
-    @trade_detail_sum = []
-    @new_clients = []
-    @active_clients = []
 
+    d = Date.current
+    @total_amount  = ClientDayTradetotal.sum("total_amount")
+    @total_count  = ClientDayTradetotal.sum("total_count")
+    @new_clienter_count = Client.where("join_date"=> d.all_month).count
+    @clienter_count = Client.count
 
-    @chart = LazyHighCharts::HighChart.new('graph') do |f|
-      f.title(text: "商户销量分布")
-      f.xAxis(categories: ["United States", "Japan", "China", "Germany", "France"])
-      f.series(name: "销量排名", yAxis: 0, data: [14119, 5068, 4985, 3339, 2656])
+    @t0_amount = ClientDayTradetotal.where("trade_date"=> d.all_month).sum("t0_amount")
+    @t0_count = ClientDayTradetotal.where("trade_date"=> d.all_month).sum("t0_count")
 
-      f.legend(align: 'right', verticalAlign: 'top', y: 75, x: -50, layout: 'vertical')
-      f.chart({defaultSeriesType: "column"})
-    end
+    @wechat_amount = ClientDayTradetotal.where("trade_date"=> d.all_month).sum("wechat_amount")
+    @wechat_count = ClientDayTradetotal.where("trade_date"=> d.all_month).sum("wechat_count")
 
 
   end
+
   def profile
 
   end

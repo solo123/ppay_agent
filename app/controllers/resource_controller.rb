@@ -48,7 +48,7 @@ class ResourceController < ApplicationController
     params.permit!
     @object.attributes = params[object_name.singularize.parameterize('_')]
     if @object.changed_for_autosave?
-      @changes = @object.all_changes
+      @changes = @object.changes
       if @object.save
       else
         flash[:error] = @object.errors.full_messages.to_sentence
@@ -90,7 +90,8 @@ class ResourceController < ApplicationController
     params[:q] ||= {}
     params[:all_query] ||= ''
     if params[:all_query].to_s.empty?
-      @q = object_name.classify.constantize.ransack( params[:q] )
+      @q = current_user.agent.send(object_name+ "_total").ransack( params[:q] )
+      # @q = object_name.classify.constantize.ransack( params[:q] )
     else
       tmp  =  {'m'=>'or'}
       for k in object_name.classify.constantize.new.attributes.keys[1..-3] do
