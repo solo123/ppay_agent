@@ -8,19 +8,15 @@ class Salesman < ActiveRecord::Base
 	scope :free_client_salesmen, -> { where(client_id: nil) }
 
 
-  def agent_info
-    if self.agent==nil
-      Agent.where('id=1').last
-    else
-      self.agent
-    end
+  def clients_all
+    @clients_all = Client.where("salesman_id"=>self.id)
+    @clients_all
   end
-  def contact_info
-    # if self.contact==nil
-    #   Contact.where("id=2").last
-    # else
-    #   self.contact
-    # end
-    nil
+  def trades_all
+    @trades_all = Trade.where("client_id"=>self.clients_all.ids)
+  end
+
+  def new_clients
+    self.clients_all.where("join_date"=>Date.current.all_month)
   end
 end

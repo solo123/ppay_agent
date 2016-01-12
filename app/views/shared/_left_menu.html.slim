@@ -1,23 +1,20 @@
-== render 'shared/left_menu_item',
+= render 'shared/left_menu_item',
   :local => {:title => '首页',
   :class => 'fa-laptop'}
   
-== render 'shared/left_menu_item',
+= render 'shared/left_menu_item',
   :local => {:title => '商户数据',
   :data =>  [ ['商户资料', clients_path],
-              ['业务员', salesmen_path],
-              ['联系人', contacts_path],
-              ['地址', addresses_path],
-              ['刷卡机', pos_machines_path]], 
+        ['业务员', salesmen_path]], 
   :class => 'fa-2x fa-credit-card'}
     
-== render 'shared/left_menu_item',
+= render 'shared/left_menu_item',
   :local => {:title => '交易数据',
   :data => [['交易数据', trades_path], ['清算数据',  clearings_path]], 
   :class => 'fa-2x fa-database'}
-    
-== render 'shared/left_menu_item',
+            
+= render 'shared/left_menu_item',
   :local => {:title => '个人设置',
-  :data => [['资料', profile_info_path ] ], 
+  :data => [['资料', home_profile_path ] ], 
   :class => 'fa-2x fa-gear (alias)' }
               

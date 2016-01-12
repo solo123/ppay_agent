@@ -1,0 +1,8 @@
+h2 活跃商户
+.btn.btn-success= link_to '刷新', active_clients_agent_day_tradetotals_path("agent_id"=>2,"date"=>201511, "order"=>"total_amount"), id: 'active_clients_agent_day_tradetotal_btn',  remote: true
+.panel-body#active_clients_agent_day_tradetotal
+
+
+h2 活跃业务员
+.btn.btn-success= link_to '刷新', active_salesmen_agent_day_tradetotals_path("agent_id"=>2,"date"=>201511, "order"=>"total_amount"), id: 'active_salesmen_agent_day_tradetotal_btn',  remote: true
+.panel-body#active_salesmen_agent_day_tradetotal

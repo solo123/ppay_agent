@@ -10,14 +10,13 @@ class ClientsController < ResourceController
 
   def load_collection
     params[:q] ||= {}
-    @q = current_user.agent.clients_total.ransack( params[:q] )
-    pages = $redis.get(:list_per_page) || 100
-    @collection = @q.result(distinct: true).includes(:contacts).page(params[:page]).per( pages )
+    @q = Client.where("id"=>current_user.agent.clients_all.ids).ransack( params[:q] )
+    @collection = @q.result(distinct: true).includes(:contacts).page(params[:page]).per( 40 )
   end
 
   def show
     super
-    @trades = current_user.agent.trades.where("client_id"=> params[:id])
+    @trades = Trade.where("client_id"=> params[:id])
     @trades_for_pages = @trades.page( params[:page] ).per(20)
 
     # notes

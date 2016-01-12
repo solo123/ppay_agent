@@ -1,0 +1,62 @@
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 合作商基础信息
+  .panel-body
+    h4 机构信息
+    table
+      tr
+        td 公司
+        td= @object.company_id
+      tr
+        td 合作类型
+        td= @object.cooperation_type
+      tr
+        td 合作日期
+        td= @object.cooperation_date
+      tr
+        td T0
+        td= @object.t0_enabled
+      tr
+        td 合作收单类型
+        td= @object.bank_biz_types
+      tr
+        td 合作区域
+        td= @object.cooperation_location
+      tr
+        td 保证金
+        td= @object.deposit
+      tr
+        td 待结算分润
+        td= @object.amounts_payable
+
+    h4 联系信息
+    .row
+      .col-md-4
+        - @object.contacts.each do |cc|
+          ul
+            li 联系人
+            | #{cc.name}
+            li 联系人角色
+            | #{cc.roles}
+            li 联系人手机
+            | #{cc.tel}
+    /
+    h4 业务信息
+    .row
+      .col-md-8
+        
+        
+    h4 结算信息
+    .row
+      .col-md-8
+
+    h4 财务信息
+    .row
+      .col-md-8
+    
+    h4 分润比例
+    .row
+      .col-md-12
+        label.btn.btn-success  
+        / = link_to '分润比例', agents_sales_commissions_path("q"=>@agent.id), id:'sales_commission_content_btn', remote: true
+        .panel-body#sales_commission_content

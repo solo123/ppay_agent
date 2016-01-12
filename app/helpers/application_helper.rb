@@ -15,5 +15,12 @@ module ApplicationHelper
     return !(mobile?)
   end
 
+  def parse(date_num_s)
+    year = date_num_s[0..3].to_i || 2015
+    month = date_num_s[4..6].to_i || 12
+    dt = Date.new(year, month, 1)
+    return dt
+  end
+
 
 end

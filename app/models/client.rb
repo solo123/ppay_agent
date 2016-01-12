@@ -6,8 +6,7 @@ class Client < ActiveRecord::Base
   has_many :addresses, as: :addr_obj
   has_many :client_notes
   has_many :client_day_tradetotals
-  has_many :clearings
-  
+
   # tag
   acts_as_taggable
   acts_as_taggable_on :skills, :interests

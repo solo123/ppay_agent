@@ -90,8 +90,7 @@ class ResourceController < ApplicationController
     params[:q] ||= {}
     params[:all_query] ||= ''
     if params[:all_query].to_s.empty?
-      @q = current_user.agent.send(object_name+ "_total").ransack( params[:q] )
-      # @q = object_name.classify.constantize.ransack( params[:q] )
+      @q = object_name.classify.constantize.ransack( params[:q] )
     else
       tmp  =  {'m'=>'or'}
       for k in object_name.classify.constantize.new.attributes.keys[1..-3] do
@@ -99,7 +98,7 @@ class ResourceController < ApplicationController
       end
       @q = object_name.classify.constantize.ransack(tmp)
     end
-    pages = $redis.get(:list_per_page) || 100
+    pages = 100
     @collection = @q.result(distinct: true).page(params[:page]).per( pages )
 
 

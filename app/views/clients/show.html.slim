@@ -115,25 +115,26 @@ h2 商户生命周期
         h4 增加备注 
         span 备注类型
         label.radio-inline
-          input type='radio' value='一般' name='optionsRadios' checked=''
+          input type='radio' value='一般' name='optionsRadios' checked='' active='alert-success'
           span 一般
         label.radio-inline
-          input type='radio' value='普通' name='optionsRadios'
+          input type='radio' value='普通' name='optionsRadios' active='alert-info'
           span 普通
         label.radio-inline 
-          input type='radio' value='严重' name='optionsRadios'
+          input type='radio' value='严重' name='optionsRadios' active='alert-warning'
           span 严重
         label.radio-inline
-          input type='radio' value='紧急' name='optionsRadios'
+          input type='radio' value='紧急' name='optionsRadios' active='alert-danger'
           span 紧急
       textarea.form-control#beizhutext rows='5' placeholder='Textarea'
       button.btn.btn-danger.btn-lg#beizhubtn 提交备注
     col-md-6
-      h4 用户标签
+      h4 用户标签:
       p#biaoqianxinxi ==@object.tag_list
       span 自定义标签
       input id='biaoqiantext' placeholder='' value='#{@object.tag_list}'
       button id='biaoqianbtn' class="btn btn-default" type="button" 添加
+      button#biaoqiandbtn.btn.btn-default.m-l-5 type="button" 删除已有标签
       br
       span 常用标签
       #cybq

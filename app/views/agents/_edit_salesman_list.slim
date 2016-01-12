@@ -1,0 +1,18 @@
+
+.panel.panel-primary#salesmen_manage
+  .panel-heading
+    h4.panel-title 业务员列表
+  .panel-body 
+    .row
+      .col-md-6
+        .list-group
+          .list-group-item.active 相关业的务员
+          - @object.salesmen.each do |s|
+          
+            = link_to "#{s.name}", del_salesman_agent_path(@object, salesman_id: s.id), method: :get, class: "list-group-item", remote: true
+      .col-md-6
+        .list-group
+          .list-group-item.active 未关联的业务员
+          - Salesman.free_salesmen.each do |s|
+            = link_to "#{s.name}", add_salesman_agent_path(@object, salesman_id: s.id), method: :get, class: "list-group-item", remote: true
+      /    

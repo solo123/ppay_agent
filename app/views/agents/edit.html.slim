@@ -1,14 +1,24 @@
 h1
   | Editing Agent
+
+- @parent = @object  
+
 = render 'form'
 
 #login_user
-  = render 'login_user'
+  / = render 'login_user'
 
-- @parent = @object  
 #contacts_div
   = render 'contacts/contacts'
+
+#sales_commissions_div
+  = render 'sales_commissions/sales_commissions'
+
+= render 'edit_salesman_list'
 
 = link_to 'Show', @object
 |  | 
 = link_to 'Back', agents_path
+
+/
+= debug(params)

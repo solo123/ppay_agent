@@ -1,0 +1,10 @@
+
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 渠道信息
+  .panel-body
+    h3 业务员
+    - @object.salesmen.each do |s|
+      ul#selector
+        li 
+          = link_to "#{s.name}", salesman_path(s), class: "list-group-item"

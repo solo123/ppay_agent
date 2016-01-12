@@ -9,4 +9,4 @@ table.table
     tr
       td= c.name
       td= c.tel
-      td= link_to '创建登录', contacts_path
+      td= link_to '创建登录账户', create_login_agent_path(@object, 'contact_id'=>"#{c.id}"), remote: true

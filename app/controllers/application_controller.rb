@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       if current_user.agent==nil
           sign_out current_user
           flash[:info]  = "您不是注册代理商，请先注册"
-          redirect_to root_path
+          redirect_to nonlogin_index_path
       end
 
     end

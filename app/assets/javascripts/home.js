@@ -1,4 +1,5 @@
 var homejs=function(){
+	// 分页button 
 	$('#nextmonth_monthsum').click(function(){
 		var month=parseInt($('#date_monthsum').text().substr(-2,2));
 		var year=parseInt($('#date_monthsum').text().substr(0,4));
@@ -49,14 +50,28 @@ var homejs=function(){
 		$('#agent_day_tradetotal_path').attr('href','/agent_day_tradetotals/active?q='+year+month);
 		$('#agent_day_tradetotal_path').trigger("click");
 	});
+//  商户以及代理商的排序button
+	$('#orderbtn-client').children().click(function(){
+		var month=parseInt($('#date_activeclient').text().substr(-2,2));
+		var year=parseInt($('#date_activeclient').text().substr(0,4));
+		$('#active_client_day_tradetotals_path').attr('href','/client_day_tradetotals/active?q='+year+month+'&order='+$(this).attr('value'));
+		$('#active_client_day_tradetotals_path').trigger("click");
+	});
+	$('#orderbtn-agent').children().click(function(){
+		var month=parseInt($('#date_activeagent').text().substr(-2,2));
+		var year=parseInt($('#date_activeagent').text().substr(0,4));
+		$('#agent_day_tradetotal_path').attr('href','/agent_day_tradetotals/active?q='+year+month+'&order='+$(this).attr('value'));
+		$('#agent_day_tradetotal_path').trigger("click");
+	});
 }
 
 
 
-
-
-
-
+// 活跃用户排序，请求参数 order=<>
+//
+// trade_date, total_amount, total_count, wechat_amount,
+// wechat_count, alipay_amount, alipay_count,
+// t0_amount, t0_count
 
 
 

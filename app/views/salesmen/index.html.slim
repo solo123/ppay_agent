@@ -9,8 +9,6 @@
     = f.search_field ('name_cont') , class: 'form-control', placeholder: '商户电话'
   = f.submit '查找',  class: 'btn btn-warning form-control'
 
-
-
 div class='panel panel-success'
   div class='panel-heading'
     h4 class='panel-title' == @table_head
@@ -19,16 +17,12 @@ div class='panel panel-success'
 table class='table panel panel-success'
   thead
     tr          
-      th 代理商
       th 联系信息
       th 更新时间
       
   tbody
     - @collection.each do |obj|
-      tr
-        - if obj.agent
-          td== link_to "#{obj.agent_info.name}", agent_path(obj.agent_info)
-        -else
-          td 
+      tr 
         th== obj.contact_id
         td== obj.updated_at
+        td= link_to('详情', salesman_path(obj))
