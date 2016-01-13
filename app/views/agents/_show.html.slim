@@ -59,75 +59,68 @@ h1
 
 /
 .row
-  .col-md-8    
+  .col-md-8   
     div class="jumbotron"
       h1 2020年 遇见未来
-      p 那时候你将拥有比现在多4年的工作经验。
+      p 接下来你将度过完美的4年生活.
       a class="btn btn-primary btn-lg" href="#" role="button"
         | Learn more
+  .col-md-4
+    h4 历史公告
 
 .panel.panel-primary
   .panel-heading
     h4.panel-title 合作商基础信息
   .panel-body
-    h4 机构信息
-    table
-      tr
-        td 公司
-        td= @object.company_id
-      tr
-        td 合作类型
-        td= @object.cooperation_type
-      tr
-        td 合作日期
-        td= @object.cooperation_date
-      tr
-        td T0
-        td= @object.t0_enabled
-      tr
-        td 合作收单类型
-        td= @object.bank_biz_types
-      tr
-        td 合作区域
-        td= @object.cooperation_location
-      tr
-        td 保证金
-        td= @object.deposit
-      tr
-        td 待结算分润
-        td= @object.amounts_payable
-
-    h4 联系信息
     .row
-      .col-md-4
+      h4 机构信息
+      table class='table table-hover'
+        tr
+        td 全称: #{@object.company.name}
+        td 简称: #{@object.company.short_name}
+        td 地区:
+        td 经营地址:
+    .row
+      h4 联系信息
+      table class='table table-hover'
         - @object.contacts.each do |cc|
-          ul
-            li 联系人
-            | #{cc.name}
-            li 联系人角色
-            | #{cc.roles}
-            li 联系人手机
-            | #{cc.tel}
+          tr
+            td 联系人角色: #{cc.roles}
+            td 联系人: #{cc.name}
+            td 联系人手机: #{cc.tel}
+            td 邮箱:
+            td 地址: 
     /
-    h4 业务信息
     .row
-      .col-md-8
-        
-        
-    h4 结算信息
+      h4 业务信息
+      table class='table table-hover'
+        tr
+          td 合作形式: #{@object.cooperation_type}
+          td 合作日期: #{@object.cooperation_date}
+          td 状态
+        tr
+          td 开通T0: #{if @object.t0_enabled then '是' else '否'}
+          td 合作收单类型: #{@object.bank_biz_types}
+          td 合作区域: #{@object.cooperation_location}
+          
     .row
-      .col-md-8
+      h4  结算信息
+      table class='table table-hover'
+        tr
+          td 银行开户行: #{}
+          td 银行开户支行: #{}
+          td 账户名: #{}
+          td 账户帐号: #{}             
+    .row
+      h4 财务信息
+      table class='table table-hover'
+        tr class='active'
+          td 保证金: #{@object.deposit}
+          td 待结算分润: #{@object.amounts_payable}
 
-    h4 财务信息
     .row
-      .col-md-8
-    
-    h4 分润比例
-    .row
-      .col-md-12
-        label.btn.btn-success  
-        / = link_to '分润比例', agents_sales_commissions_path("q"=>@agent.id), id:'sales_commission_content_btn', remote: true
-        .panel-body#sales_commission_content
+      h4 分润比例
+      .panel-body#sales_commission_content
 
 / = render 'active_list'
 h2 活跃商户
@@ -154,10 +147,7 @@ h2 活跃业务员
 javascript:
   $(document).ready(function(){
     $("#sales_commission_content_btn").trigger("click");
-    
     $('#active_clients_agent_day_tradetotal_btn').trigger("click");
     $('#active_salesmen_agent_day_tradetotal_btn').trigger("click");
-      
-
   });
   
