@@ -2,9 +2,7 @@ class Agent < ActiveRecord::Base
   has_and_belongs_to_many :contacts
   belongs_to :company
   belongs_to :cooperation_type, class_name: 'CodeTable'
-  belongs_to :user
   has_many :salesmen
-  has_and_belongs_to_many :contacts
 
   has_many :bank_cards, as: :bankcard_obj
   has_many :agent_day_tradetotals
@@ -121,14 +119,22 @@ class Agent < ActiveRecord::Base
     self.clients_all.order('join_date ASC').take(20)
   end
 
-  # 当月交易统计
-  # 交易汇总
-  def cur_trade_total
-    cur_trade_total = AgentDayTradetotal.select("agent_id, trade_date, sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
-            .where("trade_date"=>Date.current.all_month, "agent_id"=>self.id)
-    #
-    cur_trade_total.last
-  end
+  # # 当月交易统计
+  # # 交易汇总
+  # def cur_trade_total
+  #   tmp = AgentDayTradetotal.where("trade_date"=>Date.current.all_month, "agent_id"=>self.id).select("sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
+  #
+  #   #
+  #   tmp.last
+  #
+  #
+  #   # h = ["total_amount", "total_count", "wechat_amount", "wechat_count", "t0_amount", "t0_count"]
+  #   # t = {}
+  #   # h.each do |key|
+  #   #   t[key] = tmp.sum(key)
+  #   # end
+  #   # t
+  # end
 
 
 

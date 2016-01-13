@@ -1,6 +1,6 @@
 class Salesman < ActiveRecord::Base
   has_many :clients
-  belongs_to :salesman
+  has_and_belongs_to_many :contacts
   belongs_to :agent
   has_many :salesman_day_tradetotals
 
