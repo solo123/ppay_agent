@@ -40,6 +40,9 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
+    airbrake (5.0.2)
+      airbrake-ruby (~> 1.0)
+    airbrake-ruby (1.0.2)
     arel (6.0.3)
     autoprefixer-rails (6.2.1)
       execjs
@@ -265,6 +268,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  airbrake (~> 5.0)
   bcrypt (~> 3.1.7)
   best_in_place
   better_errors
