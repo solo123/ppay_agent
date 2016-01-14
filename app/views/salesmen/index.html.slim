@@ -1,28 +1,27 @@
 
 = search_form_for( @q, class: 'form-inline') do |f|
-  div class='form-group m-r-12'
-    input class='form-control' name='all_query' value='' placeholder='输入任何字段进行查询'
-  br
   div class='form-group m-r-10'
+    input class='form-control' name='all_query' value='' placeholder='输入任何字段进行查询'
+  div class='form-group'
     = f.search_field ('agent_id_eq') , class: 'form-control', placeholder: '商户ID' 
     = f.search_field ('contact_id_eq') , class: 'form-control', placeholder: '商户名称'
     = f.search_field ('name_cont') , class: 'form-control', placeholder: '商户电话'
-  = f.submit '查找',  class: 'btn btn-warning form-control'
+  div class='form-group m-l-10'
+    = f.submit '查找',  class: 'btn btn-warning form-control'
 
 div class='panel panel-success'
   div class='panel-heading'
     h4 class='panel-title' == @table_head
-
-= paginate @collection
-table class='table panel panel-success'
-  thead
-    tr          
-      th 联系信息
-      th 更新时间
-      
-  tbody
-    - @collection.each do |obj|
-      tr 
-        th== obj.contact_id
-        td== obj.updated_at
-        td= link_to('详情', salesman_path(obj))
+  div class='panel-body'
+    = paginate @collection
+    table class='table'
+      thead
+        tr          
+          th 联系信息
+          th 更新时间
+      tbody
+      - @collection.each do |obj|
+        tr 
+          td== obj.contact_id
+          td== obj.updated_at
+          td= link_to('详情', salesman_path(obj))
