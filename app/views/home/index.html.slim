@@ -1,5 +1,95 @@
-#agent_info
-  h2 代理商信息
-  btn-success.btn-xs= link_to 'Prev', agents_path(current_user.agent), id: 'agent_btn', remote: true
-javascript:
-  $('#agent_btn').trigger("click");
+/ #agent_info
+/   h2 代理商信息
+/   btn-success.btn-xs= link_to 'Prev', agents_path(current_user.agent), id: 'agent_btn', remote: true
+/ javascript:
+/   $('#agent_btn').trigger("click");
+.row
+  .col-md-3
+    .widget.widget-stats.bg-blue
+      .stats-icon
+        i.fa.fa-desktop
+      .stats-info
+        h3 本月交易金额
+        p 748432
+      .stats-link
+        a href='#'
+          span 总笔数 : 
+          span 8383
+  .col-md-3
+    .widget.widget-stats.bg-green#weixin
+      .stats-icon
+        i.fa.fa-comments.fa-fw
+      .stats-info
+        h3 本月微信交易金额
+        p 65214
+      .stats-link
+        a href='#' 
+          span 总笔数:
+          span 92993
+          span ,10元以上笔数: 
+          span 58478
+  .col-md-3
+    .widget.widget-stats.bg-purple
+      .stats-icon
+        i.fa.fa-clock-o
+      .stats-info
+        h3 本月预计分润
+        p 3258
+      .stats-link
+        a href='#'
+          span T1:
+          span 234
+          span ,T0:
+          span 923
+          span ,微信:
+          span 938        
+  .col-md-3
+    .widget.widget-stats.bg-red
+      .stats-icon
+        i.fa.fa-users
+      .stats-info
+        h3 本月入网商户
+        p 325
+      .stats-link
+        a href='#'
+          span 总商户数 : 
+          span 8382
+
+.row
+  .col-md-9
+    .panel.panel-primary
+      .panel-heading
+        .pull-right
+          a href='#' style='color:#FFF;' 更多公告 
+        h4.panel-title 系统公告
+      .panel-body
+  .col-md-3
+    .panel.panel-warning
+      .panel-heading
+        h4.panel-title 最新活动
+      .panel-body
+
+.panel.panel-info
+  .panel-heading
+    h4.panel-title 最近入网商户
+  .panel-body
+
+.panel.panel-info
+  .panel-heading
+    .btn-group.pull-right data-toggle='buttons'
+      label.btn.btn-success.btn-xs
+        input type='radio' name='options' 上一月
+      label.btn.btn-xs 2016-01
+      label.btn.btn-success.btn-xs
+        input type='radio' name='options' 下一月
+    h4.panel-title 活跃商户
+  .panel-body
+    .btn-group.pull-right data-toggle='buttons'
+      label.btn.btn-success.btn-xs
+        input type='radio' name='options' 总金额
+      label.btn.btn-success.btn-xs
+        input type='radio' name='options' 微金额
+      label.btn.btn-success.btn-xs
+        input type='radio' name='options' 支金额
+      label.btn.btn-success.btn-xs
+        input type='radio' name='options' T0金额
