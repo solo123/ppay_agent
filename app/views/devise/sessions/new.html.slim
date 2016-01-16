@@ -7,10 +7,9 @@ div class="login login-v2" data-pageload-addclass='animated fadeIn'
   div class='login-content'
 
     div class='container'
-      - flash.each do |type, message|
+      = flash.each do |type, message|
         div class="flash"
-          div class="#{type}"
-            p= message 
+          == message
 
     = simple_form_for(resource, as: resource_name, 
                       url: session_path(resource_name),

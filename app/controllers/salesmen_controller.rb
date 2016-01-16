@@ -6,19 +6,13 @@ class SalesmenController < ApplicationController
     @field_titles = [ '姓名' ]
   end
 
-  def show
-    @object = Salesman.find(params[:id])
-
-  end
-
   def index
     params[:q] ||= {}
-    params[:all_query] ||= ''
-    if params[:all_query].to_s.empty?
-    else
-      @q = current_user.agent.salesman_all.ransack( params[:q] )
-    end
-    @collection = @q.result(distinct: true).page(params[:page])
+    agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
+    @q = agent_total.salesman_all.ransack( params[:q] )
+    pages = $redis.get(:list_per_page) || 100
+    @collection = @q.result(distinct: true).page(params[:page]).per( pages )
   end
+
 
 end

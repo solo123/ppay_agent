@@ -1,48 +1,34 @@
+# coding: utf-8
 class AgentsController < ResourcesController
-  def create_login
-    load_object
-    # 创建代理商登录帐号
-    c = Contact.find(params[:contact_id].to_i)
-
-    u = User.find_or_create_by("mobile"=>c.tel, "name"=>c.name, 'email'=> c.tel + "@pooul.cn")
-    if u
-      u.password = c.tel
-      u.agent = @object
-      u.save
-    end
-  end
-  def del_salesman
-    load_object
-    s = Salesman.find(params[:salesman_id])
-    s.agent = nil
-    s.save
-  end
-  def add_salesman
-    load_object
-    s = Salesman.find(params[:salesman_id])
-    @object.salesmen << s
-    s.save
-  end
 
   def show
     load_object
-    if @object.company==nil
-      c = Company.create
-      @object.company = c
-      @object.save
-    end
+    agent_total = Biz::AgentTotalBiz.new params[:id]
+    puts '-' * 42
+    @cur_trade_total  = agent_total.trades_sum(Date.current)
+    puts @cur_trade_total
 
-    # 交易汇总
-    @cur_trade_total = AgentDayTradetotal
-            .select("sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
-            .where("trade_date"=>Date.current.all_month, "agent_id"=> params[:id] )
-            .group("id")
-            .last
-    #
-    # 后调用super 暂时不知道原因
-    super
+    @cur_trade_total["clients_count"] = agent_total.clients_all.count
+    @cur_trade_total["new_clients_count"] = agent_total.new_clients.count
+    @cur_trade_total["company"] = Company.new
+    puts '-' * 42
+    puts @cur_trade_total
   end
 
-  private
+  def active_clients
+    load_object
+    total = Biz::AgentTotalBiz.new(@object.id)
+    @collection_clients = total.active_clients
+  end
+  def active_salesmen
+    load_object
+    total = Biz::AgentTotalBiz.new(@object.id)
+    @collection_salesmen = total.active_salesmen
+  end
+
+  def basic_info
+    show
+  end
+
 
 end

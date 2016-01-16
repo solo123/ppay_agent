@@ -9,4 +9,12 @@ table.table
     tr
       td= c.name
       td= c.tel
-      td= link_to '创建登录账户', create_login_agent_path(@object, 'contact_id'=>"#{c.id}"), remote: true
+      td
+        .btn-group
+          - if User.find_by("mobile=? and agent_id>0", c.tel)
+            = link_to '允许登录', '#', class: 'btn btn-info btn-xs disabled'
+            = link_to '禁止登录', del_login_agent_path(@parent, contact_id: c.id), remote: true, class: 'btn btn-info btn-xs'
+          - else
+            = link_to '允许登录', create_login_agent_path(@parent, contact_id: c.id), remote: true, class: 'btn btn-info btn-xs'
+            = link_to '禁止登录', '#', class: 'btn btn-info btn-xs disabled'
+          

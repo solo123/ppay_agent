@@ -1,4 +1,4 @@
-class SalesmanDayTradetotalsController < application
+class SalesmanDayTradetotalsController < ApplicationController
   def show
     # year = params[:id][0..3].to_i
     # month = params[:id][4..6].to_i

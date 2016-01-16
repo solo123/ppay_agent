@@ -98,7 +98,7 @@ class ResourceController < ApplicationController
       end
       @q = object_name.classify.constantize.ransack(tmp)
     end
-    pages = 100
+    pages = $redis.get(:list_per_page) || 100
     @collection = @q.result(distinct: true).page(params[:page]).per( pages )
 
 

@@ -30,56 +30,37 @@
   = f.submit '查找',  class: 'btn btn-warning form-control'
 
 br
-- if pc?
-  div class='panel panel-success'
-    div class='panel-heading'
-      h4 class='panel-title' == @table_head
-    div class='panel-body' style='overflow: auto;'
-      = paginate @collection
-      table class='table'
-        thead
-          tr
-            th 联系人
-            th 手机
-            th 地区
-            th 业务员
-            th 商户类型
-            th 限额(单笔|月)
-            th 费率
-        tbody
-          - @collection.each do |obj|
-            tr.info
-              td colspan='6' style='padding:4px 15px;' ID: #{obj.shid} 商户名称: #{obj.shop_name}
-              td colspan='1' style='padding:4px 15px; text-align:right;' 
-                ==link_to '详情', client_path(obj)
+div class='panel panel-success'
+  div class='panel-heading'
+    h4 class='panel-title' == @table_head
+  div class='panel-body'
+    = paginate @collection
+    table class='table'
+      thead
+        tr
+          th 联系人
+          th 手机
+          th 地区
+          th 业务员
+          th 商户类型
+          th colspan='3' 限额(单笔|月)
+          th 费率
+      tbody
+        - @collection.each do |obj|
+          tr.info
+            td colspan='6' style='padding:4px 15px;' ID: #{obj.shid} 商户名称: #{obj.shop_name}
+            td colspan='3' style='padding:4px 15px; text-align:right;' 
+              ==link_to '详情', client_path(obj)
 
-            tr rowsspan='2' align="center"
-              td== obj.contact_info
-              td== link_to "#{obj.shop_tel}", "tel://#{obj.shop_tel}"
-              td== obj.addr_info
-              td== link_to "#{obj.salesman.name}", salesman_path(obj.salesman)
-              td== obj.category.name
+          tr rowsspan='2' align="center"
+            td== obj.contact_info
+            td== link_to "#{obj.shop_tel}", "tel://#{obj.shop_tel}"
+            td== obj.addr_info
+            td== link_to "#{obj.salesman.name}", salesman_path(obj.salesman)
+            td== obj.category.name
 
-              td
-                p 信用卡: #{obj.credit_card_limit_each/10000}万|#{obj.credit_card_limit_month/10000}万
-                p 借记卡: #{obj.bank_card_limit_each/10000}万|#{obj.bank_card_limit_month/10000}万
-              td style='font-size:25px;color:orange;' #{obj.rate*100}%
-            tr class="#{obj.note[:type]}"
-              - if obj.client_notes.last
-                td colspan='10' style='margin:4px 15px;' #{obj.client_notes.last.note}
-- else
-  h3== @table_head
-  - @collection.each do |obj|
-    .row.container.bg-info style='margin-bottom:10px;'
-      .col-xs-8
-         p 商户名称: #{obj.shop_name}
-         p 联系人: #{obj.contact_info}
-         p 手机: #{link_to "#{obj.shop_tel}", "tel://#{obj.shop_tel}"}
-         / p ID: #{obj.shid}
-         / p 地区: #{obj.addr_info}
-         / p 业务员: #{link_to "#{obj.salesman.name}", salesman_path(obj.salesman)}
-         / p 商户类型: #{obj.category.name}
-         / p 限额(单笔|月): 信用卡: #{obj.credit_card_limit_each/10000}万|#{obj.credit_card_limit_month/10000}万;借记卡: #{obj.bank_card_limit_each/10000}万|#{obj.bank_card_limit_month/10000}万
-      .col-xs-4
-         p style='font-size:25px;color:orange;' 费率: #{obj.rate*100}%
-         p #{link_to '查看详情', client_path(obj)}
+            td colspan='3'
+              p 信用卡: #{obj.credit_card_limit_each/10000}万|#{obj.credit_card_limit_month/10000}万
+              p 借记卡: #{obj.bank_card_limit_each/10000}万|#{obj.bank_card_limit_month/10000}万
+            td style='font-size:25px;color:orange;' #{obj.rate*100}%
+        /
