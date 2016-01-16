@@ -1,14 +1,7 @@
-class ClientsController < ResourceController
-  def initialize
-    super
-    @m_fields = [1, 3, 4]
-    @sum_fields = [1, 2]
-
-    @table_head = '商户资料'
-    @field_titles = [ '商户ID', '店铺名称', '店铺联系电话', '行业分类', '业务员', '费率', '借记卡单笔限额', '借记卡单月限额', '信用卡单笔限额', '信用卡单月限额' ]
-  end
-
-  def load_collection
+class ClientsController < ApplicationController
+  respond_to :html, :js, :json
+  
+  def index
     params[:q] ||= {}
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
 
@@ -18,14 +11,14 @@ class ClientsController < ResourceController
   end
 
   def show
-    super
+    agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
+
+    @object = agent_total.clients_all.find(params[:id])
     @trades = Trade.where("client_id"=> params[:id])
     @trades_for_pages = @trades.page( params[:page] ).per(20)
-
     c_total = Biz::ClientTotalBiz.new(params[:id])
     @total_info = c_total.trade_total
     @last_trade_datetime  = c_total.last_trade_datetime
-
   end
 
 end
