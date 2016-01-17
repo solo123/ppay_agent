@@ -4,17 +4,10 @@
   
 = render 'shared/left_menu_item',
   :local => {:title => '商户数据',
-  :data =>  [ ['商户资料', clients_path],
-        ['业务员', salesmen_path]], 
-  :class => 'fa-2x fa-credit-card'}
-    
-= render 'shared/left_menu_item',
-  :local => {:title => '交易数据',
-  :data => [['交易数据', trades_path], ['清算数据',  clearings_path]], 
-  :class => 'fa-2x fa-database'}
-            
-= render 'shared/left_menu_item',
-  :local => {:title => '个人设置',
-  :data => [['资料', home_profile_path ] ], 
+  :data =>  [['商户资料', clients_path],
+  ['业务员', salesmen_path], 
+  ['交易数据', trades_path], 
+  ['清算数据',  clearings_path], 
+  ['个人资料', home_profile_path]], 
   :class => 'fa-2x fa-gear (alias)' }
               
