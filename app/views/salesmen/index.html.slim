@@ -9,6 +9,7 @@
     = f.search_field ('name_cont') , class: 'form-control', placeholder: '商户电话'
   = f.submit '查找',  class: 'btn btn-warning form-control'
 
+
 div class='panel panel-success'
   div class='panel-heading'
     h4 class='panel-title' == @table_head
@@ -22,7 +23,7 @@ table class='table panel panel-success'
       
   tbody
     - @collection.each do |obj|
-      tr 
-        th== obj.contact_id
-        td== obj.updated_at
-        td= link_to('详情', salesman_path(obj))
+      tr
+        td= obj.contact_id
+        td= obj.updated_at
+        

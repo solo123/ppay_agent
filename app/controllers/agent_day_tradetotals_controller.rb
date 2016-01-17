@@ -2,14 +2,11 @@ class AgentDayTradetotalsController < ApplicationController
 
   # 针对平台统计出的活跃代理商
   def index
-
-    year = params[:q][0..3].to_i
-    month = params[:q][4..6].to_i
-    dt = Date.new(year, month, 1)
+    dt = Date.new(params[:year].to_i || 0, params[:month].to_i || 0, 1)
 
     order = params[:order] || "wechat_count"
-    day_trade_total = AgentDayTradetotal.select("agent_id, trade_date, sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
-            .where(trade_date: (Date.current.all_month))
+    day_trade_total = AgentDayTradetotal.select("agent_id, sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count")
+            .where(trade_date: (dt.all_month))
             .group(:agent_id).order("#{order} DESC")
     #
     @collection = []

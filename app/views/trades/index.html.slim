@@ -4,7 +4,7 @@
   div class='form-group m-r-10'
   = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
   = f.search_field ('trade_date_cont') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
-  = f.search_field ('trade_result_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
+  = f.search_field ('trade_result_id_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
   = f.search_field ('trade_amount_gt') , class: 'form-control', placeholder: 'amount', value: params[:q][:trade_amount_gt]
   /   = f.search_field ('salesman_name_cont') , class: 'form-control', placeholder: '业务员', value: params[:q][:salesman_name_cont]
   = f.submit '查找',  class: 'btn btn-warning form-control'
@@ -13,7 +13,8 @@ br
 
 div class='panel panel-success'
   div class='panel-heading'  
-    h4 class='panel-title' == @table_head
+    h4 class='panel-title' 
+      | 交易
   div class='panel-body'
     = paginate @collection
     table class='table'

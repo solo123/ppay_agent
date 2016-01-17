@@ -1,6 +1,8 @@
 #agent_info
   h2 代理商信息
-  btn-success.btn-xs= link_to 'Prev', agent_path(current_user.agent), id: 'agent_btn', remote: true
-
+  
+  = link_to 'uu', agent_path(current_user.agent)
 javascript:
-  $('#agent_btn').trigger("click");
+  $(document).ready(function(){
+    $.getScript("#{ agent_path(current_user.agent) }");
+  });

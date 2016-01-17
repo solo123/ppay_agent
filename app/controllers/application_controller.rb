@@ -19,10 +19,9 @@ class ApplicationController < ActionController::Base
     # 如果在注册或者登录path的时候不需要判断
     if current_user!=nil
       if current_user.agent==nil
-        #byebug
           sign_out current_user
           flash[:error]  = "您不是注册代理商，请先注册"
-          redirect_to nonlogin_index_path
+          redirect_to welcome_index_path
       end
 
     end

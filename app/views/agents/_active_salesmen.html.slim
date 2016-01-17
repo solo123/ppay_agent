@@ -1,0 +1,12 @@
+table.table
+  thead
+    tr
+      th 名称
+      th 状态
+  tbody
+    - @collection_salesmen.each do |r|
+      tr
+        td= r.name
+        td= r.status
+        td= link_to('detail', salesman_path(r))
+        

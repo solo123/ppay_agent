@@ -42,7 +42,6 @@ gem 'slim'
 gem 'sidekiq'
 gem 'lazy_high_charts'
 gem 'acts-as-taggable-on' # 给model打tag
-gem 'pg'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -57,4 +56,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   #gem 'spring'
 end
-gem 'airbrake', '~> 5.0'

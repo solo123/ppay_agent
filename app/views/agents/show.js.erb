@@ -1,2 +1,7 @@
-$('#agent_info')
-  .html("<%=j render 'show' %>");
+// pc? 判断平台为PC或者Mobile
+if ( <%= pc? %>) {
+  $('#agent_info').html("<%=j render 'pc_show' %>");
+} else {
+  $('#agent_info').html("<%=j render 'mobile_show' %>");
+
+}

@@ -1,6 +1,6 @@
 class Salesman < ActiveRecord::Base
   has_many :clients
-  has_and_belongs_to_many :contacts
+  belongs_to :salesman
   belongs_to :agent
   has_many :salesman_day_tradetotals
 
@@ -19,4 +19,6 @@ class Salesman < ActiveRecord::Base
   def new_clients
     self.clients_all.where("join_date"=>Date.current.all_month)
   end
+
+  
 end

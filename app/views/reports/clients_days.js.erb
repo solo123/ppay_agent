@@ -1,0 +1,10 @@
+$('#mon_trades_total')
+  .html("<%=j render 'clients_days_summary' %>");
+
+$('#mon_trades_title').text("<%= params[:q] %>");
+$('#mon_trades_prev').unbind('click').click(function(){
+  $.getScript("<%= clients_days_report_path(q: @prev_month.strftime('%Y-%m')) %>");
+});
+$('#mon_trades_next').unbind('click').click(function(){
+  $.getScript("<%= clients_days_report_path(q: @next_month.strftime('%Y-%m')) %>");
+});
