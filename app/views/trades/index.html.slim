@@ -1,14 +1,31 @@
-
-
-= search_form_for( @q, class: 'form-inline') do |f|
-  div class='form-group m-r-10'
-  = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
-  = f.search_field ('trade_date_cont') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
-  = f.search_field ('trade_result_id_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
-  = f.search_field ('trade_amount_gt') , class: 'form-control', placeholder: 'amount', value: params[:q][:trade_amount_gt]
-  /   = f.search_field ('salesman_name_cont') , class: 'form-control', placeholder: '业务员', value: params[:q][:salesman_name_cont]
-  = f.submit '查找',  class: 'btn btn-warning form-control'
-br
+.panel.panel-info
+  .panel-heading
+    h4.panel-title 交易查找
+  .panel-body.panel-form
+    = search_form_for( @q, class: 'form-horizontal form-bordered') do |f|
+      .form-group
+        label.col-md-4.control-label 商户id
+        .col-md-8
+          = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
+      .form-group
+        label.col-md-4.control-label 交易时间段
+        .col-md-8
+          .input-group.input-daterange
+            = f.search_field ('trade_date_cont') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
+      .form-group
+        label.col-md-4.control-label 交易结果
+        .col-md-8
+          = f.search_field ('trade_result_id_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
+      .form-group
+        label.col-md-4.control-label 交易额
+        .col-md-8
+          = f.search_field ('trade_amount_gt') , class: 'form-control', placeholder: 'amount', value: params[:q][:trade_amount_gt]
+      .form-group
+        label.col-md-4.control-label 查找
+        .col-md-2
+          = f.submit '查找',  class: 'btn btn-sm btn-success'
+        label.col-md-2.control-label 交易笔数: 1231
+        label.col-md-2.control-label 总金额: 98675
 
 
 = @trade_total_count
