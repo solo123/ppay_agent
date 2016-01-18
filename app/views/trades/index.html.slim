@@ -63,4 +63,7 @@ div class='panel panel-success'
             td= t["rate"]
             td= t["amount"]
             td= t["trade.status"]
-            td= link_to(t["pos_machine.number"], t["pos_machine.url"])
+            - if t["pos_machine.number"] && t["pos_machine.url"]
+              td= link_to(t["pos_machine.number"], t["pos_machine.url"])
+            - else
+              td= ''
