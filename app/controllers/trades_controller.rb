@@ -31,7 +31,10 @@ class TradesController < ApplicationController
   end
   def trade_detail(trade)
     client = Client.find(trade.client_id)
-    pos_machine = PosMachine.find(trade.pos_machine_id)
+    pos_machine = nil
+    if trade.pos_machine_id && trade.pos_machine_id > 0
+      pos_machine  = PosMachine.find(trade.pos_machine_id)
+    end
 
     clearing_type = "T1"
     if client.rate == 0.70
