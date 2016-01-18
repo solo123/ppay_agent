@@ -11,6 +11,9 @@
 br
 
 
+= @trade_total_count
+br
+= @trade_total_amount
 div class='panel panel-success'
   div class='panel-heading'  
     h4 class='panel-title' 
@@ -20,17 +23,27 @@ div class='panel panel-success'
     table class='table'
       thead
         tr
-          th 商户
-          th== sort_link @q, :sub_account, '子账户'
-          th== sort_link @q, :trade_amount, '交易量'
+          th 商户名称
+          th 商户ID
+          th 操作员
           th 交易日期
+          th 交易类型 
+          th 清算类型
+          th 交易费率
+          th 交易额度
+          th 交易状态
+          th 机具编号
 
       tbody
-        - @collection.each do |obj|
+        - @detail_collection.each do |t|
           tr
-            th== link_to "#{obj.client.shop_name}", client_path(obj.client_id)
-            td== obj.sub_account
-            td== obj.trade_amount
-            td== obj.trade_date
-            th
-              == link_to '详细', obj
+            td= link_to t["client.name"], t["client.url"]
+            td= t["client.id"]
+            td= t["sub_accont.name"]
+            td= t["trade_date"]
+            td= t["trade_type"]
+            td= t["clearing_type"]
+            td= t["rate"]
+            td= t["amount"]
+            td= t["trade.status"]
+            td= link_to(t["pos_machine.number"], t["pos_machine.url"])
