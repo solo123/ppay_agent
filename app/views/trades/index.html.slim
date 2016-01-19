@@ -19,46 +19,43 @@
         label.col-md-4.control-label 清算类型
         .col-md-8
           label.radio-inline
-            = radio_button_tag(:clearing_type, "t1")
+            = check_box_tag('clearing_type[]', "t1")
             = label_tag(:clearing_type_T1, "T1") 
           label.radio-inline
-            = radio_button_tag(:clearing_type, "t0") 
+            = check_box_tag('clearing_type[]', "t0") 
             = label_tag(:clearing_type_T0, "T0")
-          label.radio-inline
-            = radio_button_tag(:clearing_type, "") 
-            = label_tag(:clearing_type_T0, "全部")
       .form-group
         label.col-md-4.control-label 交易类型
         .col-md-8
           label.radio-inline
-            = check_box_tag(:trade_type,'微信正扫')
+            = check_box_tag('trade_type[]','微信正扫')
             = label_tag(:trade_type_zs, "微信正扫") 
           label.radio-inline
-            = check_box_tag(:trade_type,'威信反扫') 
+            = check_box_tag('trade_type[]','威信反扫') 
             = label_tag(:trade_type_fs, "威信反扫")
           label.radio-inline
-            = check_box_tag(:trade_type,'微信二维码') 
+            = check_box_tag('trade_type[]','微信二维码') 
             = label_tag(:trade_type_ew, "微信二维码")
           label.radio-inline
-            = check_box_tag(:trade_type,'支付宝') 
+            = check_box_tag('trade_type[]','支付宝') 
             = label_tag(:trade_type_zf, "支付宝")
           label.radio-inline
-            = check_box_tag(:trade_type,'QPOS') 
+            = check_box_tag('trade_type[]','QPOS') 
             = label_tag(:trade_type_qp, "QPOS")
 
-      .form-group
-        label.col-md-4.control-label 查找
-        .col-md-2
-          = f.submit '查找',  class: 'btn btn-sm btn-success'
-        label.col-md-2.control-label 交易笔数: #{@trade_total_count}
-        label.col-md-2.control-label 总金额: #{@trade_total_amount}
+    .row
+      .col-md-4
+      .col-md-2
+        button.btn.btn-sm.btn-success#trade_search_btn 查找
+      label.col-md-2.control-label 交易笔数: #{@trade_total_count}
+      label.col-md-2.control-label 总金额: #{@trade_total_amount}
 
 
 div class='panel panel-success'
   div class='panel-heading'  
     h4 class='panel-title' 
       | 交易
-  div class='panel-body'
+  div class='panel-body' id='trade_body'
     = paginate @collection
     table class='table'
       thead
