@@ -18,12 +18,14 @@ div class='panel panel-success'
 table class='table panel panel-success'
   thead
     tr          
-      th 联系信息
-      th 更新时间
+      th 姓名
+      th 电话
+      th 状态
       
   tbody
-    - @collection.each do |obj|
+    - @detail_collection.each do |r|
       tr
-        td= obj.contact_id
-        td= obj.updated_at
+        td= r["contact.name"]
+        td= r['contact.tel']
+        td= r["status"]
         

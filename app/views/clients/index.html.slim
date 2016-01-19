@@ -19,17 +19,19 @@
         button.btn.btn-primary[type="button"]
           | 添加
 
+= form_tag(clients_path, method: 'get') do
+  select id='op' name='channel_n'
+    option 拉卡拉
+    option selected="selected" 支付宝
+    option 钱方
+  input type="text" class="form-control" id="exampleInputEmail1" name='search_t' value="#{params[:search_t]}"
 
-= search_form_for( @q, class: 'form-inline') do |f|
-  div class='form-group m-r-10'
-    = f.search_field ('shid_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:shid_eq]
-    = f.search_field ('shop_name_cont') , class: 'form-control', placeholder: '商户名称', value: params[:q][:shop_name_cont]
-    = f.search_field ('shop_tel_cont') , class: 'form-control', placeholder: '商户电话', value: params[:q][:shop_tel_cont]
-    = f.search_field ('contacts_name_cont') , class: 'form-control', placeholder: '联系人', value: params[:q][:contacts_name_cont]
-    = f.search_field ('salesman_name_cont') , class: 'form-control', placeholder: '业务员', value: params[:q][:salesman_name_cont]
-  = f.submit '查找',  class: 'btn btn-warning form-control'
+  button type="submit" class="btn btn-default" 
+    |Submit
 
-br
+h2 商户数量
+= @collection.count
+
 div class='panel panel-success'
   div class='panel-heading'
     h4 class='panel-title' == @table_head
@@ -38,29 +40,23 @@ div class='panel panel-success'
     table class='table'
       thead
         tr
+          th 商户名称
           th 联系人
           th 手机
           th 地区
           th 业务员
-          th 商户类型
-          th colspan='3' 限额(单笔|月)
+          th 渠道
+          th 入网时间 
           th 费率
+          th 操作
       tbody
-        - @collection.each do |obj|
-          tr.info
-            td colspan='6' style='padding:4px 15px;' ID: #{obj.shid} 商户名称: #{obj.shop_name}
-            td colspan='3' style='padding:4px 15px; text-align:right;' 
-              ==link_to '详情', client_path(obj)
-
-          tr rowsspan='2' align="center"
-            td== obj.contact_info
-            td== link_to "#{obj.shop_tel}", "tel://#{obj.shop_tel}"
-            td== obj.addr_info
-            td== link_to "#{obj.salesman.name}", salesman_path(obj.salesman)
-            td== obj.category.name
-
-            td colspan='3'
-              p 信用卡: #{obj.credit_card_limit_each/10000}万|#{obj.credit_card_limit_month/10000}万
-              p 借记卡: #{obj.bank_card_limit_each/10000}万|#{obj.bank_card_limit_month/10000}万
-            td style='font-size:25px;color:orange;' #{obj.rate*100}%
-        /
+        - @detail_collection.each do |r|
+          tr 
+            td= r['shop_name']
+            td= r['contact.name']
+            td= r['contact.tel']
+            td= r['addr']
+            td= r['salesman']
+            td= r['qudao']
+            td= r['join_date']
+            td= r['rate']

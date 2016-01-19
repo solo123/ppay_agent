@@ -42,6 +42,7 @@ gem 'slim'
 gem 'sidekiq'
 gem 'lazy_high_charts'
 gem 'acts-as-taggable-on' # 给model打tag
+gem 'pg'
 
 gem 'pg'
 
