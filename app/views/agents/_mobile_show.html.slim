@@ -1,1 +1,110 @@
-h2 moblie show
+.row
+  .col-md-3
+    .widget.widget-stats.bg-blue
+      .stats-icon
+        i.fa.fa-desktop
+      .stats-info
+        h3 本月总交易金额
+        p #{@cur_trade_total["total_amount"]}
+      .stats-link
+        a href='#'
+          span 总笔数 : 
+          span #{@cur_trade_total["total_count"]}
+  .col-md-3
+    .widget.widget-stats.bg-green#weixin
+      .stats-icon
+        i.fa.fa-comments.fa-fw
+      .stats-info
+        h3 本月微信交易金额
+        p #{@cur_trade_total["wechat_amount"]}
+      .stats-link
+        a href='#' 
+            span 总笔数 : 
+            span 5650, 
+            span  10元以上笔数: 
+            span 5650, 
+  .col-md-3
+    .widget.widget-stats.bg-purple
+      .stats-icon
+        i.fa.fa-clock-o
+      .stats-info
+        h3 本月预计分润
+        p 7567
+      .stats-link
+        a href='#'
+          span T1:
+          span 9393, 
+          span T0:
+          span 234,
+          span 微信:
+          span 222,      
+  .col-md-3
+    .widget.widget-stats.bg-red
+      .stats-icon
+        i.fa.fa-users
+      .stats-info
+        h3 本月入网商户
+        p #{@cur_trade_total["new_clients_count"]}
+      .stats-link
+        a href='#'
+          span 总商户数 : 
+          span #{@cur_trade_total["clients_count"]}
+
+/
+.row
+  .col-md-9
+    .panel.panel-primary
+      .panel-heading
+        .pull-right 更多公告
+        h4.panel-title 系统公告
+      .panel-body
+        div class="jumbotron"
+          h1 2020年 遇见未来
+          p 接下来你将度过完美的4年生活.
+          a class="btn btn-primary btn-lg" href="#" role="button"
+            | Learn more
+  .col-md-3
+    .panel.panel-warning
+      .panel-heading
+        h4.panel-title 最新活动
+      .panel-body
+
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 最新入网商户
+  .panel-body
+
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 活跃商户
+  .panel-body#active_clients_agent_day_tradetotal
+
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 活跃业务员
+  .panel-body#active_salesmen_agent_day_tradetotal
+
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 渠道信息
+  .panel-body
+    h3 业务员
+    table.table
+      thead
+        tr
+          th 名称
+          th 状态
+      tbody
+        - @object.salesmen.each do |r|
+          tr
+            td= r.name
+            td= r.status
+            td= link_to('detail', salesman_path(r))
+          
+javascript:
+  $(document).ready(function(){
+    $.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
+    $.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
+  });
+  
+

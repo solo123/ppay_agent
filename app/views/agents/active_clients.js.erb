@@ -1,2 +1,6 @@
-$('#active_clients_agent_day_tradetotal')
-  .html("<%=j render 'active_clients' %>");
+if ( <%= pc? %>){
+	$('#active_clients_agent_day_tradetotal').html("<%=j render 'active_clients' %>");
+ } else {
+ 	$('#active_clients_agent_day_tradetotal').html("<%=j render 'active_clients_mobile' %>");
+ }
+
