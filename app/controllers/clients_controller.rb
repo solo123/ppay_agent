@@ -1,22 +1,12 @@
 class ClientsController < ApplicationController
   respond_to :html, :js, :json
-
   def index
-    params[:q] ||= {}
-    agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
-
-    @q = agent_total.clients_all.ransack( params[:q] )
-    pages = $redis.get(:list_per_page) || 100
-    tmp = @q.result(distinct: true).includes(:contacts).page(params[:page]).per( pages )
-    @collection = search_clients(tmp, {'search_t'=>params[:search_t], 'channel_n'=>params[:channel_n]})
-
+    @collection = search_clients
     @detail_collection = []
     @collection.each do |r|
       @detail_collection << detail_client(r)
     end
-
   end
-
   def show
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
     @object = agent_total.clients_all.find(params[:id])
@@ -26,8 +16,6 @@ class ClientsController < ApplicationController
     @total_info = c_total.trade_total
     @last_trade_datetime  = c_total.last_trade_datetime
   end
-
-
   def detail_client(r)
     c = r.contacts.last
     addr = r.addresses.last
@@ -46,18 +34,25 @@ class ClientsController < ApplicationController
     }
   end
 
-  def search_clients(collection, option={'search_t'=>'', 'channel_n'=>''})
-    ret = []
-    if option['search_t'].empty?
-      return collection
-    end
+  def search_clients
     q_hash = {
-      'shop_name_cont'=>option['search_t'],
-      'shop_tel_cont'=>option['search_t'],
-      'rate_eq'=>option['search_t'].to_f,
-      'id'=>option['search_t'].to_i,
-      'm'=>'or'}
-    collection.ransack(q_hash).result(distinct: true)
+      'shop_name_cont'=> params[:search_t],
+      'shop_tel_cont'=> params[:search_t],
+      # 'rate_eq'=> params[:search_t],
+      # 'id_eq'=> params[:search_t],
+      'm'=>'or'
+    }
+
+    agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
+    q = agent_total.clients_all.ransack(  q_hash )
+    pages = $redis.get(:list_per_page) || 100
+    tmp = q.result(distinct: true).includes(:contacts).page(params[:page]).per( pages )
+
+    # salesman_ids = Salesman.ransack({'name_cont'=> option['search_t']}).result(distinct: true).ids
+    # r2 = collection.where("salesman_id"=> salesman_ids)
+    # r1.ids | r2.ids
+
+    return tmp
   end
 
 end
