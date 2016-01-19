@@ -1,41 +1,61 @@
+
 .panel.panel-info
   .panel-heading
     h4.panel-title 交易查找
   .panel-body.panel-form
-    = search_form_for( @q, class: 'form-horizontal form-bordered') do |f|
+    = search_form_for( @q, class: 'form-horizontal form-bordered', html:{enctype: 'application/json'}) do |f|
       .form-group
-        label.col-md-4.control-label 商户id
+        label.col-md-4.control-label 商户信息
         .col-md-8
-          = f.search_field ('client_id_eq') , class: 'form-control', placeholder: '商户ID', value: params[:q][:client_id_eq]
+          input.form-control name='all_query' value='' placeholder='输入任何字段进行查询'
       .form-group
-        label.col-md-4.control-label 交易时间段
+        label.col-md-4.control-label 交易时间
         .col-md-8
           .input-group.input-daterange
-            = f.search_field ('trade_date_cont') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_cont]
+            = f.search_field ('trade_date_gt') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_gt]
+            span.input-group-addon to
+            = f.search_field ('trade_date_lteq') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_lteq]
       .form-group
-        label.col-md-4.control-label 交易结果
+        label.col-md-4.control-label 清算类型
         .col-md-8
-          = f.search_field ('trade_result_id_gt') , class: 'form-control', placeholder: 'result', value: params[:q][:trade_result_gt]
+          label.radio-inline
+            = check_box_tag('clearing_type[]', "t1")
+            = label_tag(:clearing_type_T1, "T1") 
+          label.radio-inline
+            = check_box_tag('clearing_type[]', "t0") 
+            = label_tag(:clearing_type_T0, "T0")
       .form-group
-        label.col-md-4.control-label 交易额
+        label.col-md-4.control-label 交易类型
         .col-md-8
-          = f.search_field ('trade_amount_gt') , class: 'form-control', placeholder: 'amount', value: params[:q][:trade_amount_gt]
-      .form-group
-        label.col-md-4.control-label 查找
-        .col-md-2
-          = f.submit '查找',  class: 'btn btn-sm btn-success'
-        label.col-md-2.control-label 交易笔数: 1231
-        label.col-md-2.control-label 总金额: 98675
+          label.radio-inline
+            = check_box_tag('trade_type[]','微信正扫')
+            = label_tag(:trade_type_zs, "微信正扫") 
+          label.radio-inline
+            = check_box_tag('trade_type[]','威信反扫') 
+            = label_tag(:trade_type_fs, "威信反扫")
+          label.radio-inline
+            = check_box_tag('trade_type[]','微信二维码') 
+            = label_tag(:trade_type_ew, "微信二维码")
+          label.radio-inline
+            = check_box_tag('trade_type[]','支付宝') 
+            = label_tag(:trade_type_zf, "支付宝")
+          label.radio-inline
+            = check_box_tag('trade_type[]','QPOS') 
+            = label_tag(:trade_type_qp, "QPOS")
+
+    .row
+      .col-md-4
+      .col-md-2
+        button.btn.btn-sm.btn-success#trade_search_btn 查找
+      label.col-md-2.control-label 交易笔数: #{@trade_total_count}
+      label.col-md-2.control-label 总金额: #{@trade_total_amount}
 
 
-= @trade_total_count
-br
-= @trade_total_amount
 div class='panel panel-success'
   div class='panel-heading'  
     h4 class='panel-title' 
       | 交易
-  div class='panel-body'
+  div class='panel-body' id='trade_body'
     = paginate @collection
     table class='table'
       thead
