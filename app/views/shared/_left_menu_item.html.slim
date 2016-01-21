@@ -1,11 +1,5 @@
-li class='#{ if local[:data]  then 'has-sub' end}'
-  == link_to '' "#{if local[:data] then '#' else '/' end} " 
+li
+  == link_to '' "#{local[:data]}" 
     - if local[:data]
-      b class='caret pull-right'
     i class='fa #{local[:class]}'
     span #{local[:title]}
-  ul class='sub-menu'
-    - if local[:data]
-      - local[:data].each do |item|
-        li
-          == link_to item.first, item.last

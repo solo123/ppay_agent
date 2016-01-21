@@ -13,19 +13,19 @@
 div class='panel panel-success'
   div class='panel-heading'
     h4 class='panel-title' == @table_head
-
-= paginate @collection
-table class='table panel panel-success'
-  thead
-    tr          
-      th 姓名
-      th 电话
-      th 状态
-      
-  tbody
-    - @detail_collection.each do |r|
-      tr
-        td= r["contact.name"]
-        td= r['contact.tel']
-        td= r["status"]
+  div class='panel-body'
+    = paginate @collection
+    table class='table panel panel-success'
+      thead
+        tr          
+          th 姓名
+          th 电话
+          th 状态
+          
+      tbody
+        - @detail_collection.each do |r|
+          tr
+            td= r["contact.name"]
+            td= r['contact.tel']
+            td= r["status"]
         

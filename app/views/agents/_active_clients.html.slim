@@ -6,6 +6,7 @@ table.table
       th 业务员
       th 入网时间
       th 费率
+      th 操作 
   tbody
     - @collection_clients.each do |r|
       tr
@@ -14,5 +15,5 @@ table.table
         td= link_to(r.salesman.name, salesman_path(r.salesman) )
         td= r.join_date
         td= r.rate
-        td= link_to('detail', client_path(r))
+        td= link_to('查看详情', client_path(r))
         

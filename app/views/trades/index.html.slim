@@ -42,13 +42,12 @@
           label.radio-inline
             = check_box_tag('trade_type[]','QPOS') 
             = label_tag(:trade_type_qp, "QPOS")
-
-    .row
-      .col-md-4
-      .col-md-2
-        button.btn.btn-sm.btn-success#trade_search_btn 查找
-      label.col-md-2.control-label 交易笔数: #{@trade_total_count}
-      label.col-md-2.control-label 总金额: #{@trade_total_amount}
+      .form-group
+        .col-md-4.col-xs-2
+        .col-md-2.col-xs-8
+          button.btn.btn-sm.btn-warning#trade_search_btn style='width:200px;' 查找
+        label.col-md-2.control-label 交易笔数: #{@trade_total_count}
+        label.col-md-2.control-label 总金额: #{@trade_total_amount}
 
 
 div class='panel panel-success'
@@ -56,34 +55,48 @@ div class='panel panel-success'
     h4 class='panel-title' 
       | 交易
   div class='panel-body' id='trade_body'
-    = paginate @collection
-    table class='table'
-      thead
-        tr
-          th 商户名称
-          th 商户ID
-          th 操作员
-          th 交易日期
-          th 交易类型 
-          th 清算类型
-          th 交易费率
-          th 交易额度
-          th 交易状态
-          th 机具编号
-
-      tbody
-        - @detail_collection.each do |t|
+    - if pc?
+      = paginate @collection
+      table class='table'
+        thead
           tr
-            td= link_to t["client.name"], t["client.url"]
-            td= t["client.id"]
-            td= t["sub_accont.name"]
-            td= t["trade_date"]
-            td= t["trade_type"]
-            td= t["clearing_type"]
-            td= t["rate"]
-            td= t["amount"]
-            td= t["trade.status"]
-            - if t["pos_machine.number"] && t["pos_machine.url"]
-              td= link_to(t["pos_machine.number"], t["pos_machine.url"])
-            - else
-              td= ''
+            th 商户名称
+            th 商户ID
+            th 操作员
+            th 交易日期
+            th 交易类型 
+            th 清算类型
+            th 交易费率
+            th 交易额度
+            th 交易状态
+            th 机具编号
+
+        tbody
+          - @detail_collection.each do |t|
+            tr
+              td= link_to t["client.name"], t["client.url"]
+              td= t["client.id"]
+              td= t["sub_accont.name"]
+              td= t["trade_date"]
+              td= t["trade_type"]
+              td= t["clearing_type"]
+              td= t["rate"]
+              td= t["amount"]
+              td= t["trade.status"]
+              - if t["pos_machine.number"] && t["pos_machine.url"]
+                td= link_to(t["pos_machine.number"], t["pos_machine.url"])
+              - else
+                td= ''
+    - else
+      = paginate @collection
+      - @detail_collection.each do |t|
+        .row
+          .col-xs-2 style='border:1px solid #AEAEAE;border-radius:30px;text-align:center;'
+            h4= t["trade_type"]
+          .col-xs-6
+            p= link_to t["client.name"], t["client.url"]
+            span= t["trade_date"]
+          .col-xs-4
+            p style='color:red;font-size:24px;text-align:right;' = t["amount"] 
+            p style='text-align:right;' = t["clearing_type"]
+

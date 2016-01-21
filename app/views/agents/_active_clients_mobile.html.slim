@@ -3,12 +3,12 @@
     .col-xs-2 style='border:1px solid #AEAEAE;border-radius:30px;text-align:center;'
       h4= r.id
     .col-xs-6
-      p= r.shop_name
+      p= link_to(r.shop_name, client_path(r))
       span= r.contact_info
       span= r.shop_tel
     .col-xs-4
-      p= r.join_date
-      p= link_to(r.salesman.name, salesman_path(r.salesman) )
+      p style='text-align:right;' = r.join_date
+      p style='text-align:right;' = link_to(r.salesman.name, salesman_path(r.salesman) )
   .row
     .col-xs-2
     .col-xs-10.bg-info
