@@ -43,7 +43,7 @@ html
           li class='nav-profile'
             div class='info'
               big 普尔支付 
-              span 渠道系统
+              span 合作商系统
         ul class='nav' id='sidemenu'
           == render 'shared/left_menu'
           li
@@ -90,31 +90,15 @@ html
     script src="/color_admin/assets/plugins/sparkline/jquery.sparkline.js"
     script src="/color_admin/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js"
     script src="/color_admin/assets/plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en.js"
+
     script src="/color_admin/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"
+    script src="/color_admin/assets/plugins/bootstrap-daterangepicker/moment.js"
+    script src="/color_admin/assets/js/form-plugins.demo.min.js"
+
     / script src="/color_admin/assets/js/dashboard.js"
     
     javascript:
       sidemenu();
       client_show();
       App.init();
-      //Dashboard.init();
-      
-    / 显示flash消息
-    = flash.each do |type, message|
-      div class="flash"
-        javascript:
-          setTimeout( function() {
-            $.gritter.add({
-              title: 'Welcome ',
-              text: 'Lorem ipsum.',
-              image: '/favicon.png',
-              sticky: true,
-              time: '',
-              class_name: 'my-sticky-class'
-              });
-              }, 500);     
-          }
-        
-      
-      
-  
+      FormPlugins.init();

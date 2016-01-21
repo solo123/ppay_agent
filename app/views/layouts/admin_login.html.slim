@@ -20,12 +20,12 @@ html
     div class='fade in' id='page-loader'
       span class='spinner'
     div class='login-cover'
-      div class='login-cover-image' 
-        img src=image_url'bg-6.jpg' data-id='login-cover-image' alt=''
+      div class='login-cover-image'
+        - if pc?
+          img src=image_url'bg-6.jpg' data-id='login-cover-image' alt=''
       div class='login-cover-bg'
     div id='page-container' class='fade'
-
-      == yield
+      = yield
 
     script src="/color_admin/assets/plugins/jquery/jquery-1.9.1.min.js"
     script src="/color_admin/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"
@@ -40,10 +40,3 @@ html
     javascript:
       App.init();
       LoginV2.init();
-  
-  footer class='container'
-    div class='row'
-      div class='col-md-4'
-      div class='col-md-8'
-        - if Rails.env.development?
-          == debug(params)

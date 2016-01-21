@@ -1,10 +1,3 @@
-ol.breadcrumb.pull-right
-  li ==link_to 'Home', root_path
-  li ==link_to '代理管理', '#'
-  li 详细信息
-h1 
-  span 代理商生命周期
-  small  合作时长: #{@join_days}, 最近入网时间: #{@last_date}, 上月交易总额: 
 .row
   .col-md-3
     .widget.widget-stats.bg-blue
@@ -26,9 +19,9 @@ h1
         p #{@cur_trade_total["wechat_amount"]}
       .stats-link
         a href='#' 
-            span  正扫: 
+            span 总笔数 : 
             span 5650, 
-            span  反扫: 
+            span  10元以上笔数: 
             span 5650, 
   .col-md-3
     .widget.widget-stats.bg-purple
@@ -39,42 +32,57 @@ h1
         p 7567
       .stats-link
         a href='#'
-          span 微信:
+          span T1:
           span 9393, 
-          span 支付宝:
-          span 222, 
           span T0:
-          span 234
+          span 234,
+          span 微信:
+          span 222,      
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon
         i.fa.fa-users
       .stats-info
-        h3 总商户数
-        p #{@cur_trade_total["clients_count"]}
+        h3 本月入网商户
+        p #{@cur_trade_total["new_clients_count"]}
       .stats-link
         a href='#'
-          span 本月新增商户 : 
-          span #{@cur_trade_total["new_clients_count"]}
+          span 总商户数 : 
+          span #{@cur_trade_total["clients_count"]}
 
 /
 .row
-  .col-md-8   
-    div class="jumbotron"
-      h1 2020年 遇见未来
-      p 接下来你将度过完美的4年生活.
-      a class="btn btn-primary btn-lg" href="#" role="button"
-        | Learn more
-  .col-md-4
-    h4 历史公告
+  .col-md-9
+    .panel.panel-primary
+      .panel-heading
+        .pull-right 更多公告
+        h4.panel-title 系统公告
+      .panel-body
+        div class="jumbotron"
+          h1 2020年 遇见未来
+          p 接下来你将度过完美的4年生活.
+          a class="btn btn-primary btn-lg" href="#" role="button"
+            | Learn more
+  .col-md-3
+    .panel.panel-warning
+      .panel-heading
+        h4.panel-title 最新活动
+      .panel-body
 
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 最新入网商户
+  .panel-body
 
-h2 活跃商户
-.panel-body#active_clients_agent_day_tradetotal
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 活跃商户
+  .panel-body#active_clients_agent_day_tradetotal
 
-
-h2 活跃业务员
-.panel-body#active_salesmen_agent_day_tradetotal
+.panel.panel-primary
+  .panel-heading
+    h4.panel-title 活跃业务员
+  .panel-body#active_salesmen_agent_day_tradetotal
 
 .panel.panel-primary
   .panel-heading
@@ -91,7 +99,7 @@ h2 活跃业务员
           tr
             td= r.name
             td= r.status
-            td= link_to('detail', salesman_path(r))
+            td= link_to('详情', salesman_path(r))
           
 javascript:
   $(document).ready(function(){
