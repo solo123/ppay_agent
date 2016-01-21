@@ -1,22 +1,23 @@
 class SalesmenController < ApplicationController
-  def initialize
-    super
-    @table_head = '业务员资料'
-    @fields = %w(name)
-    @field_titles = [ '姓名' ]
-  end
 
   def index
     params[:q] ||= {}
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
-    @q = agent_total.salesman_all.ransack( params[:q] )
-    pages = $redis.get(:list_per_page) || 100
+    all_salesman = agent_total.salesman_all
+    @q = all_salesman.ransack( params[:q] )
+    pages = $redis.get(:list_per_page) || 10
     @collection = @q.result(distinct: true).page(params[:page]).per( pages )
 
     @detail_collection = []
     @collection.each do |r|
       @detail_collection << salesman_detail(r)
     end
+
+    @salesman_count = all_salesman.count
+  end
+
+  def show
+    @object_hash = salesman_detail Salesman.find(params[:id])
   end
 
   def salesman_detail(salesman)
@@ -29,6 +30,7 @@ class SalesmenController < ApplicationController
         ret['conact.name'] = contact.name if contact.name
         ret['conact.tel'] = contact.name if contact.tel
     end
+    ret['url'] = salesman_path(salesman)
     return ret
 
 

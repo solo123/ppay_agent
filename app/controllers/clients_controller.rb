@@ -1,7 +1,11 @@
 class ClientsController < ApplicationController
   respond_to :html, :js, :json
   def index
-    @collection = search_clients
+    agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
+    @all_clients = agent_total.clients_all
+
+    @collection = search_clients @all_clients
+
     @detail_collection = []
     @collection.each do |r|
       @detail_collection << detail_client(r)
@@ -28,13 +32,13 @@ class ClientsController < ApplicationController
     end
     {
       'shop_name'=>r.shop_name, "contact.name"=>c.name, 'contact.tel'=>c.tel,
-      'addr'=> province + ' ' + city, 'salesman'=>r.salesman.name,
+      'addr'=> province + ' ' + city, 'salesman'=>r.salesman.name, 'salesman.url'=>salesman_path(r.salesman),
       'qudao'=>'',
       'join_date'=>r.join_date, 'rate'=>r.rate
     }
   end
 
-  def search_clients
+  def search_clients(clients)
     q_hash = {
       'shop_name_cont'=> params[:search_t],
       'shop_tel_cont'=> params[:search_t],
@@ -42,10 +46,8 @@ class ClientsController < ApplicationController
       # 'id_eq'=> params[:search_t],
       'm'=>'or'
     }
-
-    agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
-    q = agent_total.clients_all.ransack(  q_hash )
-    pages = $redis.get(:list_per_page) || 100
+    q = clients.ransack(  q_hash )
+    pages = $redis.get(:list_per_page) || 10
     tmp = q.result(distinct: true).includes(:contacts).page(params[:page]).per( pages )
 
     # salesman_ids = Salesman.ransack({'name_cont'=> option['search_t']}).result(distinct: true).ids

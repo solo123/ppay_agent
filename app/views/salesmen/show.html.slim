@@ -1,9 +1,12 @@
-p#notice
-  = notice
-p
-  strong
-    | Name:
-  = @object.name
-/ = link_to 'Edit', edit_salesmen_path(@object)
-|  | 
-/ = link_to 'Back', scalesmen_path
+table class='table'
+  thead
+    th 姓名
+    th 电话
+    th 状态
+  tbody
+    tr
+      td= @object_hash["contact.name"]
+      td= @object_hash['contact.tel']
+      td= @object_hash["status"]
+
+p 针对业务员的统计数据，稍后会提供，敬请期待。

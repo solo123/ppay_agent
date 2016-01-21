@@ -1,15 +1,19 @@
+/ 
+/ = search_form_for( @q, class: 'form-inline') do |f|
+/   div class='form-group m-r-12'
+/     input class='form-control' name='all_query' value='' placeholder='输入任何字段进行查询'
+/   br
+/   div class='form-group m-r-10'
+/     = f.search_field ('agent_id_eq') , class: 'form-control', placeholder: '商户ID' 
+/     = f.search_field ('contact_id_eq') , class: 'form-control', placeholder: '商户名称'
+/     = f.search_field ('name_cont') , class: 'form-control', placeholder: '商户电话'
+/   = f.submit '查找',  class: 'btn btn-warning form-control'
 
-= search_form_for( @q, class: 'form-inline') do |f|
-  div class='form-group m-r-12'
-    input class='form-control' name='all_query' value='' placeholder='输入任何字段进行查询'
-  br
-  div class='form-group m-r-10'
-    = f.search_field ('agent_id_eq') , class: 'form-control', placeholder: '商户ID' 
-    = f.search_field ('contact_id_eq') , class: 'form-control', placeholder: '商户名称'
-    = f.search_field ('name_cont') , class: 'form-control', placeholder: '商户电话'
-  = f.submit '查找',  class: 'btn btn-warning form-control'
-
-
+.container
+  .row
+    .col-xs-6
+    .col-xs-6
+      h4 业务员总数: #{@salesman_count}
 div class='panel panel-success'
   div class='panel-heading'
     h4 class='panel-title' == @table_head
@@ -28,4 +32,5 @@ div class='panel panel-success'
             td= r["contact.name"]
             td= r['contact.tel']
             td= r["status"]
+            td= link_to '详情', r['url']
         

@@ -22,17 +22,12 @@
 .row
   .col-md-6
     = form_tag(clients_path, method: 'get') do
-      select id='op' name='channel_n'
-        option selected="selected" 合作渠道
-        option 拉卡拉
-        option 支付宝
-        option 钱方
       .input-group
         input type="text" class="form-control" id="exampleInputEmail1" name='search_t' value="#{params[:search_t]}" placeholder='输入任意内容查询'
         .input-group-btn
           button type="submit" class="btn btn-warning" style='border-radius:10px;margin-left:10px;width:100px;' 查找
   .col-md-6
-    h2 商户数量:#{@collection.count}
+    h4 商户数量: #{@all_clients.count}
 
 div class='panel panel-success'
   div class='panel-heading'
@@ -66,12 +61,12 @@ div class='panel panel-success'
     -else
       - @detail_collection.each do |r|
         .row
-          .col-xs-2 style='border:1px solid #AEAEAE;border-radius:30px;text-align:center;'
+          .col-xs-2 style='border:1px solid #AEAEAE;border-radius:20px;text-align:center;'
             h4 #{r['rate']*100}
-          .col-xs-6
+          .col-xs-7
             p= r['shop_name']
             span= r['contact.name']
             span= r['contact.tel']
-          .col-xs-4
+          .col-xs-3
             p style='text-align:right;' = r['join_date']
-            p style='text-align:right;' = link_to r['salesman'], salesman_path(r['salesman'])
+            p style='text-align:right;' = link_to r['salesman'], r['salesman.url']

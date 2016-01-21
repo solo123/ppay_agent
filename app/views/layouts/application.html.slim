@@ -102,24 +102,3 @@ html
       client_show();
       App.init();
       FormPlugins.init();
-      //Dashboard.init();
-      
-    / 显示flash消息
-    = flash.each do |type, message|
-      div class="flash"
-        javascript:
-          setTimeout( function() {
-            $.gritter.add({
-              title: 'Welcome ',
-              text: 'Lorem ipsum.',
-              image: '/favicon.png',
-              sticky: true,
-              time: '',
-              class_name: 'my-sticky-class'
-              });
-              }, 500);     
-          }
-        
-      
-      
-  
