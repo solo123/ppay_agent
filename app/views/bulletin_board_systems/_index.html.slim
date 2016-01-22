@@ -1,0 +1,21 @@
+
+table.table
+  thead
+    tr
+      th
+        | 标题
+      th
+        | 发布时间
+      th[colspan="3"]
+  tbody
+    / 默认显示8条
+    - @collection.take(8).each do |r|
+      tr
+        td
+          = link_to "#{r.title}", bulletin_board_system_path(r)
+        td
+          / %Y %m %d %H %M %S 中间可以加其它汉子
+          = r.updated_at.strftime("年%Y-%m-%d 时%H:%M:%S")
+br
+
+= link_to '更多公告', bulletin_board_systems_path

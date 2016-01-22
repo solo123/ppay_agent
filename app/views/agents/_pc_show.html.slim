@@ -69,10 +69,16 @@
         h4.panel-title 最新活动
       .panel-body
 
+/ add bbs
+.row
+  .col-md-9
+    .panel.panel-primary#agent_bbs
+    
+
 .panel.panel-primary
   .panel-heading
     h4.panel-title 最新入网商户
-  .panel-body
+  .panel-body#new_clients_agent
 
 .panel.panel-primary
   .panel-heading
@@ -105,5 +111,9 @@ javascript:
   $(document).ready(function(){
     $.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
+    $.getScript("#{new_clients_agent_path}");
+
+    $.getScript("#{bulletin_board_systems_path}");
+
   });
   

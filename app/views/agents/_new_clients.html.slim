@@ -1,0 +1,19 @@
+table.table
+  thead
+    tr
+      th 商户名称
+      th 手机
+      th 业务员
+      th 入网时间
+      th 费率
+      th 操作 
+  tbody
+    - @new_clients.each do |r|
+      tr
+        td= r.shop_name
+        td= r.shop_tel
+        td= link_to(r.salesman.name, salesman_path(r.salesman) )
+        td= r.join_date
+        td= r.rate
+        td= link_to('详情', client_path(r))
+        

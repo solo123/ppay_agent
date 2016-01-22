@@ -1,0 +1,16 @@
+p#notice
+  = notice
+p
+  strong
+    | Deadtime:
+  = @object.deadtime
+p
+  strong
+    | Content:
+  = @object.content
+p
+  strong
+    | Publisher:
+  = @object.publisher_id
+ 
+= link_to 'Back', bulletin_board_systems_path

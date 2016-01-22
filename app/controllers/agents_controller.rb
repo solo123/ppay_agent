@@ -13,6 +13,7 @@ class AgentsController < ResourcesController
     @cur_trade_total["company"] = Company.new
     puts '-' * 42
     puts @cur_trade_total
+
   end
 
   def active_clients
@@ -28,6 +29,13 @@ class AgentsController < ResourcesController
 
   def basic_info
     show
+  end
+
+  def new_clients
+    load_object
+    agent_total = Biz::AgentTotalBiz.new params[:id]
+    @new_clients = agent_total.new_clients
+
   end
 
 

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   devise_for :users
   # :users必须在devise_for后面定义 bugfix:把user当作资源的话确保路由通过devise验证
   resources :users
+  # 通知
+  resources :bulletin_board_systems
 
   # 业务数据
   resources :joinlast_clients
@@ -40,6 +42,7 @@ Rails.application.routes.draw do
   resources :agents do
     member do
       get :basic_info
+      get :new_clients
       get :active_clients
       get :active_salesmen
     end

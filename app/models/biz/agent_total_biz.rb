@@ -49,7 +49,7 @@ module Biz
       @salesmen.take(10)
     end
     def new_clients
-      @clients.order('join_date ASC').take(5)
+      self.clients_all.order('join_date ASC').take(5)
     end
     def new_salesmen
       @salesmen.order('join_date ASC').take(5)
