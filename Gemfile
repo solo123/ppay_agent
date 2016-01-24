@@ -42,9 +42,7 @@ gem 'slim'
 gem 'sidekiq'
 gem 'lazy_high_charts'
 gem 'acts-as-taggable-on' # 给model打tag
-gem 'pg'
-
-gem 'pg'
+gem 'airbrake', '~> 5.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
