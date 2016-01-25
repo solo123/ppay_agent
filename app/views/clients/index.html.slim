@@ -31,7 +31,7 @@
 
 div class='panel panel-success'
   div class='panel-heading'
-    h4 class='panel-title' == @table_head
+    h4 class='panel-title' 商户资料
   div class='panel-body'
     = paginate @collection
     -if pc?
@@ -63,10 +63,10 @@ div class='panel panel-success'
         .row
           .col-xs-2 style='border:1px solid #AEAEAE;border-radius:20px;text-align:center;'
             h4 #{r['rate']*100}
-          .col-xs-7
+          .col-xs-6
             p= r['shop_name']
             span= r['contact.name']
             span= r['contact.tel']
-          .col-xs-3
+          .col-xs-4
             p style='text-align:right;' = r['join_date']
             p style='text-align:right;' = link_to r['salesman'], r['salesman.url']

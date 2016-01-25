@@ -1,1 +1,5 @@
-$('#new_clients_agent').html("<%=j render 'new_clients' %>");
+if ( <%= pc? %>){
+	$('#new_clients_agent').html("<%=j render 'new_clients' %>");
+ } else {
+ 	$('#new_clients_agent').html("<%=j render 'new_clients_mobile' %>");
+ }

@@ -1,4 +1,32 @@
-- if pc?
-  = render 'pc_new'
-- else
- = render 'mobile_new'
+.news-feed
+  .news-image
+    img src="/color_admin/assets/img/login-bg/bg-qpos.png" data-id="login-cover-image" alt=""
+  .news-caption style='height:100%'
+    h4.caption-title
+      i.fa.fa-diamond.text-success Announcing the Color Admin app
+    p Download the Color Admin app for iPhone®, iPad®, and Android™. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+div class="right-content"
+  div class='login-header'
+    div class='brand'
+      span class='logo' 
+      span 普尔支付
+    
+  div class='login-content'
+    - if flash.count>0
+	   = flash.each do |type, message|
+	     div class="flash"
+	       = message
+
+    = simple_form_for(resource, as: resource_name, 
+                      url: session_path(resource_name),
+                      defaults: {label_html: {class: 'my_class'}}) do |f|
+                       
+      div class="form-inputs"
+        = f.input :mobile, label: false, placeholder: 'mobile', required: false, autofocus: true
+        = f.input :password, label: false, placeholder: 'password',  required: false 
+        = f.input :remember_me, as: :boolean if devise_mapping.rememberable? 
+
+      div class="form-actions"
+        = f.button :submit, "登录", class: 'btn btn-success btn-block btn-lg' 
+
+      = render "devise/shared/links" 
