@@ -23,8 +23,14 @@ class ClientsController < ApplicationController
   def detail_client(r)
     c = r.contacts.last
     addr = r.addresses.last
-    province = CodeTable.find(addr.province_id).name
-    city = CodeTable.find(addr.city_id).name
+
+    addr_info = ""
+    if addr!=nil
+      province = CodeTable.find(addr.province_id).name
+      city = CodeTable.find(addr.city_id).name
+      addr_info = province + ' ' + city
+    end
+
     s = r.salesman
     s_contact = nil
     if s.contact_id
@@ -32,7 +38,7 @@ class ClientsController < ApplicationController
     end
     {
       'shop_name'=>r.shop_name, "contact.name"=>c.name, 'contact.tel'=>c.tel,
-      'addr'=> province + ' ' + city, 'salesman'=>r.salesman.name, 'salesman.url'=>salesman_path(r.salesman),
+      'addr'=> addr_info, 'salesman'=>r.salesman.name, 'salesman.url'=>salesman_path(r.salesman),
       'qudao'=>'',
       'join_date'=>r.join_date, 'rate'=>r.rate
     }
