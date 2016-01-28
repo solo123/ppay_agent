@@ -27,32 +27,24 @@
         label.col-md-4.control-label 交易类型
         .col-md-8
           label.radio-inline
-            = check_box_tag('trade_type[]','微信正扫')
-            = label_tag(:trade_type_zs, "微信正扫") 
-          label.radio-inline
-            = check_box_tag('trade_type[]','威信反扫') 
-            = label_tag(:trade_type_fs, "威信反扫")
-          label.radio-inline
-            = check_box_tag('trade_type[]','微信二维码') 
-            = label_tag(:trade_type_ew, "微信二维码")
+            = check_box_tag('trade_type[]','微信')
+            = label_tag(:trade_type_zs, "微信") 
           label.radio-inline
             = check_box_tag('trade_type[]','支付宝') 
             = label_tag(:trade_type_zf, "支付宝")
           label.radio-inline
-            = check_box_tag('trade_type[]','QPOS') 
-            = label_tag(:trade_type_qp, "QPOS")
+            = check_box_tag('trade_type[]','刷卡') 
+            = label_tag(:trade_type_qp, "刷卡")
       .form-group
         .col-md-4.col-xs-2
         .col-md-2.col-xs-8
           button.btn.btn-sm.btn-warning#trade_search_btn style='width:200px;' 查找
-        label.col-md-2.control-label 交易笔数: #{@trade_total_count}
-        label.col-md-2.control-label 总金额: #{@trade_total_amount}
 
 
 div class='panel panel-success'
   div class='panel-heading'  
     h4 class='panel-title' 
-      | 交易
+      | 帅选结果: 交易笔数: #{@trade_total_count},总金额: #{@trade_total_amount}
   div class='panel-body' id='trade_body'
     - if pc?
       = paginate @collection

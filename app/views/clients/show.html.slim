@@ -1,18 +1,39 @@
-
+ol.breadcrumb.pull-right
+  li ==link_to 'Home', '/'
+  li ==link_to '商户资料', clients_path
+  li 详细信息
 h2 商户生命周期
+
 .row
-  .col-md-2.col-xs-6
-    h1.text-warning =@object.join_days
-    b 入网时间
-  .col-md-2.col-xs-6
-    h1.text-warning =@total_info["total_count"]
-    b 交易笔数
-  .col-md-2.col-xs-6
-    h1.text-warning =@total_info["total_amount"]
-    b 交易总金额
-  .col-md-6.col-xs-6
-    h1.text-warning ==@last_trade_datetime
-    b 最后交易时间
+  .col-md-3
+    .widget.widget-stats.bg-blue
+      .stats-icon
+        i.fa.fa-calendar
+      .stats-info
+        h4 入网时间
+        p =@object.join_days
+  .col-md-3
+    .widget.widget-stats.bg-green#weixin
+      .stats-icon
+        i.fa.fa-calculator.fa-fw 
+      .stats-info
+        h4 交易笔数
+        p =@total_info["total_count"]
+  .col-md-3
+    .widget.widget-stats.bg-purple
+      .stats-icon
+        i.fa.fa-money.fa-fw
+      .stats-info
+        h4 交易总金额
+        p =@total_info["total_amount"]
+  .col-md-3
+    .widget.widget-stats.bg-red
+      .stats-icon
+        i.fa.fa-clock-o
+      .stats-info
+        h4 最后交易时间
+        p ==@last_trade_datetime
+
 .panel.panel-success
   .panel-heading
     h4.panel-title #{@object.shop_name}
@@ -21,10 +42,8 @@ h2 商户生命周期
     .row
       .col-xs-6
         p 经营类型: #{@object.shop_category.name}
-        p T1登录帐号:
       .col-xs-6
         p 入网时间: #{@object.join_date}
-        p T0登录帐号:
     h4 联系信息
     .row
       .col-xs-6
@@ -39,10 +58,6 @@ h2 商户生命周期
         p 终端编号
         p 15100000030010055
         p 15100000030010044
-      .col-xs-6
-        p 设备类型
-        p xxxxxx
-        p xxxxxx
     h4 渠道信息
     .row
       .col-xs-6
@@ -54,22 +69,13 @@ h2 商户生命周期
     h4 费率限额
     .row
       .col-xs-6
-        p style='color:green;' POS刷卡结算方式: T1
+        p POS刷卡结算方式: T1
         p 信用卡单笔限额: #{@object.credit_card_limit_each/10000}万
         p 借记卡单笔限额: #{@object.bank_card_limit_each/10000}万
       .col-xs-6
-        p style='color:green;' POS刷卡结算方式: T0
-        p 信用卡单笔限额: 
-        p 借记卡单笔限额:
-    .row
-      .col-xs-6
-        p style='color:green;' 费率: #{@object.rate}
+        p 费率: #{@object.rate}
         p 信用卡月限额: #{@object.credit_card_limit_month/10000}万
         p 借记卡月限额: #{@object.bank_card_limit_month/10000}万
-      .col-xs-6
-        p style='color:green;' 费率: 
-        p 信用卡月限额:
-        p 借记卡月限额:
 /    
 .panel.panel-success
   .panel-heading
@@ -77,22 +83,34 @@ h2 商户生命周期
       p 交易信息
   .panel-body
     = paginate @trades_for_pages
-    table class='table'
-      thead
-        tr
-          th 交易时间
-          th 交易类型
-          th 交易结果
-          th 交易额
-          th 交易机具编号
-      tbody
+    -if pc?
+      table class='table'
+        thead
+          tr
+            th 交易时间
+            th 交易类型
+            th 交易结果
+            th 交易额
+            th 交易机具编号
+        tbody
+        - @trades_detail.each do |r|
+          tr
+            td =r['trade.trade_date']
+            td= r['trade.type']
+            td= r['trade.result']
+            td =r['trade.trade_amount']
+            td= r['trade.pos_machine']
+    -else
       - @trades_detail.each do |r|
-        tr
-          td =r['trade.trade_date']
-          td= r['trade.type']
-          td= r['trade.result']
-          td =r['trade.trade_amount']
-          td= r['trade.pos_machine']
+        .row
+          .col-xs-2 style='border:1px solid #AEAEAE;border-radius:30px;text-align:center;'
+            h4= r['trade.type']
+          .col-xs-6
+            p= r['trade.pos_machine']
+            span= r['trade.trade_date']
+          .col-xs-4
+            p style='color:red;font-size:24px;text-align:right;' = r['trade.trade_amount']
+            p style='text-align:right;' = r['trade.result']
 
 
     / h4 交易流水

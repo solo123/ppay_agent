@@ -1,5 +1,4 @@
 var sidemenu =function () {
-
 	if (window.location.pathname=='/') {
 		$('#sidemenu').children().eq(0).addClass('active');
 	};

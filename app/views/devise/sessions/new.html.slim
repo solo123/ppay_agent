@@ -1,6 +1,6 @@
 .news-feed
   .news-image
-    img src="/color_admin/assets/img/login-bg/bg-qpos.png" data-id="login-cover-image" alt=""
+    / img src="/color_admin/assets/img/login-bg/bg-qpos.png" data-id="login-cover-image" alt=""
   .news-caption style='height:100%'
     h4.caption-title
     /   i.fa.fa-diamond.text-success Announcing the Color Admin app
@@ -12,10 +12,10 @@ div class="right-content"
       span 普尔支付
     
   div class='login-content'
-    - if flash.count>0
-	   = flash.each do |type, message|
-	     div class="flash"
-	       = message
+    / - if flash.count>0
+	   / = flash.each do |type, message|
+	   /   div class="flash"
+	   /     = message
 
     = simple_form_for(resource, as: resource_name, 
                       url: session_path(resource_name),
@@ -29,4 +29,4 @@ div class="right-content"
       div class="form-actions"
         = f.button :submit, "登录", class: 'btn btn-success btn-block btn-lg' 
 
-      = render "devise/shared/links"
+      / = render "devise/shared/links"

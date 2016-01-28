@@ -4,7 +4,8 @@ table.table.table-hover
     tr
       th
         | 标题
-      th.pull-right
+      th
+      th
         | 发布时间
   tbody
     / 默认显示8条
@@ -12,5 +13,6 @@ table.table.table-hover
       tr
         td
           = link_to "#{r.title}", notice_path(r)
-        td.pull-right
+        td
+        td
           = r.updated_at.strftime("%Y-%m-%d %H:%M:%S")
