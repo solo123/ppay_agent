@@ -80,21 +80,19 @@ h2 商户生命周期
     table class='table'
       thead
         tr
-          th 操作员
           th 交易时间
           th 交易类型
           th 交易结果
           th 交易额
           th 交易机具编号
       tbody
-      - @trades_for_pages.each do |trade|
+      - @trades_detail.each do |r|
         tr
-          td
-          td ==trade.trade_date
-          td
-          td
-          td ==trade.trade_amount
-          td
+          td =r['trade.trade_date']
+          td= r['trade.type']
+          td= r['trade.result']
+          td =r['trade.trade_amount']
+          td= r['trade.pos_machine']
 
 
     / h4 交易流水

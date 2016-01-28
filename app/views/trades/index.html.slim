@@ -74,7 +74,7 @@ div class='panel panel-success'
           - @detail_collection.each do |t|
             tr
               td= link_to t["client.name"], t["client.url"]
-              td= t["client.id"]
+              td= t["client.shid"]
               td= t["sub_accont.name"]
               td= t["trade_date"]
               td= t["trade_type"]

@@ -3,11 +3,11 @@ p#notice
 p
   strong
     | publish_date:
-  = @object.publish_date
+  = @object.publish_date.strftime("%Y-%m-%d %H:%M:%S")
 p
   strong
     | close_date:
-  = @object.close_date
+  = @object.close_date.strftime("%Y-%m-%d %H:%M:%S")
 p
   strong
     | Title:
@@ -20,6 +20,6 @@ p
   strong
     | Publisher:
   = @object.publisher_id
-= link_to 'Edit', edit_notice_path(@object)
-|  | 
+
+
 = link_to 'Back', notices_path

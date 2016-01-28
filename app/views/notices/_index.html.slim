@@ -13,5 +13,4 @@ table.table.table-hover
         td
           = link_to "#{r.title}", notice_path(r)
         td.pull-right
-          / %Y %m %d %H %M %S 中间可以加其它汉子
-          = r.updated_at.strftime("年%Y-%m-%d 时%H:%M:%S")
+          = r.updated_at.strftime("%Y-%m-%d %H:%M:%S")

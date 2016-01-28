@@ -16,9 +16,36 @@ class ClientsController < ApplicationController
     @object = agent_total.clients_all.find(params[:id])
     @trades = Trade.where("client_id"=> params[:id])
     @trades_for_pages = @trades.page( params[:page] ).per(20)
+    @trades_detail = []
+    @trades_for_pages.each do |r|
+      @trades_detail << detail_trade(r)
+    end
+
     c_total = Biz::ClientTotalBiz.new(params[:id])
     @total_info = c_total.trade_total
     @last_trade_datetime  = c_total.last_trade_datetime
+  end
+
+  def detail_trade(r)
+
+    pos = PosMachine.find(1)
+    type = CodeTable.find(r.trade_type_id)
+    result = CodeTable.find(r.trade_result_id)
+    pos_num = ''
+    if pos
+      pos_num = pos.serial_number
+    end
+
+
+
+    {
+      "trade.trade_date"=> r.trade_date.strftime("%Y-%m-%d %H:%M:%S"),
+      "trade.trade_amount"=> r.trade_amount,
+      "trade.type"=> type.name,
+      "trade.result"=> result.name,
+      "trade.pos_machine"=> pos_num,
+    }
+
   end
   def detail_client(r)
     c = r.contacts.last

@@ -1,7 +1,7 @@
 p#notice
   = notice
 h1
-  | Listing Bulletin Board Systems
+  | 通告板
 
 = paginate @collection
 
@@ -21,14 +21,14 @@ table.table
     - @collection.each do |r|
       tr
         td
-          = r.publish_date
+          = r.publish_date.strftime("%Y-%m-%d %H:%M:%S")
         td
-          = r.close_date
+          = r.close_date.strftime("%Y-%m-%d %H:%M:%S")
         td
           = r.title
         td
           = r.content
         td
-          = link_to 'Show', r
+          = link_to '详情', r
 br
 = paginate @collection
