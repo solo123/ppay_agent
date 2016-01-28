@@ -1,53 +1,56 @@
 .panel.panel-primary
   .panel-heading
+    .btn-group.pull-right
+      - if user_signed_in?
+        == link_to '退出登录', destroy_user_session_path, :class=>'btn btn-warning btn-xs', :method => :delete      
     h4.panel-title 合作商基础信息
   .panel-body
     .row
-      h4 机构信息
-      table class='table table-hover'
-        tr
-        td 全称: #{@cur_trade_total["company"].name}
-        td 简称: #{@cur_trade_total["company"].short_name}
-        td 地区:
-        td 经营地址:
-    .row
-      h4 联系信息
-      table class='table table-hover'
-        - @object.contacts.each do |cc|
-          tr
-            td 联系人角色: #{cc.roles}
-            td 联系人: #{cc.name}
-            td 联系人手机: #{cc.tel}
-            td 邮箱:
-            td 地址: 
-    /
-    .row
-      h4 业务信息
-      table class='table table-hover'
-        tr
-          td 合作形式: #{@object.cooperation_type}
-          td 合作日期: #{@object.cooperation_date}
-          td 状态
-        tr
-          td 开通T0: #{if @object.t0_enabled then '是' else '否'}
-          td 合作收单类型: #{@object.bank_biz_types}
-          td 合作区域: #{@object.cooperation_location}
-          
-    .row
-      h4  结算信息
-      table class='table table-hover'
-        tr
-          td 银行开户行: #{}
-          td 银行开户支行: #{}
-          td 账户名: #{}
-          td 账户帐号: #{}             
-    .row
-      h4 财务信息
-      table class='table table-hover'
-        tr class='active'
-          td 保证金: #{@object.deposit}
-          td 待结算分润: #{@object.amounts_payable}
-
-    .row
-      h4 分润比例
-      .panel-body#sales_commission_content
+      .col-md-4
+      .col-md-4
+        .table-responsive
+          table class='table table-profile'
+            - @object.contacts.each do |cc|
+              thead
+                tr
+                  th
+                  th
+                    h4 #{cc.name}
+              tbody
+                tr.highlight
+                  td.field 全称
+                  td #{@cur_trade_total["company"].name}
+                tr
+                  td.field 简称
+                  td #{@cur_trade_total["company"].short_name}
+                tr
+                  td.field 联系人角色
+                  td #{cc.roles}
+                tr
+                  td.field 经营地址
+                  td
+                tr
+                  td.field 联系人手机 
+                  td #{cc.tel}
+                tr
+                  td.field 合作形式
+                  td #{@object.cooperation_type}
+                tr
+                  td.field 合作日期 
+                  td #{@object.cooperation_date}
+                tr
+                  td.field 开通T0 
+                  td #{if @object.t0_enabled then '是' else '否'}
+                tr
+                  td.field 合作收单类型 
+                  td #{@object.bank_biz_types}
+                tr
+                  td.field 合作区域 
+                  td #{@object.cooperation_location}
+                tr
+                  td.field 保证金 
+                  td #{@object.deposit}
+                tr
+                  td.field 待结算分润
+                  td #{@object.amounts_payable}
+    

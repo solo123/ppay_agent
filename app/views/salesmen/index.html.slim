@@ -9,14 +9,9 @@
 /     = f.search_field ('name_cont') , class: 'form-control', placeholder: '商户电话'
 /   = f.submit '查找',  class: 'btn btn-warning form-control'
 
-.container
-  .row
-    .col-xs-6
-    .col-xs-6
-      h4 业务员总数: #{@salesman_count}
 div class='panel panel-success'
   div class='panel-heading'
-    h4 class='panel-title' 业务员
+    h4 class='panel-title' 业务员 (#{@salesman_count})
   div class='panel-body'
     = paginate @collection
     table class='table panel panel-success'
