@@ -56,52 +56,37 @@
     .panel.panel-primary
       .panel-heading
         .pull-right
-          = link_to '更多公告', bulletin_board_systems_path, :style =>'color:#FFF;'
+          = link_to '更多公告', notices_path, :style =>'color:#FFF;'
         h4.panel-title 系统公告
       .panel-body#agent_bbs
-        / div class="jumbotron"
-        /   h1 2020年 遇见未来
-        /   p 接下来你将度过完美的4年生活.
-        /   a class="btn btn-primary btn-lg" href="#" role="button"
-        /     | Learn more
+        div class="jumbotron"
+          h1 2020年 遇见未来
+          p 接下来你将度过完美的4年生活.
+          a class="btn btn-primary btn-lg" href="#" role="button"
+            | Learn more
 
 .panel.panel-primary
   .panel-heading
     h4.panel-title 最新入网商户
   .panel-body#new_clients_agent
 
-.panel.panel-primary
-  .panel-heading
-    h4.panel-title 活跃商户
-  .panel-body#active_clients_agent_day_tradetotal
-
-.panel.panel-primary
-  .panel-heading
-    h4.panel-title 活跃业务员
-  .panel-body#active_salesmen_agent_day_tradetotal
-
 / .panel.panel-primary
 /   .panel-heading
-/     h4.panel-title 渠道信息
-/   .panel-body
-/     h3 业务员
-/     table.table
-/       thead
-/         tr
-/           th 名称
-/           th 状态
-/       tbody
-/         - @object.salesmen.each do |r|
-/           tr
-/             td= r.name
-/             td= r.status
-/             td= link_to('详情', salesman_path(r))
-          
+/     h4.panel-title 活跃商户
+/   .panel-body#active_clients_agent_day_tradetotal
+/ 
+/ .panel.panel-primary
+/   .panel-heading
+/     h4.panel-title 活跃业务员
+/   .panel-body#active_salesmen_agent_day_tradetotal
+
+
 javascript:
   $(document).ready(function(){
-    $.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
-    $.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{new_clients_agent_path}");
-    $.getScript("#{bulletin_board_systems_path}");
+    $.getScript("#{notices_path}");
+    //$.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
+    //$.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
+    
   });
   

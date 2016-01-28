@@ -56,7 +56,7 @@
     .panel.panel-primary
       .panel-heading
         .pull-right
-          = link_to '更多公告', bulletin_board_systems_path, :style =>'color:#FFF;'
+          = link_to '更多公告', notices_path, :style =>'color:#FFF;'
         h4.panel-title 系统公告
       .panel-body#agent_bbs
 
@@ -97,6 +97,6 @@ javascript:
     $.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{new_clients_agent_path}");
-    $.getScript("#{bulletin_board_systems_path}");
+    $.getScript("#{notices_path}");
   });
   

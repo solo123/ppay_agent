@@ -1,0 +1,34 @@
+p#notice
+  = notice
+h1
+  | Listing Bulletin Board Systems
+
+= paginate @collection
+
+table.table
+  thead
+    tr
+      th
+        | 发布时间
+      th
+        | 结束时间
+      th
+        | 标题
+      th
+        | 内容
+      
+  tbody
+    - @collection.each do |r|
+      tr
+        td
+          = r.publish_date
+        td
+          = r.close_date
+        td
+          = r.title
+        td
+          = r.content
+        td
+          = link_to 'Show', r
+br
+= paginate @collection
