@@ -48,23 +48,23 @@ h2 商户生命周期
     .row
       .col-xs-6
         p 联系人: #{@object.contact_info}
-        p 地区: #{@object.addr_info}
+        p 地区: #{@object.addr_info["province"] + @object.addr_info["city"]}
       .col-xs-6
         p 联系手机: #{@object.shop_tel}
-        p 详细地址:
-    h4 终端信息
+        p 详细地址: #{@object.addr_info["detail"]}
+    h4 终端编号
     .row
       .col-xs-6
-        p 终端编号
-        p 15100000030010055
-        p 15100000030010044
+        ul
+          - @object.pos_machines.each do |r| 
+            p 
+              | #{r.serial_number}
+              
     h4 渠道信息
     .row
       .col-xs-6
-        p 渠道名称:
         p 业务员姓名: #{@object.salesman_info.name}
       .col-xs-6
-        p 渠道合作时间:
         p 业务员手机:
     h4 费率限额
     .row

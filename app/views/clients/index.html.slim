@@ -60,6 +60,7 @@ div class='panel panel-success'
               td= r['qudao']
               td= r['join_date']
               td= r['rate']
+              td= link_to '详情', r['client.url']
     -else
       - @detail_collection.each do |r|
         .row

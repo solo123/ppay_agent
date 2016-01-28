@@ -24,7 +24,9 @@ class ClientsController < ApplicationController
     c_total = Biz::ClientTotalBiz.new(params[:id])
     @total_info = c_total.trade_total
     @last_trade_datetime  = c_total.last_trade_datetime
+
   end
+
 
   def detail_trade(r)
 
@@ -49,14 +51,6 @@ class ClientsController < ApplicationController
   end
   def detail_client(r)
     c = r.contacts.last
-    addr = r.addresses.last
-
-    addr_info = ""
-    if addr!=nil
-      province = CodeTable.find(addr.province_id).name
-      city = CodeTable.find(addr.city_id).name
-      addr_info = province + ' ' + city
-    end
 
     s = r.salesman
     s_contact = nil
@@ -65,9 +59,11 @@ class ClientsController < ApplicationController
     end
     {
       'shop_name'=>r.shop_name, "contact.name"=>c.name, 'contact.tel'=>c.tel,
-      'addr'=> addr_info, 'salesman'=>r.salesman.name, 'salesman.url'=>salesman_path(r.salesman),
+      'addr'=> r.addr_info, 'salesman'=>r.salesman.name, 'salesman.url'=>salesman_path(r.salesman),
       'qudao'=>'',
-      'join_date'=>r.join_date, 'rate'=>r.rate
+      'join_date'=>r.join_date, 'rate'=>r.rate,
+      'client.url'=> client_url(r)
+
     }
   end
 

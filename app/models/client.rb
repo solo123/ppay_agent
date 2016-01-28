@@ -16,12 +16,18 @@ class Client < ActiveRecord::Base
     end
   end
   def addr_info
+    ret = {
+      'province'=>'',
+      'city'=>'',
+      'detail'=>''
+    }
     if self.addresses.count > 0
-      addr = self.addresses.first
-      CodeTable.find(addr.province_id).name.to_s + ' ' + CodeTable.find(addr.city_id).name.to_s
-    else
-      ''
+      addr = self.addresses.last
+      ret['province'] = CodeTable.find(addr.province_id).name
+      ret['city'] = CodeTable.find(addr.city_id).name
+      ret['detail'] = addr.street
     end
+    return ret
   end
 
   def note_info
