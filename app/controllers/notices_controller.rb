@@ -1,7 +1,8 @@
 class NoticesController < ApplicationController
 
   def index
-    @collection = Notice.page( params[:page]).per(10)
+    d = DateTime.now
+    @collection = Notice.where("publish_date < ? AND close_date> ?", d, d).page( params[:page]).per(10)
   end
 
   def show
