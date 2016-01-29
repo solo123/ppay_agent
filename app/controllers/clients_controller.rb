@@ -59,11 +59,10 @@ class ClientsController < ApplicationController
     end
     {
       'shop_name'=>r.shop_name, "contact.name"=>c.name, 'contact.tel'=>c.tel,
-      'addr'=> r.addr_info, 'salesman'=>r.salesman.name, 'salesman.url'=>salesman_path(r.salesman),
+      'addr'=> r.addr_info['province'] + ' ' + r.addr_info['city'], 'salesman'=>r.salesman.name, 'salesman.url'=>salesman_path(r.salesman),
       'qudao'=>'',
       'join_date'=>r.join_date, 'rate'=>r.rate,
       'client.url'=> client_url(r)
-
     }
   end
 
