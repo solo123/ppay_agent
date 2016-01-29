@@ -73,15 +73,16 @@ class ClientsController < ApplicationController
       'shop_tel_cont'=> params[:search_t],
       'contacts_name_cont'=> params[:search_t],
       'contacts_tel_cont'=> params[:search_t],
+      'shid_eq'=> params[:search_t].to_i,
       # 'address_city_cont'=> params[:search_t],
       'm'=>'or'
     }
     # 特殊处理查询rate和shid,放在一起查询做eq的时候会越界
-    # if params[:search_t].to_f<1
-    #   q_hash = {'rate_eq'=> params[:search_t]}
-    # end
-    # if params[:search_t].to_i>0 && params[:search_t].to_i<clients.count
-    #   q_hash = { 'id_eq'=> params[:search_t]}
+    if params[:search_t].include?("0.00")
+      q_hash = {'rate_eq'=> params[:search_t]}
+    end
+    # if Client.find_by("shid"=>params[:search_t].to_i)!=nil
+    #   q_hash = { 'id_eq'=> params[:search_t].to_i}
     # end
 
     q = clients.ransack(  q_hash )
