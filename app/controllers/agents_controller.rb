@@ -1,17 +1,11 @@
-# coding: utf-8
 class AgentsController < ApplicationController
   before_action :load_object
 
   def show
-
     @cur_trade_total  = @agent_total.trades_sum(Date.current)
     @cur_trade_total["clients_count"] = @agent_total.clients_all.count
     @cur_trade_total["new_clients_count"] = @agent_total.new_clients.count
     @cur_trade_total["company"] = Company.new
-
-    puts '-' * 100
-    puts @cur_trade_total
-    puts '-' * 100
   end
   def active_clients
     @collection_clients = @agent_total.active_clients
@@ -31,6 +25,4 @@ class AgentsController < ApplicationController
       @object = current_user.agent
       @agent_total = Biz::AgentTotalBiz.new(@object.id)
     end
-
-
 end

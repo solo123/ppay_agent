@@ -1,11 +1,8 @@
-class AddressesController < ResourceController
-  def initialize
-    super
-    @m_fields = [1, 3, 4]
-    @sum_fields = [1, 2]
+class AddressesController < ApplicationController
+  def index
+  end
 
-    @table_head = '导入数据结果'
-    @field_titles = ['省', '市', '地址', '邮编', '状态']
+  def show
   end
 
 end
