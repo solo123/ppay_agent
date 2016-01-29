@@ -21,8 +21,8 @@ class Client < ActiveRecord::Base
       'city'=>'',
       'detail'=>''
     }
-    if self.addresses.count > 0
-      addr = self.addresses.last
+    if self.address_id!=nil
+      addr = Address.find(self.address_id)
       ret['province'] = CodeTable.find(addr.province_id).name
       ret['city'] = CodeTable.find(addr.city_id).name
       ret['detail'] = addr.street
