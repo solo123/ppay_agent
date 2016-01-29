@@ -11,9 +11,9 @@
         label.col-md-4.control-label 交易时间
         .col-md-8
           .input-group.input-daterange
-            input.form-control name='date_gt' type='datetime'
+            input.form-control name='date_gt' type='datetime' value="#{params[:date_gt]}"
             span.input-group-addon to
-            input.form-control name='date_lt' type='datetime'
+            input.form-control name='date_lt' type='datetime' value="#{params[:date_lt]}"
       / .form-group
       /   label.col-md-4.control-label 清算类型
       /   .col-md-8
