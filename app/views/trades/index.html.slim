@@ -2,27 +2,27 @@
   .panel-heading
     h4.panel-title 交易查找
   .panel-body.panel-form
-    = search_form_for( @q, class: 'form-horizontal form-bordered', html:{enctype: 'application/json'}) do |f|
+    = form_tag(trades_path, method: "get", class: 'form-horizontal form-bordered') do
       .form-group
-        label.col-md-4.control-label 商户信息
+        / label.col-md-4.control-label 商户信息
         .col-md-8
-          input.form-control name='all_query' value='' placeholder='输入任何字段进行查询'
+          / input.form-control name='all_q' value='' placeholder='输入任何字段进行查询'
       .form-group
         label.col-md-4.control-label 交易时间
         .col-md-8
           .input-group.input-daterange
-            = f.search_field ('trade_date_gt') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_gt]
+            input.form-control name='date_gt' type='datetime'
             span.input-group-addon to
-            = f.search_field ('trade_date_lteq') , class: 'form-control', placeholder: '日期', value: params[:q][:trade_date_lteq]
-      .form-group
-        label.col-md-4.control-label 清算类型
-        .col-md-8
-          label.radio-inline
-            = check_box_tag('clearing_type[]', "t1")
-            = label_tag(:clearing_type_T1, "T1") 
-          label.radio-inline
-            = check_box_tag('clearing_type[]', "t0") 
-            = label_tag(:clearing_type_T0, "T0")
+            input.form-control name='date_lt' type='datetime'
+      / .form-group
+      /   label.col-md-4.control-label 清算类型
+      /   .col-md-8
+      /     label.radio-inline
+      /       = check_box_tag('clearing_type[]', "t1")
+      /       = label_tag(:clearing_type_T1, "T1") 
+      /     label.radio-inline
+      /       = check_box_tag('clearing_type[]', "t0") 
+      /       = label_tag(:clearing_type_T0, "T0")
       .form-group
         label.col-md-4.control-label 交易类型
         .col-md-8

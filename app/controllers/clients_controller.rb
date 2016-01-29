@@ -58,6 +58,7 @@ class ClientsController < ApplicationController
       s_contact = Contact.find(s.contact_id)
     end
     {
+      'shid'=>r.shid,
       'shop_name'=>r.shop_name, "contact.name"=>c.name, 'contact.tel'=>c.tel,
       'addr'=> r.addr_info['province'] + ' ' + r.addr_info['city'], 'salesman'=>r.salesman.name, 'salesman.url'=>salesman_path(r.salesman),
       'qudao'=>'',
@@ -70,13 +71,22 @@ class ClientsController < ApplicationController
     q_hash = {
       'shop_name_cont'=> params[:search_t],
       'shop_tel_cont'=> params[:search_t],
-      # 'rate_eq'=> params[:search_t],
-      # 'id_eq'=> params[:search_t],
+      'contacts_name_cont'=> params[:search_t],
+      'contacts_tel_cont'=> params[:search_t],
+      # 'address_city_cont'=> params[:search_t],
       'm'=>'or'
     }
+    # 特殊处理查询rate和shid,放在一起查询做eq的时候会越界
+    # if params[:search_t].to_f<1
+    #   q_hash = {'rate_eq'=> params[:search_t]}
+    # end
+    # if params[:search_t].to_i>0 && params[:search_t].to_i<clients.count
+    #   q_hash = { 'id_eq'=> params[:search_t]}
+    # end
+
     q = clients.ransack(  q_hash )
     pages = $redis.get(:list_per_page) || 10
-    tmp = q.result(distinct: true).includes(:contacts).page(params[:page]).per( pages )
+    tmp = q.result(distinct: true).includes(:contacts).page( params[:page] ).per( pages )
 
     # salesman_ids = Salesman.ransack({'name_cont'=> option['search_t']}).result(distinct: true).ids
     # r2 = collection.where("salesman_id"=> salesman_ids)

@@ -8,10 +8,10 @@ h1
 table.table
   thead
     tr
-      th
-        | 发布时间
-      th
-        | 结束时间
+      / th
+      /   | 发布时间
+      / th
+      /   | 结束时间
       th
         | 标题
       th
@@ -20,15 +20,16 @@ table.table
   tbody
     - @collection.each do |r|
       tr
-        td
-          = r.publish_date.strftime("%Y-%m-%d %H:%M:%S")
-        td
-          = r.close_date.strftime("%Y-%m-%d %H:%M:%S")
-        td
+        / td
+        /   = r.publish_date.strftime("%Y-%m-%d %H:%M:%S")
+        / td
+        /   = r.close_date.strftime("%Y-%m-%d %H:%M:%S")
+        td.jumbotron
           = r.title
-        td
+        td.jumbotron
           = r.content
         td
           = link_to '详情', r
+      
 br
 = paginate @collection

@@ -2,34 +2,22 @@ class TradesController < ApplicationController
 
   def index
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
-
-    params[:q] ||= {}
-    params[:all_query] ||= ''
-    search_key = params[:q]
-
-    if !params[:all_query].to_s.empty?
-      search_key  =  {'m'=>'or'}
-      search_key["trade_amount_eq"] = params[:all_query].to_f
-      search_key["trade_date"] = params[:all_query].to_date || Date.current
-    end
-
     all_trades = agent_total.trades_all
-    @q = all_trades.ransack( search_key )
-    @collection = @q.result(distinct: true).page(params[:page]).per( 10 )
-    @detail_collection = []
 
+    @collection = search_trade(all_trades).page( params[:page]).per(100)
+    @detail_collection = []
     @collection.each do |t|
       @detail_collection << trade_detail(t)
     end
     @trade_total_count = all_trades.count
     @trade_total_amount = all_trades.sum("trade_amount")
-
   end
 
   def show
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
     @object = agent_total.trades_all.find( params[:id])
   end
+
   def trade_detail(trade)
     client = Client.find(trade.client_id)
     clearing_type = "T1"
@@ -49,6 +37,29 @@ class TradesController < ApplicationController
      ret["pos_machine.url"] = pos_machine_path(pos_machine)
     end
     return ret
+  end
+
+  def search_trade(trades)
+    if params[:trade_type]==nil
+      return trades
+
+    end
+    ids = []
+    params[:trade_type].each do |r|
+      ids << CodeTable.ransack({'name_cont'=>r}).result.ids
+    end
+    puts ids
+
+    # 浏览器上传日期 '12/28/2015' 但是ruby可以解析的字符串格式为 'day/month/year' 例如 '28/12/2015'
+    d_gt_a = params[:date_gt].split('/')
+    puts d_gt_a
+    d_gt = Date.new(d_gt_a[2].to_i, d_gt_a[0].to_i,d_gt_a[1].to_i)
+
+    d_lt_a = params[:date_lt].split('/')
+    puts d_lt_a
+    d_lt = Date.new(d_lt_a[2].to_i,d_lt_a[0].to_i,d_lt_a[1].to_i)
+
+    return trades.where("trade_date > ? AND trade_date < ?", d_gt, d_lt).where("trade_type_id"=>ids)
   end
 
 end

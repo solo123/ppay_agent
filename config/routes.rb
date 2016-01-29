@@ -15,15 +15,6 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/profile'
 
-  # 数据操作
-  get 'import/do_import'
-  get 'import/do_import1'
-  get 'import/parse_data'
-  get 'import/get_import_msg'
-  get 'import/get_log_msg'
-  get 'import/trades_totals'
-  get 'download/import_xls/:name', to: 'download#import_xls', as: :download_import_xls
-
   devise_for :users
   # :users必须在devise_for后面定义 bugfix:把user当作资源的话确保路由通过devise验证
   resources :users

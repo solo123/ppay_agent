@@ -1,25 +1,4 @@
-p#notice
-  = notice
-p
-  strong
-    | publish_date:
-  = @object.publish_date.strftime("%Y-%m-%d %H:%M:%S")
-p
-  strong
-    | close_date:
-  = @object.close_date.strftime("%Y-%m-%d %H:%M:%S")
-p
-  strong
-    | Title:
-  = @object.title
-p
-  strong
-    | Content:
-  = @object.content
-p
-  strong
-    | Publisher:
-  = @object.publisher_id
-
-
-= link_to 'Back', notices_path
+div class='jumbotron'
+  h1 #{@object.title}
+  p #{@object.content}
+= link_to '返回', notices_path

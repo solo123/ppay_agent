@@ -3,7 +3,7 @@ class Client < ActiveRecord::Base
   has_and_belongs_to_many :contacts
   has_many :pos_machines
   belongs_to :category, class_name: 'CodeTable'
-  has_many :addresses, as: :addr_obj
+  has_one :address
   has_many :client_notes
   has_many :client_day_tradetotals
 
