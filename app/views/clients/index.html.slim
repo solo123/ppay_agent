@@ -33,14 +33,13 @@ div class='panel panel-info'
 
 div class='panel panel-success'
   div class='panel-heading'
-    h4 class='panel-title' 帅选结果: #{@all_clients.count}
+    h4 class='panel-title' 帅选结果: #{@collection.count}
   div class='panel-body'
     = paginate @collection
     -if pc?
       table class='table'
         thead
           tr
-            th 商户ID
             th 商户名称
             th 联系人
             th 手机
@@ -53,7 +52,6 @@ div class='panel panel-success'
         tbody
           - @detail_collection.each do |r|
             tr 
-              td= r['shid']
               td= r['shop_name']
               td= r['contact.name']
               td= r['contact.tel']
