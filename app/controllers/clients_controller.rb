@@ -39,8 +39,6 @@ class ClientsController < ApplicationController
       pos_num = pos.serial_number
     end
 
-
-
     {
       "trade.trade_date"=> r.trade_date.strftime("%Y-%m-%d %H:%M:%S"),
       "trade.trade_amount"=> r.trade_amount,

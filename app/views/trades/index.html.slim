@@ -44,7 +44,7 @@
 div class='panel panel-success'
   div class='panel-heading'  
     h4 class='panel-title' 
-      | 帅选结果: 交易笔数: #{@trade_total_count},总金额: #{@trade_total_amount}
+      | 帅选结果: 交易笔数: #{@collection.count},总金额: #{@collection.sum("trade_amount")}
   div class='panel-body' id='trade_body'
     - if pc?
       = paginate @collection
