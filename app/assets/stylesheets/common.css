@@ -1,0 +1,22 @@
+@media (max-width: 1920px){
+	.content{
+		padding: 20px 20px;
+	}
+}
+@media (max-width: 767px){
+	.content{
+		padding: 20px 0 ;
+	}
+	.page-header-fixed{
+		padding-top: 50px;
+	}
+	h2{
+		font-size: 24px;
+	}
+	.pace-progress{
+		top: 55px;
+	}
+	.pace .pace-activity{
+		top: 56px;
+	}
+}
