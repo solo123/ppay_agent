@@ -4,9 +4,9 @@
   .panel-body.panel-form
     = form_tag(trades_path, method: "get", class: 'form-horizontal form-bordered') do
       .form-group
-        / label.col-md-4.control-label 商户信息
+        label.col-md-4.control-label 交易信息
         .col-md-8
-          / input.form-control name='all_q' value='' placeholder='输入任何字段进行查询'
+          input.form-control name='search_t' value="#{params[:search_t]}" placeholder='商户ID、商户名称'
       .form-group
         label.col-md-4.control-label 交易时间
         .col-md-8

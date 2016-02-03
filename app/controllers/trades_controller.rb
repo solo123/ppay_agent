@@ -38,8 +38,24 @@ class TradesController < ApplicationController
     return ret
   end
 
-  def search_trade(trades)
+  def search_keyword(trades)
     ret = trades
+    if params[:search_t].nil? || params[:search_t].empty?
+      return ret.order("trade_date DESC")
+    end
+
+    h = {
+      'client_shid_eq'=> params[:search_t].to_i,
+      'sub_account_cont'=> params[:search_t],
+      'client_name_cont'=> params[:search_t],
+      'client_shop_name_cont'=> params[:search_t],
+      'm'=> 'or'
+    }
+    ret.ransack( h ).result.includes(:client).order("trade_date DESC")
+  end
+
+  def search_trade(trades)
+    ret = search_keyword trades
 
     # 过滤 交易类型
     if params[:trade_type]!='' && params[:trade_type]!=nil
