@@ -4,7 +4,8 @@ class TradesController < ApplicationController
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
     all_trades = agent_total.trades_all
 
-    @collection = search_trade(all_trades).order("trade_date DESC").page( params[:page]).per(100)
+    @all_data = search_trade(all_trades).order("trade_date DESC")
+    @collection = @all_data.page( params[:page]).per(100)
     @detail_collection = []
     @collection.each do |t|
       @detail_collection << trade_detail(t)
