@@ -55,23 +55,6 @@ module Biz
       @salesmen.order('join_date ASC').take(5)
     end
 
-    #trades info
 
-
-    def trades_sum(dt)
-      s_tuple= ''
-      ids = self.clients_all.ids.each do |t|
-        s_tuple << "#{t}, "
-      end
-      s_tuple << "0"
-
-      sql = %Q{
-        select
-        sum(total_amount) as total_amount, sum(total_count) as total_count, sum(wechat_amount) as wechat_amount, sum(wechat_count) as wechat_count, sum(alipay_amount) as alipay_amount, sum(alipay_count) as alipay_count, sum(t0_amount) as t0_amount, sum(t0_count) as t0_count
-        from client_day_tradetotals
-        where client_day_tradetotals.trade_date between date '2015-12-01' and date '2015-12-31' and client_id in (#{s_tuple})
-      }
-      ActiveRecord::Base.connection.execute(sql)[0]
-    end
   end
 end

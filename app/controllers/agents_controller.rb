@@ -2,11 +2,16 @@ class AgentsController < ApplicationController
   before_action :load_object
 
   def show
-    @cur_trade_total  = @agent_total.trades_sum(Date.current)
-    @cur_trade_total["clients_count"] = @agent_total.clients_all.count
-    @cur_trade_total["new_clients_count"] = @agent_total.new_clients.count
-    @cur_trade_total["company"] = Company.new
+    @month_total = ClientDayTradetotal.where(:client_id=> @agent_total.clients_all.ids,
+          :trade_date=> DateTime.now.all_month)
+
+    @all_total  = {:client_count=> @agent_total.clients_all.count,
+      :new_client_count=> @agent_total.clients_all.where(:join_date=>  DateTime.now.all_month).count}
+    @last_amount = ClientDayTradetotal.where(:client_id=> @agent_total.clients_all.ids,
+          :trade_date=> DateTime.now.last_month.all_month).sum("total_amount")
+
   end
+
   def active_clients
     @collection_clients = @agent_total.active_clients
   end

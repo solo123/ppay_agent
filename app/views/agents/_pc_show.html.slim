@@ -1,3 +1,4 @@
+p 上月交易总额: #{@last_amount}
 .row
   .col-md-3
     .widget.widget-stats.bg-blue
@@ -5,22 +6,22 @@
         i.fa.fa-desktop
       .stats-info
         h4 本月总交易金额
-        p #{@cur_trade_total["total_amount"]}
+        p #{@month_total.sum("total_amount")}
       .stats-link
         a href='#'
           span 总笔数 : 
-          span #{@cur_trade_total["total_count"]}
+          span #{@month_total.sum("total_count")}
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
         i.fa.fa-comments.fa-fw
       .stats-info
         h4 本月微信交易金额
-        p #{@cur_trade_total["wechat_amount"]}
+        p #{@month_total.sum("wechat_amount")}
       .stats-link
         a href='#' 
             span 总笔数 : 
-            span #{@cur_trade_total["wechat_count"]}
+            span #{@month_total.sum("wechat_count")}
             span  10元以上笔数: 
             span _
   .col-md-3
@@ -44,11 +45,11 @@
         i.fa.fa-users
       .stats-info
         h4 本月入网商户
-        p #{@cur_trade_total["new_clients_count"]}
+        p #{@all_total[:new_client_count]}
       .stats-link
         a href='#'
           span 总商户数 : 
-          span #{@cur_trade_total["clients_count"]}
+          span #{@all_total[:client_count]}
 
 /
 .row
@@ -59,11 +60,6 @@
           = link_to '更多公告', notices_path, :style =>'color:#FFF;'
         h4.panel-title 系统公告
       .panel-body#agent_bbs
-        div class="jumbotron"
-          h1 2020年 遇见未来
-          p 接下来你将度过完美的4年生活.
-          a class="btn btn-primary btn-lg" href="#" role="button"
-            | Learn more
 
 .panel.panel-primary
   .panel-heading
