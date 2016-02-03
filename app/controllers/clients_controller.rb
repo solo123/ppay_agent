@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
     all_clients = agent_total.clients_all
 
-    pages = $redis.get(:list_per_page) || 10
+    pages = $redis.get(:list_per_page) || 100
     @collection = filter_clients(all_clients).order("join_date DESC").page( params[:page] ).per(pages)
 
     @detail_collection = []

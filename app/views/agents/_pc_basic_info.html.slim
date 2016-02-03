@@ -6,8 +6,8 @@
     h4.panel-title 合作商基础信息
   .panel-body
     .row
-      .col-md-4
-      .col-md-4
+      .col-md-2
+      .col-md-10
         .table-responsive
           table class='table table-profile'
             - @object.contacts.each do |cc|
@@ -18,11 +18,11 @@
                     h4 #{cc.name}
               tbody
                 tr.highlight
-                  td.field 全称
-                  td #{@cur_trade_total["company"].name}
+                  td.field 全称 
+                  td #{@object.company.name if @object.company}
                 tr
-                  td.field 简称
-                  td #{@cur_trade_total["company"].short_name}
+                  td.field 简称 
+                  td #{@object.company.short_name if @object.company}
                 tr
                   td.field 联系人角色
                   td #{cc.roles}

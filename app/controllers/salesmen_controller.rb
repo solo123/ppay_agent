@@ -4,16 +4,11 @@ class SalesmenController < ApplicationController
     params[:q] ||= {}
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
     all_salesman = agent_total.salesman_all
-    @q = all_salesman.ransack( params[:q] )
-    pages = $redis.get(:list_per_page) || 10
-    @collection = @q.result(distinct: true).page(params[:page]).per( pages )
 
-    @detail_collection = []
-    @collection.each do |r|
-      @detail_collection << salesman_detail(r)
-    end
+    @q = all_salesman.ransack( {'name_cont'=> params[:search_t], 'clients_shop_tel_cont'=> params[:search_t], 'm'=> 'or'} )
+    pages = $redis.get(:list_per_page) || 100
+    @collection = @q.result(distinct: true).includes(:clients).page(params[:page]).per( pages )
 
-    @salesman_count = all_salesman.count
   end
 
   def show

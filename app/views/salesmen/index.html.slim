@@ -1,17 +1,19 @@
-/ 
-/ = search_form_for( @q, class: 'form-inline') do |f|
-/   div class='form-group m-r-12'
-/     input class='form-control' name='all_query' value='' placeholder='输入任何字段进行查询'
-/   br
-/   div class='form-group m-r-10'
-/     = f.search_field ('agent_id_eq') , class: 'form-control', placeholder: '商户ID' 
-/     = f.search_field ('contact_id_eq') , class: 'form-control', placeholder: '商户名称'
-/     = f.search_field ('name_cont') , class: 'form-control', placeholder: '商户电话'
-/   = f.submit '查找',  class: 'btn btn-warning form-control'
 
+div class='panel panel-info'
+  div class='panel-heading'
+    h4 class='panel-title' 业务员查询
+  div class='panel-body'
+    .row
+      .col-md-6
+        = form_tag(salesmen_path, method: 'get') do
+          .input-group
+            input type="text" class="form-control" id="exampleInputEmail1" name='search_t' value="#{params[:search_t]}" placeholder='输入 代理商姓名、电话'
+            .input-group-btn
+              button type="submit" class="btn btn-warning" style='border-radius:10px;margin-left:10px;width:100px;' 查找
+  
 div class='panel panel-success'
   div class='panel-heading'
-    h4 class='panel-title' 业务员 (#{@salesman_count})
+    h4 class='panel-title' 业务员 (#{@collection.count})
   div class='panel-body'
     = paginate @collection
     table class='table panel panel-success'
@@ -22,10 +24,10 @@ div class='panel panel-success'
           th 状态
           
       tbody
-        - @detail_collection.each do |r|
+        - @collection.each do |r|
           tr
-            td= r["contact.name"]
-            td= r['contact.tel']
-            td= r["status"]
-            td= link_to '详情', r['url']
+            td= r.name
+            td= "#{r.client.shop_tel}" if r.client
+            td= r.status
+            td= link_to '详情', salesman_path(r)
         

@@ -4,13 +4,12 @@ class TradesController < ApplicationController
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
     all_trades = agent_total.trades_all
 
-    @collection = search_trade(all_trades).page( params[:page]).per(100)
+    @collection = search_trade(all_trades).order("trade_date DESC").page( params[:page]).per(100)
     @detail_collection = []
     @collection.each do |t|
       @detail_collection << trade_detail(t)
     end
-    # @trade_total_count = @collection.count
-    # @trade_total_amount = @collection.sum("trade_amount")
+
   end
 
   def show

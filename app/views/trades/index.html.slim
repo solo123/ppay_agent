@@ -57,7 +57,7 @@ div class='panel panel-success'
             th 交易日期
             th 交易类型 
             th 清算类型
-            th 交易费率
+            / th 交易费率
             th 交易额度
             th 交易状态
             th 机具编号
@@ -71,7 +71,7 @@ div class='panel panel-success'
               td= t["trade_date"]
               td= t["trade_type"]
               td= t["clearing_type"]
-              td= t["rate"]
+              / td= t["rate"]
               td= t["amount"]
               td= t["trade.status"]
               - if t["pos_machine.number"] && t["pos_machine.url"]
