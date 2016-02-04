@@ -67,7 +67,7 @@ div class='panel panel-success'
           .col-xs-2 style='border:1px solid #AEAEAE;border-radius:20px;text-align:center;'
             h4 #{r['rate']*100}
           .col-xs-6
-            p= r['shop_name']
+            p= link_to r['shop_name'], r['client.url']
             span= r['contact.name']
             span= r['contact.tel']
           .col-xs-4
