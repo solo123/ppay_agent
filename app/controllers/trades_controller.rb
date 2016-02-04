@@ -10,7 +10,6 @@ class TradesController < ApplicationController
     @collection.each do |t|
       @detail_collection << trade_detail(t)
     end
-
   end
 
   def show
@@ -38,7 +37,15 @@ class TradesController < ApplicationController
     return ret
   end
 
-  def search_keyword(trades)
+  def search_trade(trades)
+    a = filter_suc(trades)
+    b = filter_keyword(a)
+    c = filter_type(b)
+    d = filter_date(c)
+    return d
+  end
+
+  def filter_keyword(trades)
     ret = trades
     if params[:search_t].nil? || params[:search_t].empty?
       return ret.order("trade_date DESC")
@@ -51,24 +58,32 @@ class TradesController < ApplicationController
       'client_shop_name_cont'=> params[:search_t],
       'm'=> 'or'
     }
-    ret.ransack( h ).result.includes(:client).order("trade_date DESC")
+    ret.ransack( h ).result.includes(:client)
   end
 
-  def search_trade(trades)
-    ret = search_keyword trades
+  def filter_suc(trades)
+    suc_h = {
+      'trade_result_name_cont'=> '交易成功'
+    }
+    trades.ransack( suc_h ).result.includes(:trade_result)
+  end
 
+  def filter_type(trades)
+    ret = trades
     # 过滤 交易类型
     if params[:trade_type]!='' && params[:trade_type]!=nil
       ids = []
       params[:trade_type].each do |r|
         ids << CodeTable.ransack({'name_cont'=>r}).result.ids
       end
-      puts ids
       ret = ret.where("trade_type_id"=>ids)
     end
+    return ret
+  end
 
+  def filter_date(trades)
+    ret = trades
     # 浏览器上传日期 '12/28/2015' 但是ruby可以解析的字符串格式为 'day/month/year' 例如 '28/12/2015'
-
     # 日期下限
     if params[:date_gt]!='' && params[:date_gt]!=nil
       d_gt_a = params[:date_gt].split('/')
