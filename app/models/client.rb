@@ -7,6 +7,8 @@ class Client < ActiveRecord::Base
   has_many :client_notes
   has_many :client_day_tradetotals
 
+  scope :show_order, -> {order('join_date desc')}
+
   def contact_info
     if self.contacts.count > 0
       c = self.contacts.first

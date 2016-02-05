@@ -8,10 +8,10 @@
         h4#myModalLabel.modal-title
           | Modal title
       .modal-body
-        == form_tag("/search", method: "get") do
-          == label_tag(:q, "Search for:")
-          == text_field_tag(:q)
-          == submit_tag("Search")
+        = form_tag("/search", method: "get") do
+          = label_tag(:q, "Search for:")
+          = text_field_tag(:q)
+          = submit_tag("Search")
 
       .modal-footer
         button.btn.btn-default[type="button" data-dismiss="modal"]
@@ -31,45 +31,19 @@ div class='panel panel-info'
             .input-group-btn
               button type="submit" class="btn btn-warning" style='border-radius:10px;margin-left:10px;width:100px;' 查找
 
-div class='panel panel-success'
-  div class='panel-heading'
-    h4 class='panel-title' 帅选结果: #{@collection.count}
-  div class='panel-body'
+.panel.panel-success
+  .panel-heading
+    h4panel-title 帅选结果: #{@collection.count}
+  .panel-body
     = paginate @collection
-    -if pc?
-      table class='table'
-        thead
-          tr
-            th 商户名称
-            th 联系人
-            th 手机
-            th 地区
-            th 业务员
-            th 渠道
-            th 入网时间 
-            th 费率
-            th 操作
-        tbody
-          - @detail_collection.each do |r|
-            tr 
-              td= r['shop_name']
-              td= r['contact.name']
-              td= r['contact.tel']
-              td= r['addr']
-              td= link_to r['salesman'], salesman_path(r['salesman'])
-              td= r['qudao']
-              td= r['join_date']
-              td= r['rate']
-              td= link_to '详情', r['client.url']
-    -else
-      - @detail_collection.each do |r|
-        .row
-          .col-xs-2 style='border:1px solid #AEAEAE;border-radius:20px;text-align:center;'
-            h4 #{r['rate']*100}
-          .col-xs-6
-            p= link_to r['shop_name'], r['client.url']
-            span= r['contact.name']
-            span= r['contact.tel']
-          .col-xs-4
-            p style='text-align:right;' = r['join_date']
-            p style='text-align:right;' = link_to r['salesman'], r['salesman.url']
+    - @collection.each do |r|
+      .row
+        .col-xs-2 style='border:1px solid #AEAEAE;border-radius:20px;text-align:center;'
+          h4 #{r['rate']*100}
+        .col-xs-6
+          p= link_to r['shop_name'], r['client.url']
+          span= r['contact.name']
+          span= r['contact.tel']
+        .col-xs-4
+          p style='text-align:right;' = r['join_date']
+          p style='text-align:right;' = link_to r['salesman'], r['salesman.url']

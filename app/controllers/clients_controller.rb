@@ -1,6 +1,13 @@
 class ClientsController < ApplicationController
   respond_to :html, :js, :json
   def index
+    page_size = $redis.get(:list_per_page) || 100
+    @collection = Client.show_order
+      .page(params[:pages]).per(page_size)
+    byebug
+
+  end
+  def index1
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
     all_clients = agent_total.clients_all
 
@@ -58,8 +65,11 @@ class ClientsController < ApplicationController
     end
     {
       'shid'=>r.shid,
-      'shop_name'=>r.shop_name, "contact.name"=>c.name, 'contact.tel'=>c.tel,
-      'addr'=> r.addr_info['province'] + ' ' + r.addr_info['city'], 'salesman'=>r.salesman.name, 'salesman.url'=>salesman_path(r.salesman),
+      'shop_name'=>r.shop_name, "contact.name"=>c.name,
+      'contact.tel'=>c.tel,
+      'addr'=> r.addr_info['province'] + ' ' + r.addr_info['city'],
+      'salesman'=>r.salesman.name,
+      'salesman.url'=>salesman_path(r.salesman),
       'qudao'=>'',
       'join_date'=>r.join_date, 'rate'=>r.rate,
       'client.url'=> client_url(r)
