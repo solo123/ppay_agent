@@ -1,14 +1,28 @@
 class Client < ActiveRecord::Base
   belongs_to :salesman
+  belongs_to :main_contact, class_name: 'Contact'
   has_and_belongs_to_many :contacts
   has_many :pos_machines
   belongs_to :category, class_name: 'CodeTable'
-  has_one :address
+  belongs_to :address
   has_many :client_notes
   has_many :client_day_tradetotals
+  has_many :trades
+
+  # tag
+  acts_as_taggable
+  acts_as_taggable_on :skills, :interests
 
   scope :show_order, -> {order('join_date desc')}
 
+  def self.update_main_contacts
+    Client.where(main_contact: nil).each do |c|
+      unless c.contacts.empty?
+        c.main_contact = c.contacts.first
+        c.save
+      end
+    end
+  end
   def contact_info
     if self.contacts.count > 0
       c = self.contacts.first
@@ -18,18 +32,18 @@ class Client < ActiveRecord::Base
     end
   end
   def addr_info
-    ret = {
-      'province'=>'',
-      'city'=>'',
-      'detail'=>''
-    }
-    if self.address_id!=nil
-      addr = Address.find(self.address_id)
-      ret['province'] = CodeTable.find(addr.province_id).name
-      ret['city'] = CodeTable.find(addr.city_id).name
-      ret['detail'] = addr.street
+    if self.address
+      "#{self.address.province.name} #{self.address.city.name} #{self.address.street}"
+    else
+      ''
     end
-    return ret
+  end
+  def area_info
+    if self.address
+      "#{self.address.province.name} #{self.address.city.name}"
+    else
+      ''
+    end
   end
 
   def note_info
@@ -40,13 +54,4 @@ class Client < ActiveRecord::Base
   def join_days
     (DateTime.current - self.join_date.to_datetime).to_i.to_s + '天'
   end
-
-  def salesman_info
-    Salesman.find(self.salesman_id.to_i)
-
-  end
-  def shop_category
-    CodeTable.find(self.category_id)
-  end
-
 end

@@ -13,17 +13,20 @@ class CodeTable < ActiveRecord::Base
   def self.find_city(prov_id, city)
     CodeTable.find_or_create_by(parent_id: prov_id, name: city)
   end
-  def self.childs(parend)
-    if parend.to_i > 0
-      self.where(parent: parend)
+  def self.childs(parent)
+    if parent.to_i > 0
+      self.where(parent: parent)
     else
-      p = self.where(name: parend)
+      p = self.where(name: parent)
       if p
         self.where(parent: p)
       else
         []
       end
     end
+  end
+  def childs
+    CodeTable.childs(self)
   end
   def to_i
     self.id

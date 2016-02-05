@@ -8,10 +8,13 @@ class Agent < ActiveRecord::Base
   has_many :agent_day_tradetotals
   has_many :sales_commissions, as: :sales_commission_obj
 
+  has_and_belongs_to_many :bulletin_board_systems
+
 
   accepts_nested_attributes_for :company
   accepts_nested_attributes_for :bank_cards
   accepts_nested_attributes_for :sales_commissions
   accepts_nested_attributes_for :contacts
 
+  has_many :clients, through: :salesmen, source: :clients
 end

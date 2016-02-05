@@ -39,11 +39,12 @@ div class='panel panel-info'
     - @collection.each do |r|
       .row
         .col-xs-2 style='border:1px solid #AEAEAE;border-radius:20px;text-align:center;'
-          h4 #{r['rate']*100}
+          h4 #{r.rate * 100}
         .col-xs-6
-          p= link_to r['shop_name'], r['client.url']
-          span= r['contact.name']
-          span= r['contact.tel']
+          p= link_to r.shop_name, client_url(r)
+          - r.contacts.each do |ct|
+            span= ct.name
+            span= ct.tel
         .col-xs-4
-          p style='text-align:right;' = r['join_date']
-          p style='text-align:right;' = link_to r['salesman'], r['salesman.url']
+          p.text-right= r.join_date
+          p.text-right= link_to r.salesman.name, salesman_path(r.salesman)

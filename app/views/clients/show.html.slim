@@ -1,6 +1,6 @@
 ol.breadcrumb.pull-right
-  li ==link_to 'Home', '/'
-  li ==link_to '商户资料', clients_path
+  li =link_to 'Home', '/'
+  li =link_to '商户资料', clients_path
   li 详细信息
 h2 商户生命周期
 
@@ -41,17 +41,19 @@ h2 商户生命周期
     h4 入网信息
     .row
       .col-xs-6
-        p 经营类型: #{@object.shop_category.name}
+        p 经营类型: #{@object.category.name}
       .col-xs-6
         p 入网时间: #{@object.join_date}
     h4 联系信息
     .row
       .col-xs-6
-        p 联系人: #{@object.contact_info}
-        p 地区: #{@object.addr_info["province"] + @object.addr_info["city"]}
+        - @object.contacts.each do |c|
+          p 联系人: #{c.name}
+          p 电话：#{c.tel}        
       .col-xs-6
-        p 联系手机: #{@object.shop_tel}
-        p 详细地址: #{@object.addr_info["detail"]}
+        - if @object.address
+          p 详细地址: #{@object.address.street}
+          p 地区: #{@object.address.province.name} #{@object.address.city.name}
     h4 终端编号
     .row
       .col-xs-6
@@ -63,7 +65,7 @@ h2 商户生命周期
     h4 渠道信息
     .row
       .col-xs-6
-        p 业务员姓名: #{@object.salesman_info.name}
+        p 业务员姓名: #{@object.salesman.name}
       .col-xs-6
         p 业务员手机:
     h4 费率限额

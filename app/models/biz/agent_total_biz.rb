@@ -18,6 +18,7 @@ module Biz
       @trades = Trade.where('client_id'=> self.clients_all.ids)
       @trades
     end
+
     def clearings_all
       @clearings = Clearing.where("client_id"=> self.clients_all.ids)
       @clearings
@@ -49,12 +50,11 @@ module Biz
       @salesmen.take(10)
     end
     def new_clients
-      self.clients_all.order('join_date ASC').take(5)
+      @clients.order('join_date ASC').take(5)
     end
     def new_salesmen
       @salesmen.order('join_date ASC').take(5)
     end
-
 
   end
 end

@@ -2,10 +2,8 @@ class ClientsController < ApplicationController
   respond_to :html, :js, :json
   def index
     page_size = $redis.get(:list_per_page) || 100
-    @collection = Client.show_order
+    @collection = current_user.agent.clients.show_order
       .page(params[:pages]).per(page_size)
-    byebug
-
   end
   def index1
     agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
