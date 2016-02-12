@@ -1,28 +1,27 @@
+- mth = Date.current.all_month
 .row
   .col-md-3
     .widget.widget-stats.bg-blue
       .stats-icon
         i.fa.fa-desktop
       .stats-info
-        h4 本月总交易金额
-        p #{@month_total.sum("total_amount")}
+        h4 本月交易金额
+        p= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:total_amount)
       .stats-link
         a href='#'
-          span 总笔数 : 
-          span #{@month_total.sum("total_count")}
+          span 笔数 : 
+          span= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:total_count)
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
         i.fa.fa-comments.fa-fw
       .stats-info
         h4 本月微信交易金额
-        p #{@month_total.sum("wechat_amount")}
+        p= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:wechat_amount)
       .stats-link
         a href='#' 
-            span 总笔数 : 
-            span 5650, 
-            / span  10元以上笔数: 
-            / span 5650, 
+            span 笔数 : 
+            span= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:wechat_count)
   .col-md-3
     .widget.widget-stats.bg-purple
       .stats-icon
@@ -44,11 +43,11 @@
         i.fa.fa-users
       .stats-info
         h4 本月入网商户
-        p #{@all_total[:new_client_count]}
+        p= @object.clients.where("join_date like ?", Date.current.to_s[0..6] + '%').count
       .stats-link
         a href='#'
           span 总商户数 : 
-          span #{@all_total[:client_count]}
+          span= @object.clients.count
 
 /
 .row
@@ -94,9 +93,9 @@
           
 javascript:
   $(document).ready(function(){
-    $.getScript("#{active_clients_agent_path(q: Date.today.strftime('%Y-%m'))}");
-    $.getScript("#{active_salesmen_agent_path(q: Date.today.strftime('%Y-%m'))}");
-    $.getScript("#{new_clients_agent_path}");
-    $.getScript("#{notices_path}");
+    $.getScript("#{active_clients_agent_path(id: @object.id, q: Date.today.strftime('%Y-%m'))}");
+    $.getScript("#{active_salesmen_agent_path(id: @object.id, q: Date.today.strftime('%Y-%m'))}");
+    $.getScript("#{new_clients_agent_path(id: @object.id)}");
+    $.getScript("#{notices_path(id: @object.id)}");
   });
   

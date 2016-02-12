@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users
+  # :users必须在devise_for后面定义 bugfix:把user当作资源的话确保路由通过devise验证
+  resources :users
 
   get 'welcome/index'
 
@@ -15,9 +18,6 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/profile'
 
-  devise_for :users
-  # :users必须在devise_for后面定义 bugfix:把user当作资源的话确保路由通过devise验证
-  resources :users
   # 通知
   resources :notices
 
@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   resources :bank_cards
   resources :companies
   resources :agents do
+    collection do
+      get :current
+    end
     member do
       get :basic_info
       get :new_clients
@@ -60,7 +63,7 @@ Rails.application.routes.draw do
   resources :code_tables
 
 
-  root to: 'home#index'
+  root to: 'agents#current'
 
   # comfy_route :cms_admin, :path => '/cms-admin'
   # comfy_route :cms, :path => '/', :sitemap => false

@@ -1,7 +1,12 @@
 class AgentsController < ApplicationController
   before_action :load_object
 
+  def current
+    @object = current_user.agent
+    render :show
+  end
   def show
+    @object = Agent.find(params[:id])
     @month_total = ClientDayTradetotal.where(:client_id=> @agent_total.clients_all.ids,
           :trade_date=> DateTime.now.all_month)
 
