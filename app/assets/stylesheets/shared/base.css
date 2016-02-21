@@ -19,4 +19,17 @@
 	.pace .pace-activity{
 		top: 56px;
 	}
+	.row > [class*="col-"]{
+		padding: 0;
+	}
+	.row{
+		margin: 0;
+	}
+}
+.pagination > li > span{
+	color: #707478;
+	cursor: not-allowed;
+}
+.pagination > li > span:focus,.pagination > li > span:hover{
+	color: #707478;
 }
