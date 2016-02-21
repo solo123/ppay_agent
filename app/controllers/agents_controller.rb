@@ -1,5 +1,4 @@
 class AgentsController < ApplicationController
-  before_action :load_object
 
   def current
     @object = current_user.agent
@@ -30,9 +29,4 @@ class AgentsController < ApplicationController
     @new_clients = @agent_total.new_clients
   end
 
-  private
-    def load_object
-      @object = current_user.agent
-      @agent_total = Biz::AgentTotalBiz.new(@object.id)
-    end
 end
