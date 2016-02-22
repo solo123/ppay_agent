@@ -1,0 +1,19 @@
+table.table
+  thead
+    tr
+      th 子账户
+      th.text-right 交易金额
+      th 交易日期
+      th 交易类型
+      th 交易结果
+
+  tbody
+    - @collection.each do |obj|
+      tr
+        td= obj.sub_account
+        td.text-right
+          strong
+            = number_with_precision obj.trade_amount, precision: 2, delimiter: ','
+        td= obj.trade_date
+        td= obj.trade_type.name if obj.trade_type
+        td= obj.trade_result.name if obj.trade_result

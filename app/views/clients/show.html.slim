@@ -11,21 +11,22 @@ h2 商户生命周期
         i.fa.fa-calendar
       .stats-info
         h4 入网时间
-        p =@object.join_days
+        
+        p = time_ago_in_words (@object.join_date)
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
         i.fa.fa-calculator.fa-fw 
       .stats-info
-        h4 交易笔数
-        p= @object.client_day_tradetotals.sum(:total_count)
+        h4 总交易笔数
+        p= @object.trades.count
   .col-md-3
     .widget.widget-stats.bg-purple
       .stats-icon
         i.fa.fa-money.fa-fw
       .stats-info
-        h4 交易总金额
-        p= @object.client_day_tradetotals.sum(:total_amount)
+        h4 总交易金额
+        p= @object.trades.sum(:trade_amount)
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon

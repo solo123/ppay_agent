@@ -4,17 +4,14 @@ class AgentsController < ApplicationController
     @object = current_user.agent
     render :show
   end
-  def show
-    @object = Agent.find(params[:id])
-    @month_total = ClientDayTradetotal.where(:client_id=> @agent_total.clients_all.ids,
-          :trade_date=> DateTime.now.all_month)
-
-    @all_total  = {:client_count=> @agent_total.clients_all.count,
-      :new_client_count=> @agent_total.clients_all.where(:join_date=>  DateTime.now.all_month).count}
-    @last_amount = ClientDayTradetotal.where(:client_id=> @agent_total.clients_all.ids,
-          :trade_date=> DateTime.now.last_month.all_month).sum("total_amount")
-
-  end
+  # def show
+  #   # @object = current_user.agent
+  #   #
+  #   # @month_total = agent_sum_month @object, Date.current.to_s[0..6], 'all', 'amount'
+  #   # @all_total = TradeSum.where(sum_obj: @object, sum_type: 'month', trade_type: 'all').sum("amount")
+  #   # @last_amount = agent_sum_month @object, Date.current.last_month.to_s[0..6], 'all', 'amount'
+  #
+  # end
 
   def active_clients
     @collection_clients = @agent_total.active_clients
@@ -23,7 +20,8 @@ class AgentsController < ApplicationController
     @collection_salesmen = @agent_total.active_salesmen
   end
   def basic_info
-    show
+    @object = current_user.agent
+
   end
   def new_clients
     @new_clients = @agent_total.new_clients

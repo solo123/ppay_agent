@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def page_title(title)
+    title += " | " if title.present?
+    title += "Pooul"
+  end
 
   MOBILE_USER_AGENTS = 'palm|blackberry|nokia|phone|midp|mobi|symbian|chtml|ericsson|minimo|' \
                          'audiovox|motorola|samsung|telit|upg1|windows ce|ucweb|astel|plucker|' \
@@ -22,5 +26,17 @@ module ApplicationHelper
     return dt
   end
 
+  def n0(num)
+    number_with_precision num, precision: 0, delimiter: ','
+  end
+  def n2(num)
+    number_with_precision num, precision: 2, delimiter: ','
+  end
+  def nw(num)
+    "#{num / 10000}万"
+  end
+  def nq(num)
+    "千#{num * 1000}"
+  end
 
 end

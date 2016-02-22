@@ -2,8 +2,8 @@ class SalesmenController < ApplicationController
 
   def index
     params[:q] ||= {}
-    agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
-    all_salesman = agent_total.salesman_all
+    # agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
+    all_salesman = current_user.agent.salesmen
 
     @q = all_salesman.ransack( {'name_cont'=> params[:search_t], 'clients_shop_tel_cont'=> params[:search_t], 'm'=> 'or'} )
     pages = $redis.get(:list_per_page) || 100

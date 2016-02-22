@@ -5,6 +5,17 @@ Rails.application.routes.draw do
 
   get 'welcome/index'
 
+
+  resources :logs do
+    collection do
+      get :get_log_msg
+    end
+  end
+  resources :contracts do
+    resources :profit_ladders
+  end
+  resources :profit_ladders
+
   resources :salesman_day_tradetotals
 
   resource :report do
@@ -40,6 +51,7 @@ Rails.application.routes.draw do
       get :active_clients
       get :active_salesmen
     end
+    resources :contracts
     resources :contacts
     resources :sales_commissions
   end

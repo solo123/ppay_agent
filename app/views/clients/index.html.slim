@@ -33,7 +33,7 @@ div class='panel panel-info'
 
 .panel.panel-success
   .panel-heading
-    h4panel-title 帅选结果: #{@collection.count}
+    h4panel-title 筛选结果: #{@collection.count}
   .panel-body
     = paginate @collection
     - @collection.each do |r|

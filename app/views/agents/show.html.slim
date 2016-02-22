@@ -1,4 +1,5 @@
 - mth = Date.current.all_month
+- trade_month = Date.current.to_s[0..6]
 .row
   .col-md-3
     .widget.widget-stats.bg-blue
@@ -6,37 +7,51 @@
         i.fa.fa-desktop
       .stats-info
         h4 本月交易金额
-        p= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:total_amount)
+        p=n2 agent_sum_month @object, trade_month, 'all', 'amount'
+        / p= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:total_amount)
       .stats-link
         a href='#'
-          span 笔数 : 
-          span= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:total_count)
+          span
+            | 总笔数 : 
+            =n0 agent_sum_month @object, trade_month, 'all', 'count' 
+
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
         i.fa.fa-comments.fa-fw
       .stats-info
         h4 本月微信交易金额
-        p= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:wechat_amount)
+        p=n2 agent_sum_month @object, trade_month, 'wechat', 'amount'
       .stats-link
         a href='#' 
-            span 笔数 : 
-            span= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:wechat_count)
+            span
+              | 笔数: 
+              =n0 agent_sum_month @object, trade_month, 'wechat', 'count' 
+
   .col-md-3
     .widget.widget-stats.bg-purple
       .stats-icon
         i.fa.fa-clock-o
       .stats-info
-        h4 本月预计分润
-        p -
+        h3 本月预计分润
+        p _
       .stats-link
         a href='#'
-          span T1:
-          span 9393, 
-          span T0:
-          span 234,
           span 微信:
-          span 222,      
+          span
+            =n2 agent_sum_month @object, trade_month, 'wechat', 'amount'
+            |,
+          span 支付宝:
+          span
+            =n2 agent_sum_month @object, trade_month, 'alipay', 'amount'
+            |,
+          span T0:
+          span
+            =n2 agent_sum_month @object, trade_month, 't0', 'amount'
+            |,
+          span T1:
+          span=n2 agent_sum_month @object, trade_month, 't1', 'amount'
+     
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon

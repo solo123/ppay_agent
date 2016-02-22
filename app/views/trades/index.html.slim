@@ -2,91 +2,69 @@
   .panel-heading
     h4.panel-title 交易查找
   .panel-body.panel-form
-    = form_tag(trades_path, method: "get", class: 'form-horizontal form-bordered') do
-      .form-group
-        label.col-md-4.control-label 交易信息
-        .col-md-8
-          input.form-control name='search_t' value="#{params[:search_t]}" placeholder='商户ID、商户名称'
-      .form-group
-        label.col-md-4.control-label 交易时间
-        .col-md-8
-          .input-group.input-daterange
-            input.form-control name='date_gt' type='datetime' value="#{params[:date_gt]}"
-            span.input-group-addon to
-            input.form-control name='date_lt' type='datetime' value="#{params[:date_lt]}"
-      / .form-group
-      /   label.col-md-4.control-label 清算类型
-      /   .col-md-8
-      /     label.radio-inline
-      /       = check_box_tag('clearing_type[]', "t1")
-      /       = label_tag(:clearing_type_T1, "T1") 
-      /     label.radio-inline
-      /       = check_box_tag('clearing_type[]', "t0") 
-      /       = label_tag(:clearing_type_T0, "T0")
-      .form-group
-        label.col-md-4.control-label 交易类型
-        .col-md-8
-          label.radio-inline
-            = check_box_tag('trade_type[]','微信')
-            = label_tag(:trade_type_zs, "微信") 
-          label.radio-inline
-            = check_box_tag('trade_type[]','支付宝') 
-            = label_tag(:trade_type_zf, "支付宝")
-          label.radio-inline
-            = check_box_tag('trade_type[]','刷卡') 
-            = label_tag(:trade_type_qp, "刷卡")
-      .form-group
-        .col-md-4.col-xs-2
-        .col-md-2.col-xs-8
-          button.btn.btn-sm.btn-warning#trade_search_btn style='width:200px;' 查找
+    .container
+      = search_form_for(@q, class: 'form-horizontal' ) do |f|
+        .form-group
+          lable.col-md-3.control-label 关键字
+          .col-md-3
+            = f.search_field :client_shop_name_or_sub_account_cont, 
+              placeholder: '商户ID、商户名称、子账号',
+              class: 'form-control'
+        .form-group
+          lable.col-md-3.control-label 交易时间
+          .col-md-5
+            .input-group.input-datarange
+              = f.search_field :trade_date_gteq,
+                class: 'form-control',
+                placeholder: '起始日期',
+                type: 'datetime'
+              span.input-group-addon to
+              = f.search_field :trade_date_lt,
+                class: 'form-control',
+                placeholder: '结束日期',
+                type: 'datetime'
+        .form-group
+          lable.col-md-3.control-label 条件
+          - CodeTable.find_by(name: 'trade_type').childs.each do |t|
+            label.radio-inline
+              = check_box_tag('q[trade_type_id_eq_any][]', t.id)
+              = label_tag('q[trade_type_id_eq_any]', t.name) 
 
+        .form-group
+          lable.col-md-3.control-label 查询
+          .col-md-1
+          = f.submit '提交', class: 'btn btn-sm btn-success'
 
-div class='panel panel-success'
-  div class='panel-heading'  
-    h4 class='panel-title' 
-      | 帅选结果: 交易笔数: #{@all_data.count},总金额: #{@all_data.sum("trade_amount")}
-  div class='panel-body' id='trade_body'
-    - if pc?
-      = paginate @collection
-      table class='table'
-        thead
-          tr
-            th 商户名称
-            th 商户ID
-            th 操作员
-            th 交易日期
-            th 交易类型 
-            th 清算类型
-            / th 交易费率
-            th 交易额度
-            th 交易状态
-            th 机具编号
+.panel.panel-success
+  .panel-heading 
+    h4.panel-title
+      | 筛选结果: 交易笔数: #{@q.result.count},总金额: #{@q.result.sum("trade_amount")}
 
-        tbody
-          - @detail_collection.each do |t|
-            tr
-              td= link_to t["client.name"], t["client.url"]
-              td= t["client.shid"]
-              td= t["sub_accont.name"]
-              td= t["trade_date"]
-              td= t["trade_type"]
-              td= t["clearing_type"]
-              / td= t["rate"]
-              td= t["amount"]
-              td= t["trade.status"]
-              - if t["pos_machine.number"] && t["pos_machine.url"]
-                td= link_to(t["pos_machine.number"], t["pos_machine.url"])
-              - else
-                td= ''
-    - else
-      = paginate @collection
-      - @detail_collection.each do |t|
-        .row
-          .col-xs-2 style='border:1px solid #AEAEAE;border-radius:30px;text-align:center;'
-            h4= t["trade_type"]
-          .col-xs-6
-            p= link_to t["client.name"], t["client.url"]
-            span= t["trade_date"]
-          .col-xs-4
-            p style='color:red;font-size:24px;text-align:right;' = t["amount"] 
-            p style='text-align:right;' = t["clearing_type"]
+  .panel-body
+    = paginate @collection
+    table.table
+      thead
+        tr
+          th 商户ID
+          th 商户名称
+          th 子账户
+          th 交易金额
+          th 交易日期
+          th 交易类型
+          th 交易结果
+
+      tbody
+        tr.bg-info
+          td colspan='3' 汇总 共 #{@all_data.count} 条
+          td.text-right=n2 @all_data.sum(:trade_amount)
+          td colspan='3'
+        - @collection.each do |obj|
+          tr id="trade_#{obj.id}"
+            td= obj.client.shid
+            th= link_to "#{obj.client.shop_name}", client_path(obj.client_id)
+            td= obj.sub_account
+            td.text-right
+              strong=n2 obj.trade_amount
+            td= obj.trade_date
+            td= obj.trade_type.name
+            td= obj.trade_result.name
