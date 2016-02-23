@@ -1,7 +1,7 @@
 class TradesController < ResourcesController
   def load_collection
-		params[:q] ||= {}
-    @q = Trade.where(:client=> current_user.agent.clients).show_order.ransack(params[:q])
+    suc_code = CodeTable.find_by(name: 'trade_result').childs.where('name like ?', '交易成功').last
+    @q = Trade.where(:client=> current_user.agent.clients, :trade_result=> suc_code).show_order.ransack( params[:q] )
 		pages = $redis.get(:list_per_page) || 100
 		@all_data = @q.result
 		@collection = @q.result
