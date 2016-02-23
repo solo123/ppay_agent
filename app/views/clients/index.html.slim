@@ -42,9 +42,10 @@ div class='panel panel-info'
           h4 #{r.rate * 100}
         .col-xs-6
           p= link_to r.shop_name, client_url(r)
-          - r.contacts.each do |ct|
-            span= ct.name
-            span= ct.tel
+          p= link_to r.shop_tel, "tel:#{r.shop_tel}" 
+          / - r.contacts.each do |ct|
+          /   span= ct.name
+          /   span= ct.tel
         .col-xs-4
           p.text-right= r.join_date
           p.text-right= link_to r.salesman.name, salesman_path(r.salesman)
