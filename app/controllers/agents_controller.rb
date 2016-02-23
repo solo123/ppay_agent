@@ -24,7 +24,7 @@ class AgentsController < ApplicationController
 
   end
   def new_clients
-    @new_clients = @agent_total.new_clients
+    @new_clients = current_user.agent.clients.order('join_date desc').take(10)
   end
 
 end

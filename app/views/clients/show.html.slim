@@ -33,7 +33,7 @@ h2 商户生命周期
         i.fa.fa-clock-o
       .stats-info
         h4 最后交易时间
-        p= @object.trades.last.trade_date if @object.trades.last
+        p= @object.trades.last.trade_date.strftime('%Y-%m-%d %H:%M:%S') if @object.trades.last
 
 .panel.panel-success
   .panel-heading

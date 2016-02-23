@@ -65,6 +65,6 @@
             td= obj.sub_account
             td.text-right
               strong=n2 obj.trade_amount
-            td= obj.trade_date
+            td= obj.trade_date.strftime('%Y-%m-%d %H:%M:%S')
             td= obj.trade_type.name
             td= obj.trade_result.name

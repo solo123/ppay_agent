@@ -79,15 +79,15 @@
     h4.panel-title 最新入网商户
   .panel-body#new_clients_agent
 
-.panel.panel-primary
-  .panel-heading
-    h4.panel-title 活跃商户
-  .panel-body#active_clients_agent_day_tradetotal
-
-.panel.panel-primary
-  .panel-heading
-    h4.panel-title 活跃业务员
-  .panel-body#active_salesmen_agent_day_tradetotal
+/ .panel.panel-primary
+/   .panel-heading
+/     h4.panel-title 活跃商户
+/   .panel-body#active_clients_agent_day_tradetotal
+/ 
+/ .panel.panel-primary
+/   .panel-heading
+/     h4.panel-title 活跃业务员
+/   .panel-body#active_salesmen_agent_day_tradetotal
 
 / .panel.panel-primary
 /   .panel-heading
@@ -108,8 +108,8 @@
           
 javascript:
   $(document).ready(function(){
-    $.getScript("#{active_clients_agent_path(id: @object.id, q: Date.today.strftime('%Y-%m'))}");
-    $.getScript("#{active_salesmen_agent_path(id: @object.id, q: Date.today.strftime('%Y-%m'))}");
+    //$.getScript("#{active_clients_agent_path(id: @object.id, q: Date.today.strftime('%Y-%m'))}");
+    //$.getScript("#{active_salesmen_agent_path(id: @object.id, q: Date.today.strftime('%Y-%m'))}");
     $.getScript("#{new_clients_agent_path(id: @object.id)}");
     $.getScript("#{notices_path(id: @object.id)}");
   });
