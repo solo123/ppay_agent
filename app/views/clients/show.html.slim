@@ -93,7 +93,7 @@ h2 商户生命周期
           h4= t.trade_type.name if t.trade_type
         .col-xs-6
           p= t.pos_machine.serial_number if t.pos_machine
-          span= t.trade_date
+          span= t.trade_date.strftime('%Y-%m-%d %H:%M:%S')
         .col-xs-4
           p style='color:red;font-size:24px;text-align:right;' = t.trade_amount
           p style='text-align:right;' = t.trade_result.name if t.trade_result
