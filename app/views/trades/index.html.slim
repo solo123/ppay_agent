@@ -5,10 +5,15 @@
     .container
       = search_form_for(@q, class: 'form-horizontal' ) do |f|
         .form-group
+          lable.col-md-3.control-label 商户ID
+          .col-md-3
+            = f.search_field :client_shid_eq,
+              placeholder: '商户ID', class: 'form-control'
+        .form-group
           lable.col-md-3.control-label 关键字
           .col-md-3
             = f.search_field :client_shop_name_or_sub_account_cont, 
-              placeholder: '商户ID、商户名称、子账号',
+              placeholder: '商户名称、子账号',
               class: 'form-control'
         .form-group
           lable.col-md-3.control-label 交易时间

@@ -19,10 +19,10 @@
         button.btn.btn-primary[type="button"]
           | 添加
 
-div class='panel panel-info'
-  div class='panel-heading'
-    h4 class='panel-title' 商户查询
-  div class='panel-body'
+.panel.panel-info
+  .panel-heading
+    h4.panel-title 商户查询
+  .panel-body
     .row
       .col-md-6
         = form_tag(clients_path, method: 'get') do
@@ -33,7 +33,7 @@ div class='panel panel-info'
 
 .panel.panel-success
   .panel-heading
-    h4panel-title 筛选结果: #{@collection.count}
+    h4.panel-title 筛选结果: #{@collection.count}
   .panel-body
     = paginate @collection
     - @collection.each do |r|
@@ -43,9 +43,6 @@ div class='panel panel-info'
         .col-xs-6
           p= link_to r.shop_name, client_url(r)
           p= link_to r.shop_tel, "tel:#{r.shop_tel}" 
-          / - r.contacts.each do |ct|
-          /   span= ct.name
-          /   span= ct.tel
         .col-xs-4
           p.text-right= r.join_date
           p.text-right= link_to r.salesman.name, salesman_path(r.salesman)

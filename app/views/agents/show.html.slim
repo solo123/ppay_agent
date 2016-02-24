@@ -8,13 +8,11 @@
       .stats-info
         h4 本月交易金额
         p=n2 agent_sum_month @object, trade_month, 'all', 'amount'
-        / p= SalesmanDayTradetotal.where(trade_date: mth).where(salesman: @object.salesmen).sum(:total_amount)
       .stats-link
         a href='#'
           span
             | 总笔数 : 
             =n0 agent_sum_month @object, trade_month, 'all', 'count' 
-
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
@@ -27,30 +25,33 @@
             span
               | 笔数: 
               =n0 agent_sum_month @object, trade_month, 'wechat', 'count' 
-
   .col-md-3
     .widget.widget-stats.bg-purple
       .stats-icon
         i.fa.fa-clock-o
       .stats-info
-        h3 本月预计分润
-        p _
+        table.table
+          tr
+            td 微信
+            td=n2 (n = agent_sum_month(@object, trade_month, 'wechat', 'amount'))
+            td=n2 (t1 = @object.profit(n, 'wechat'))
+          tr
+            td 支付宝
+            td=n2 (n = agent_sum_month(@object, trade_month, 'alipay', 'amount'))
+            td=n2 (t2 = @object.profit(n, 'alipay'))
+          tr
+            td T0
+            td=n2 (n = agent_sum_month(@object, trade_month, 't0', 'amount'))
+            td=n2 (t3 = @object.profit(n, 't0'))
+          tr
+            td T1
+            td=n2 (n = agent_sum_month(@object, trade_month, 't1', 'amount'))
+            td=n2 (t4 = @object.profit(n, 't1'))
       .stats-link
         a href='#'
-          span 微信:
           span
-            =n2 agent_sum_month @object, trade_month, 'wechat', 'amount'
-            |,
-          span 支付宝:
-          span
-            =n2 agent_sum_month @object, trade_month, 'alipay', 'amount'
-            |,
-          span T0:
-          span
-            =n2 agent_sum_month @object, trade_month, 't0', 'amount'
-            |,
-          span T1:
-          span=n2 agent_sum_month @object, trade_month, 't1', 'amount'
+            | 分润合计: 
+            =n2 t1 + t2 + t3 + t4
      
   .col-md-3
     .widget.widget-stats.bg-red

@@ -4,13 +4,8 @@ Rails.application.routes.draw do
   resources :users
 
   get 'welcome/index'
+  get 'home/profile'
 
-
-  resources :logs do
-    collection do
-      get :get_log_msg
-    end
-  end
   resources :contracts do
     resources :profit_ladders
   end
@@ -26,13 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'home/index'
-  get 'home/profile'
-
-  # 通知
   resources :notices
-
-  # 业务数据
   resources :joinlast_clients
   resources :sales_commissions do
     collection do
@@ -73,7 +62,6 @@ Rails.application.routes.draw do
 
   # raw data
   resources :code_tables
-
 
   root to: 'agents#current'
 

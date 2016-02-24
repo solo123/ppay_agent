@@ -1,8 +1,9 @@
 class ClientsController < ApplicationController
   def index
     page_size = $redis.get(:list_per_page) || 100
-    @collection = current_user.agent.clients.show_order
-      .page(params[:pages]).per(page_size)
+    @collection = current_user
+      .agent.clients.show_order
+      .page(params[:page]).per(page_size)
   end
 
   def show
@@ -11,5 +12,5 @@ class ClientsController < ApplicationController
 
     @trades = @object.trades.show_order.page(params[:pages]).per(100)
   end
-  
+
 end
