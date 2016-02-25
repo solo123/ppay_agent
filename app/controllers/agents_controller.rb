@@ -1,4 +1,4 @@
-class AgentsController < ApplicationController
+class AgentsController < PooulController
 
   def current
     @object = current_user.agent

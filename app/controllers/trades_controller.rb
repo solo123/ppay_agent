@@ -1,4 +1,4 @@
-class TradesController < ResourcesController
+class TradesController < PooulController
   def load_collection
     suc_code = CodeTable.find_by(name: 'trade_result').childs.where('name like ?', '交易成功').last
     @q = Trade.where(:client=> current_user.agent.clients, :trade_result=> suc_code).show_order.ransack( params[:q] )

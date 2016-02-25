@@ -1,4 +1,4 @@
-class ResourcesController < AdminController
+class PooulController < ApplicationController
 	respond_to :html, :js, :json
 
 	def select
@@ -70,22 +70,9 @@ class ResourcesController < AdminController
 
 	protected
 	def load_collection
-		params[:q] ||= {}
-		if object_name.classify.constantize.respond_to? :show_order
-			@q = object_name.classify.constantize.show_order.ransack(params[:q])
-		else
-			@q = object_name.classify.constantize.ransack(params[:q])
-		end
-		pages = $redis.get(:list_per_page) || 100
-		result = @q.result
-		if params[:d]
-			params[:d].each do |d|
-				dy = Time.zone.parse(d[1])
-				result = result.where(d[0] => [dy.beginning_of_day..dy.end_of_day])
-		  end
-		end
-		@all_data = result
-		@collection = @all_data.page(params[:page]).per(pages)
+		@q = object_name.classify.constantize.search(params[:q])
+		pages = 20
+		@collection = @q.result(distinct: true).page(params[:page]).per(pages)
 	end
 	def load_object
 		@object = object_name.classify.constantize.find_by_id(params[:id])

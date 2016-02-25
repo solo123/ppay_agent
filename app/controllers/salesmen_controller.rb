@@ -1,13 +1,13 @@
 class SalesmenController < ApplicationController
-
   def index
     params[:q] ||= {}
-    # agent_total  = Biz::AgentTotalBiz.new(current_user.agent.id)
     all_salesman = current_user.agent.salesmen
 
-    @q = all_salesman.ransack( {'name_cont'=> params[:search_t], 'clients_shop_tel_cont'=> params[:search_t], 'm'=> 'or'} )
+    @q = all_salesman.ransack(params[:q])
     pages = $redis.get(:list_per_page) || 100
-    @collection = @q.result(distinct: true).includes(:clients).page(params[:page]).per( pages )
+    @collection = @q.result
+      .includes(:clients)
+      .page(params[:page]).per( pages )
 
   end
 
