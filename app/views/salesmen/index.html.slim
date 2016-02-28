@@ -7,11 +7,11 @@
       .col-md-6
         = search_form_for @q do |f|
           = f.search_field :name_cont
-          = f.submit
+          = f.submit '查找'
   
 div class='panel panel-success'
   div class='panel-heading'
-    h4 class='panel-title' 业务员 (#{@collection.count})
+    h4 class='panel-title' 业务员
   div class='panel-body'
     = paginate @collection
     table class='table panel panel-success'
@@ -24,8 +24,7 @@ div class='panel panel-success'
       tbody
         - @collection.each do |r|
           tr
-            td= r.name
+            td= link_to r.name, salesman_path(r)
             td= "#{r.client.shop_tel}" if r.client
             td= r.status
-            td= link_to '详情', salesman_path(r)
         

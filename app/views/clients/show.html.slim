@@ -35,51 +35,7 @@ h2 商户生命周期
         h4 最后交易时间
         p= @object.trades.last.trade_date.strftime('%Y-%m-%d %H:%M:%S') if @object.trades.last
 
-.panel.panel-success
-  .panel-heading
-    h4.panel-title #{@object.shop_name}
-  .panel-body
-    h4 入网信息
-    .row
-      .col-xs-6
-        p 经营类型: #{@object.category.name}
-      .col-xs-6
-        p 入网时间: #{@object.join_date}
-    h4 联系信息
-    .row
-      .col-xs-6
-        p 主要联系人：#{@object.contact_name}
-        - @object.contacts.each do |c|
-          p 联系人: #{c.name}
-          p 电话：#{c.tel}        
-      .col-xs-6
-        - if @object.address
-          p 详细地址: #{@object.address.street}
-          p 地区: #{@object.address.province.name} #{@object.address.city.name}
-    h4 终端编号
-    .row
-      .col-xs-6
-        ul
-          - @object.pos_machines.each do |r| 
-            p 
-              | #{r.serial_number}
-              
-    h4 渠道信息
-    .row
-      .col-xs-6
-        p 业务员姓名: #{@object.salesman.name}
-      .col-xs-6
-        p 业务员手机:
-    h4 费率限额
-    .row
-      .col-xs-6
-        p POS刷卡结算方式: T1
-        p 信用卡单笔限额: #{@object.credit_card_limit_each/10000}万
-        p 借记卡单笔限额: #{@object.bank_card_limit_each/10000}万
-      .col-xs-6
-        p 费率: #{@object.rate}
-        p 信用卡月限额: #{@object.credit_card_limit_month/10000}万
-        p 借记卡月限额: #{@object.bank_card_limit_month/10000}万
+= render partial: 'info', locals: {client: @object}
 /    
 .panel.panel-success
   .panel-heading

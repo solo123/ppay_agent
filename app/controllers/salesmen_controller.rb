@@ -1,18 +1,15 @@
-class SalesmenController < ApplicationController
+class SalesmenController < PooulController
   def index
     params[:q] ||= {}
-    all_salesman = current_user.agent.salesmen
-
-    @q = all_salesman.ransack(params[:q])
+    @q = current_user.agent.salesmen.ransack(params[:q])
     pages = $redis.get(:list_per_page) || 100
     @collection = @q.result
       .includes(:clients)
-      .page(params[:page]).per( pages )
-
+      .page(params[:page]).per(pages)
   end
 
   def show
-    @object_hash = salesman_detail Salesman.find(params[:id])
+    @object = current_user.agent.salesmen.find(params[:id])
   end
 
   def salesman_detail(salesman)

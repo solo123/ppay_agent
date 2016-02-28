@@ -1,12 +1,9 @@
-table class='table'
-  thead
-    th 姓名
-    th 电话
-    th 状态
-  tbody
-    tr
-      td= @object_hash["contact.name"]
-      td= @object_hash['contact.tel']
-      td= @object_hash["status"]
+h4 业务员：#{@object.name}
+- if @object.client
+  = render partial: 'clients/info', locals: {client: @object.client}
+- else
+  .note.note-info
+    h4 没有找到业务员自身商户
+
 
 p 针对业务员的统计数据，稍后会提供，敬请期待。

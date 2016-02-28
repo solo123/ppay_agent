@@ -1,5 +1,4 @@
 class AgentsController < PooulController
-
   def current
     @object = current_user.agent
     render :show

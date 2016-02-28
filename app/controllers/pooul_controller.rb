@@ -19,55 +19,6 @@ class PooulController < ApplicationController
 			format.json { render json: @object }
 		end
 	end
-	def edit
-		load_object
-	end
-	def new
-		@object = object_name.classify.constantize.new
-	end
-	def update
-		load_object
-		params.permit!
-		@object.attributes = params[object_name.singularize.parameterize('_')]
-		if @object.changed_for_autosave?
-			#@changes = @object.all_changes
-			if @object.save
-			else
-				flash[:error] = @object.errors.full_messages.to_sentence
-				@no_log = 1
-			end
-		end
-    respond_to do |format|
-      format.html { redirect_to :action => :show }
-      format.json { respond_with_bip(@object) }
-      format.js
-    end
-	end
-	def create
-		params.permit!
-		@object = object_name.classify.constantize.new(params[object_name.singularize.parameterize('_')])
-		@object.employee = current_employee if @object.attributes.has_key? 'employee_id'
-		@object.creator = current_employee if @object.attributes.has_key? 'creator_id'
-		unless @object.save
-			flash[:error] = @object.errors.full_messages.to_sentence
-			@no_log = 1
-		end
-		respond_to do |format|
-			format.html { redirect_to @object}
-			format.js
-		end
-	end
-	def destroy
-		load_object
-		if @object.status && @object.status > 0
-			@object.status = 0
-		else
-			@object.status = 7
-		end
-		@object.save
-		redirect_to :action => :index
-	end
-
 	protected
 	def load_collection
 		@q = object_name.classify.constantize.search(params[:q])
