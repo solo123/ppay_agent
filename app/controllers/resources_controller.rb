@@ -1,4 +1,4 @@
-class ResourcesController < AdminController
+class ResourcesController < PooulController
 	respond_to :html, :js, :json
 
 	def select
