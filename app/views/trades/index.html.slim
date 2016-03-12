@@ -1,75 +1,87 @@
-.panel.panel-info
-  .panel-heading
-    h4.panel-title 交易查找
-  .panel-body.panel-form
-    .container
-      = search_form_for(@q, class: 'form-horizontal' ) do |f|
-        .form-group
-          lable.col-md-3.control-label 商户ID
-          .col-md-3
-            = f.search_field :client_shid_eq,
-              placeholder: '商户ID', class: 'form-control'
-        .form-group
-          lable.col-md-3.control-label 关键字
-          .col-md-3
-            = f.search_field :client_shop_name_or_sub_account_cont, 
-              placeholder: '商户名称、子账号',
-              class: 'form-control'
-        .form-group
-          lable.col-md-3.control-label 交易时间
-          .col-md-5
-            .input-group.input-datarange
-              = f.search_field :trade_date_gteq,
-                class: 'form-control',
-                placeholder: '起始日期',
-                type: 'datetime'
-              span.input-group-addon to
-              = f.search_field :trade_date_lt,
-                class: 'form-control',
-                placeholder: '结束日期',
-                type: 'datetime'
-        .form-group
-          lable.col-md-3.control-label 条件
-          - CodeTable.find_by(name: 'trade_type').childs.each do |t|
-            label.radio-inline
-              = check_box_tag('q[trade_type_id_eq_any][]', t.id)
-              = label_tag('q[trade_type_id_eq_any]', t.name) 
-
-        .form-group
-          lable.col-md-3.control-label 查询
-          .col-md-1
-          = f.submit '提交', class: 'btn btn-sm btn-success'
-
-.panel.panel-success
-  .panel-heading 
-    h4.panel-title
-      | 筛选结果: 交易笔数: #{@q.result.count},总金额: #{@q.result.sum("trade_amount")}
-
+.panel.panel-inverse
   .panel-body
-    = paginate @collection
-    table.table
-      thead
-        tr
-          th 商户ID
-          th 商户名称
-          th 子账户
-          th 交易金额
-          th 交易日期
-          th 交易类型
-          th 交易结果
+    = search_form_for(@q, class: 'form-horizontal' ) do |f|
+      .form-group
+        lable.col-md-3.control-label 商户ID
+        .col-md-3
+          = f.search_field :client_shid_eq,
+            placeholder: '商户ID', class: 'form-control'
+      .form-group
+        lable.col-md-3.control-label 关键字
+        .col-md-3
+          = f.search_field :client_shop_name_or_sub_account_cont,
+            placeholder: '商户名称、子账号',
+            class: 'form-control'
+      .form-group
+        lable.col-md-3.control-label 交易时间
+        .col-md-5
+          .input-group.input-datarange
+            = f.search_field :trade_date_gteq,
+              class: 'form-control',
+              placeholder: '起始日期',
+              type: 'datetime'
+            span.input-group-addon to
+            = f.search_field :trade_date_lt,
+              class: 'form-control',
+              placeholder: '结束日期',
+              type: 'datetime'
+      .form-group
+        lable.col-md-3.control-label 条件
+        - CodeTable.find_by(name: 'trade_type').childs.each do |t|
+          label.radio-inline
+            = check_box_tag('q[trade_type_id_eq_any][]', t.id)
+            = label_tag('q[trade_type_id_eq_any]', t.name)
 
-      tbody
-        tr.bg-info
-          td colspan='3' 汇总 共 #{@all_data.count} 条
-          td.text-right=n2 @all_data.sum(:trade_amount)
-          td colspan='3'
-        - @collection.each do |obj|
-          tr id="trade_#{obj.id}"
-            td= obj.client.shid
-            th= link_to "#{obj.client.shop_name}", client_path(obj.client_id)
-            td= obj.sub_account
-            td.text-right
-              strong=n2 obj.trade_amount
-            td= obj.trade_date.strftime('%Y-%m-%d %H:%M:%S')
-            td= obj.trade_type.name
-            td= obj.trade_result.name
+      .form-group
+        lable.col-md-3.control-label 查询
+        .col-md-9
+          = f.submit '提交', class: 'btn btn-lg btn-success'
+      .form-group
+        .col-md-3
+        .col-md-9
+          | 筛选结果: 交易笔数: #{@q.result.count},总金额: #{@q.result.sum("trade_amount")}
+
+.list-group.datalist-group
+  - @collection.each do |obj|
+    .list-group-item
+      h4.list-group-item-heading = link_to "#{obj.client.shop_name}", client_path(obj.client_id)
+      span.badge=n2 obj.trade_amount
+      -if obj.sub_account
+        | 子帐号：
+        span= obj.sub_account
+      .list-group-item-text
+        span= obj.trade_result.name
+        | ｜
+        span= obj.trade_type.name
+        p.datalist-date= obj.trade_date.strftime('%Y-%m-%d %H:%M:%S')
+
+
+
+
+/  table.table
+/    thead
+/      tr
+/        th 商户ID
+/        th 商户名称
+/        th 子账户
+/        th 交易金额
+/        th 交易日期
+/        th 交易类型
+/        th 交易结果
+/
+/    tbody
+/      tr.bg-info
+/        td colspan='3' 汇总 共 #{@all_data.count} 条
+/        td.text-right=n2 @all_data.sum(:trade_amount)
+/        td colspan='3'
+/      - @collection.each do |obj|
+/        tr id="trade_#{obj.id}"
+/          td= obj.client.shid
+/          th= link_to "#{obj.client.shop_name}", client_path(obj.client_id)
+/          td= obj.sub_account
+/          td.text-right
+/            strong=n2 obj.trade_amount
+/          td= obj.trade_date.strftime('%Y-%m-%d %H:%M:%S')
+/          td= obj.trade_type.name
+/          td= obj.trade_result.name
+= paginate @collection

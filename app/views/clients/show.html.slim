@@ -3,29 +3,17 @@ ol.breadcrumb.pull-right
   li =link_to '商户资料', clients_path
   li 详细信息
 
-
 = render partial: 'info', locals: {client: @object}
-/
-.panel.panel-inverse
-  .panel-heading
-    .panel-title 交易信息
-  .panel-body
-    = paginate @trades
-    - @trades.each do |t|
-      .row
-        .col-xs-2
-          span= t.trade_type.name if t.trade_type
-        .col-xs-6
-          p= t.pos_machine.serial_number if t.pos_machine
-          span= t.trade_date.strftime('%Y-%m-%d %H:%M:%S')
-        .col-xs-4
-          p.text-right= t.trade_amount
-          p.text-right= t.trade_result.name if t.trade_result
 
-
-    / h4 交易流水
-
-    / h4 积分
-    / h4 授信
-    / h4 备注
-    / h4 风控
+h4
+  | 交易信息
+  = link_to '详情', trades_path('q[client_id_eq]' => @object.id)
+.list-group.datalist-group
+  - @trades.each do |t|
+    .list-group-item
+      h4.list-group-item-heading= t.trade_type.name if t.trade_type
+      span.badge= t.trade_amount
+      span= t.pos_machine.serial_number if t.pos_machine
+      p= t.trade_result.name if t.trade_result
+      p.datalist-date= t.trade_date.strftime('%Y-%m-%d %H:%M:%S')
+= paginate @trades

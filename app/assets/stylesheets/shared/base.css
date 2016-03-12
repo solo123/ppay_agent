@@ -40,6 +40,9 @@
 
 .content-area{font-size: 120%; line-height: 150%;}
 
-.datalist-group .list-group-item{ margin-top: 5px; margin-bottom: 5px;}
+.datalist-group .list-group-item{ margin-top: 8px; margin-bottom: 8px;}
 .datalist-num{ margin: 8px auto; color: #333;}
 .datalist-num strong{color: #000;}
+.datalist-group .datalist-date{ margin-bottom: 0;}
+.datalist-group .datalist-date{ margin-bottom: 0;}
+.datalist-group .badge{background-color: #ea6753; font-size: 120%; font-weight:normal;}
