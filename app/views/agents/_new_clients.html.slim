@@ -1,19 +1,9 @@
-table.table
-  thead
-    tr
-      th 商户名称
-      th 手机
-      th 业务员
-      th 入网时间
-      th 费率
-      th 操作 
-  tbody
-    - @new_clients.each do |r|
-      tr
-        td= r.shop_name
-        td= r.shop_tel
-        td= link_to(r.salesman.name, salesman_path(r.salesman) )
-        td= r.join_date
-        td= r.rate
-        td= link_to('详情', client_path(r))
-        
+.list-group.datalist-group
+  - @new_clients.each do |r|
+    .list-group-item
+      h4.list-group-item-heading = link_to(r.shop_name, client_path(r))
+      span.badge 费率：#{r.rate*100}
+      | 入网手机：#{r.shop_tel}
+      .list-group-item-text
+        | 入网时间：#{r.join_date}
+        | ｜业务员：#{link_to(r.salesman.name, salesman_path(r.salesman) )}

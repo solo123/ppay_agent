@@ -9,14 +9,14 @@ table.table
   thead
     tr
       / th
-      /   | 发布时间
+      /   | 发布时间333
       / th
       /   | 结束时间
       th
-        | 标题
+        | 标题33
       th
         | 内容
-      
+
   tbody
     - @collection.each do |r|
       tr
@@ -30,6 +30,6 @@ table.table
           = r.content
         td
           = link_to '详情', r
-      
+
 br
 = paginate @collection

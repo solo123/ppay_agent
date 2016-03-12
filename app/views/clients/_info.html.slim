@@ -1,72 +1,44 @@
-        
 
-.panel.panel-success
-  .panel-heading
-    h4.panel-title #{client.shop_name}
-  .panel-body
-
-    .panel.panel-success.col-md-4
-      .panel-heading 入网信息
+h1.page-header #{client.shop_name}
+.row
+  .col-md-6
+    .panel.panel-inverse
+      .panel-heading 商户基本信息
       .panel-body
-        table.table
-          tr
-            td 经营类型: 
-            td= client.category.name
-          tr
-            td 入网时间: 
-            td= client.join_date
-
-    .panel.panel-success.col-md-4
-      .panel-heading 联系信息
-      .panel-body
-        table.table
-          tr
-            td 主要联系人：
-            td= client.contact_name
+        dl.dl-horizontal
+          dt 经营类型：
+          dd= client.category.name
+          dt 入网时间：
+          dd= client.join_date
+          dt 主要联系人：
+          dd= client.contact_name
           - client.contacts.each do |c|
-            tr
-              td 联系人: 
-              td #{c.name} (#{c.tel})
+            dt 联系人:
+            dd #{c.name} (#{c.tel})
           - if client.address
-            tr
-              td 地址：
-              td= client.address.street
-            tr
-              td 地区: 
-              td #{client.address.province.name} #{client.address.city.name}
-    .panel.panel-info.col-md-4
-      .panel-heading 终端编号
+            dt 地址：
+            dd #{client.address.province.name} #{client.address.city.name} #{client.address.street}
+          dt 业务员姓名:
+          dd= client.salesman.name
+  .col-md-6
+    .panel.panel-inverse
+      .panel-heading 终端信息
       .panel-body
-        ul
-          - client.pos_machines.each do |r| 
-            li= r.serial_number
-              
-    .panel.panel-info.col-md-4
-      .panel-heading 渠道信息
-      .panel-body
-        table.table
-          tr
-            td 业务员姓名: 
-            td= client.salesman.name
-    .panel.panel-info.col-md-4
-      .panel-heading 费率限额
-      .panel-body
-        table.table
-          tr
-            td 费率:
-            td #{client.rate}
-          tr
-            td POS刷卡结算方式: 
-            td T1
-          tr
-            td 信用卡单笔限额: 
-            td #{client.credit_card_limit_each/10000}万
-          tr
-            td 借记卡单笔限额:
-            td #{client.bank_card_limit_each/10000}万
-          tr
-            td 信用卡月限额:
-            td #{client.credit_card_limit_month/10000}万
-          tr
-            td 借记卡月限额:
-            td #{client.bank_card_limit_month/10000}万
+        .dl-horizontal
+          dt 终端编号
+          dd
+            ul
+              - client.pos_machines.each do |r|
+                li= r.serial_number
+          dt 费率:
+          dd #{client.rate*100}%
+          dt POS刷卡结算方式:
+          dd T1
+          dt 信用卡单笔限额:
+          dd #{client.credit_card_limit_each/10000}万
+          dt 借记卡单笔限额:
+          dd #{client.bank_card_limit_each/10000}万
+          dt 信用卡月限额:
+          dd #{client.credit_card_limit_month/10000}万
+          dt 借记卡月限额:
+          dd #{client.bank_card_limit_month/10000}万

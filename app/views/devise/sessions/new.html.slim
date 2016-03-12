@@ -5,15 +5,19 @@
 .right-content
   .login-header
     .brand
-      = image_tag 'favicon.png', :style=> 'border-radius:44px'
-      span 普尔支付
+      img src="/assets/pooul-logo.jpg" alt="普尔瀚达"
+      small 普尔瀚达合作商系统
+    .icon
+      i.fa.fa-sign-in
   .login-content
-    = simple_form_for(resource, as: resource_name, 
+    = simple_form_for(resource, as: resource_name,
                       url: session_path(resource_name),
                       defaults: {label_html: {class: 'my_class'}}) do |f|
       .form-inputs
-        = f.input :mobile, label: false, placeholder: '手机', required: false, autofocus: true
-        = f.input :password, label: false, placeholder: '密码',  required: false 
+        = f.input :mobile, label: false, input_html: {class: "input-lg"}, placeholder: '手机', required: false, autofocus: true
+        = f.input :password, label: false, input_html: {class: "input-lg"}, placeholder: '密码',  required: false
         = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
       .form-actions
         = f.button :submit, "登录", class: 'btn btn-success btn-block btn-lg'
+      hr
+      p.text-center.text-inverse © Pooul All Right Reserved 2016

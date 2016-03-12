@@ -1,4 +1,4 @@
-        
+
 - @new_clients.each do |r|
   .row
     .col-xs-2 style='border:1px solid #AEAEAE;border-radius:30px;text-align:center;'
@@ -9,5 +9,3 @@
     .col-xs-4
       p style='text-align:right;' = r.join_date
       p style='text-align:right;' = link_to(r.salesman.name, salesman_path(r.salesman) )
-
-        

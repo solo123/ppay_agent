@@ -2,63 +2,30 @@ ol.breadcrumb.pull-right
   li =link_to 'Home', '/'
   li =link_to '商户资料', clients_path
   li 详细信息
-h2 商户生命周期
 
-.row
-  .col-md-3
-    .widget.widget-stats.bg-blue
-      .stats-icon
-        i.fa.fa-calendar
-      .stats-info
-        h4 入网时间
-        
-        p = time_ago_in_words (@object.join_date)
-  .col-md-3
-    .widget.widget-stats.bg-green#weixin
-      .stats-icon
-        i.fa.fa-calculator.fa-fw 
-      .stats-info
-        h4 总交易笔数
-        p= @object.trades.count
-  .col-md-3
-    .widget.widget-stats.bg-purple
-      .stats-icon
-        i.fa.fa-money.fa-fw
-      .stats-info
-        h4 总交易金额
-        p= @object.trades.sum(:trade_amount)
-  .col-md-3
-    .widget.widget-stats.bg-red
-      .stats-icon
-        i.fa.fa-clock-o
-      .stats-info
-        h4 最后交易时间
-        p= @object.trades.last.trade_date.strftime('%Y-%m-%d %H:%M:%S') if @object.trades.last
 
 = render partial: 'info', locals: {client: @object}
-/    
-.panel.panel-success
+/
+.panel.panel-inverse
   .panel-heading
-    h4.panel-title
-      p 交易信息
+    .panel-title 交易信息
   .panel-body
     = paginate @trades
     - @trades.each do |t|
       .row
-        .col-xs-2 style='border:1px solid #AEAEAE;border-radius:30px;text-align:center;'
-          h4= t.trade_type.name if t.trade_type
+        .col-xs-2
+          span= t.trade_type.name if t.trade_type
         .col-xs-6
           p= t.pos_machine.serial_number if t.pos_machine
           span= t.trade_date.strftime('%Y-%m-%d %H:%M:%S')
         .col-xs-4
-          p style='color:red;font-size:24px;text-align:right;' = t.trade_amount
-          p style='text-align:right;' = t.trade_result.name if t.trade_result
+          p.text-right= t.trade_amount
+          p.text-right= t.trade_result.name if t.trade_result
 
 
     / h4 交易流水
-    
+
     / h4 积分
     / h4 授信
     / h4 备注
     / h4 风控
-    

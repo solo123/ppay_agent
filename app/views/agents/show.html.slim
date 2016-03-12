@@ -11,8 +11,8 @@
       .stats-link
         a href='#'
           span
-            | 总笔数 : 
-            =n0 agent_sum_month @object, trade_month, 'all', 'count' 
+            | 总笔数 :
+            =n0 agent_sum_month @object, trade_month, 'all', 'count'
   .col-md-3
     .widget.widget-stats.bg-green#weixin
       .stats-icon
@@ -21,10 +21,10 @@
         h4 本月微信交易金额
         p=n2 agent_sum_month @object, trade_month, 'wechat', 'amount'
       .stats-link
-        a href='#' 
+        a href='#'
             span
-              | 笔数: 
-              =n0 agent_sum_month @object, trade_month, 'wechat', 'count' 
+              | 笔数:
+              =n0 agent_sum_month @object, trade_month, 'wechat', 'count'
   .col-md-3
     .widget.widget-stats.bg-purple
       .stats-icon
@@ -50,9 +50,9 @@
       .stats-link
         a href='#'
           span
-            | 分润合计: 
+            | 分润合计:
             =n2 t1 + t2 + t3 + t4
-     
+
   .col-md-3
     .widget.widget-stats.bg-red
       .stats-icon
@@ -62,29 +62,27 @@
         p= @object.clients.where("join_date like ?", Date.current.to_s[0..6] + '%').count
       .stats-link
         a href='#'
-          span 总商户数 : 
+          span 总商户数 :
           span= @object.clients.count
 
 /
 .row
   .col-md-12
-    .panel.panel-primary
+    .panel.panel-inverse
       .panel-heading
         .pull-right
           = link_to '更多公告', notices_path, :style =>'color:#FFF;'
-        h4.panel-title 系统公告
-      .panel-body#agent_bbs
+        h4.panel-title 系统公告55
+      #agent_bbs
 
-.panel.panel-primary
-  .panel-heading
-    h4.panel-title 最新入网商户
-  .panel-body#new_clients_agent
+/最新入网商户
+#new_clients_agent
 
 / .panel.panel-primary
 /   .panel-heading
 /     h4.panel-title 活跃商户
 /   .panel-body#active_clients_agent_day_tradetotal
-/ 
+/
 / .panel.panel-primary
 /   .panel-heading
 /     h4.panel-title 活跃业务员
@@ -106,7 +104,7 @@
 /             td= r.name
 /             td= r.status
 /             td= link_to('详情', salesman_path(r))
-          
+
 javascript:
   $(document).ready(function(){
     //$.getScript("#{active_clients_agent_path(id: @object.id, q: Date.today.strftime('%Y-%m'))}");
@@ -114,4 +112,3 @@ javascript:
     $.getScript("#{new_clients_agent_path(id: @object.id)}");
     $.getScript("#{notices_path(id: @object.id)}");
   });
-  

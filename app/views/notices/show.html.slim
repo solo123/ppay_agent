@@ -1,4 +1,8 @@
-div class='jumbotron'
-  h1 #{@object.title}
-  p #{@object.content}
-= link_to '返回', notices_path
+.row
+  .col-sm-6
+    div.panel.panel-inverse
+      div.panel-body
+        h1.page-header #{@object.title}
+        p #{@object.updated_at.strftime("%Y-%m-%d %H:%M:%S")}
+        .content-area #{@object.content}
+        = link_to '返回', notices_path

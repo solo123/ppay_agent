@@ -19,30 +19,34 @@
         button.btn.btn-primary[type="button"]
           | 添加
 
-.panel.panel-info
-  .panel-heading
-    h4.panel-title 商户查询
-  .panel-body
-    .row
-      .col-md-6
-        = form_tag(clients_path, method: 'get') do
-          .input-group
-            input type="text" class="form-control" id="exampleInputEmail1" name='search_t' value="#{params[:search_t]}" placeholder='商户名称、电话、姓名、费率，进行查询'
-            .input-group-btn
-              button type="submit" class="btn btn-warning" style='border-radius:10px;margin-left:10px;width:100px;' 查找
+/商户查询
+.panel-body
+  .row
+    .col-sm-6
+      = form_tag(clients_path, method: 'get') do
+        .input-group
+          input type="text" class="form-control" id="exampleInputEmail1" name='search_t' value="#{params[:search_t]}" placeholder='商户名称、电话、姓名、费率，进行查询'
+          .input-group-btn
+            button type="submit" class="btn btn-warning" style='border-radius:10px;margin-left:10px;width:100px;' 查找
+    .col-sm-6
+      .datalist-num
+        | 筛选结果：
+        strong #{@collection.count}
 
-.panel.panel-success
-  .panel-heading
-    h4.panel-title 筛选结果: #{@collection.count}
-  .panel-body
-    = paginate @collection
-    - @collection.each do |r|
-      .row
-        .col-xs-2 style='border:1px solid #AEAEAE;border-radius:20px;text-align:center;'
-          h4 #{r.rate * 100}
-        .col-xs-6
-          p= link_to r.shop_name, client_url(r)
-          p= link_to r.shop_tel, "tel:#{r.shop_tel}" 
-        .col-xs-4
-          p.text-right= r.join_date
-          p.text-right= link_to r.salesman.name, salesman_path(r.salesman)
+.list-group.datalist-group
+  - @collection.each do |r|
+    .list-group-item
+      h4.list-group-item-heading = link_to r.shop_name, client_url(r)
+      -if r.rate*100 == 0.38
+        span.badge 费率：0.38
+      -if r.rate*100 == 0.49
+        span.badge 费率：0.49
+      -if r.rate*100 == 0.70
+        span.badge 费率：0.7
+      -if r.rate*100 == 0.78
+        span.badge 费率：0.78
+      | 入网手机：#{link_to r.shop_tel, "tel:#{r.shop_tel}"}
+      .list-group-item-text
+        | 入网时间：#{r.join_date}
+        | ｜业务员：#{link_to(r.salesman.name, salesman_path(r.salesman) )}
+= paginate @collection
