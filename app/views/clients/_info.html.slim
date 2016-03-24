@@ -1,44 +1,69 @@
 
-h1.page-header #{client.shop_name}
-.row
+.row.clients-info
   .col-md-6
-    .panel.panel-inverse
-      .panel-heading 商户基本信息
-      .panel-body
-        dl.dl-horizontal
-          dt 经营类型：
-          dd= client.category.name
-          dt 入网时间：
-          dd= client.join_date
-          dt 主要联系人：
-          dd= client.contact_name
-          - client.contacts.each do |c|
-            dt 联系人:
-            dd #{c.name} (#{c.tel})
-          - if client.address
-            dt 地址：
-            dd #{client.address.province.name} #{client.address.city.name} #{client.address.street}
-          dt 业务员姓名:
-          dd= client.salesman.name
+    h1.item-header 商户基本信息
+    .list-group.datalist-group
+      .list-group-item
+        .row
+          .col-xs-5 店铺名称
+          .col-xs-7= client.shop_name
+      .list-group-item
+        .row
+          .col-xs-5 经营类型：
+          .col-xs-7= client.category.name
+      .list-group-item
+        .row
+          .col-xs-5 入网时间：
+          .col-xs-7= client.join_date
+      .list-group-item
+        .row
+          .col-xs-5 主要联系人：
+          .col-xs-7= client.contact_name
+      - client.contacts.each do |c|
+        .list-group-item
+          .row
+            .col-xs-5 联系人:
+            .col-xs-7 #{c.name} (#{c.tel})
+      - if client.address
+        .list-group-item
+          .row
+            .col-xs-5 地址：
+            .col-xs-7 #{client.address.province.name} #{client.address.city.name} #{client.address.street}
+      .list-group-item
+        .row
+          .col-xs-5 业务员姓名:
+          .col-xs-7= client.salesman.name
   .col-md-6
-    .panel.panel-inverse
-      .panel-heading 终端信息
-      .panel-body
-        .dl-horizontal
-          dt 终端编号
-          dd
+    h1.item-header 终端信息
+    .list-group.datalist-group
+      .list-group-item
+        .row
+          .col-xs-5 终端编号
+          .col-xs-7
             ul
               - client.pos_machines.each do |r|
                 li= r.serial_number
-          dt 费率:
-          dd #{client.rate*100}%
-          dt POS刷卡结算方式:
-          dd T1
-          dt 信用卡单笔限额:
-          dd #{client.credit_card_limit_each/10000}万
-          dt 借记卡单笔限额:
-          dd #{client.bank_card_limit_each/10000}万
-          dt 信用卡月限额:
-          dd #{client.credit_card_limit_month/10000}万
-          dt 借记卡月限额:
-          dd #{client.bank_card_limit_month/10000}万
+      .list-group-item
+        .row
+          .col-xs-5 费率:
+          .col-xs-7 #{client.rate*100}%
+      .list-group-item
+        .row
+          .col-xs-5 POS刷卡结算方式:
+          .col-xs-7 T1
+      .list-group-item
+        .row
+          .col-xs-5 信用卡单笔限额:
+          .col-xs-7 #{client.credit_card_limit_each/10000}万
+      .list-group-item
+        .row
+          .col-xs-5 借记卡单笔限额:
+          .col-xs-7 #{client.bank_card_limit_each/10000}万
+      .list-group-item
+        .row
+          .col-xs-5 信用卡月限额:
+          .col-xs-7 #{client.credit_card_limit_month/10000}万
+      .list-group-item
+        .row
+          .col-xs-5 借记卡月限额:
+          .col-xs-7 #{client.bank_card_limit_month/10000}万

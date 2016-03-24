@@ -1,81 +1,62 @@
 - mth = Date.current.all_month
 - trade_month = Date.current.to_s[0..6]
-.row
-  .col-md-3
-    .widget.widget-stats.bg-blue
-      .stats-icon
-        i.fa.fa-desktop
-      .stats-info
-        h4 本月交易金额
-        p=n2 agent_sum_month @object, trade_month, 'all', 'amount'
-      .stats-link
-        a href='#'
-          span
-            | 总笔数 :
-            =n0 agent_sum_month @object, trade_month, 'all', 'count'
-  .col-md-3
-    .widget.widget-stats.bg-green#weixin
-      .stats-icon
-        i.fa.fa-comments.fa-fw
-      .stats-info
-        h4 本月微信交易金额
-        p=n2 agent_sum_month @object, trade_month, 'wechat', 'amount'
-      .stats-link
-        a href='#'
-            span
-              | 笔数:
-              =n0 agent_sum_month @object, trade_month, 'wechat', 'count'
-  .col-md-3
-    .widget.widget-stats.bg-purple
-      .stats-icon
-        i.fa.fa-clock-o
-      .stats-info
-        table.table
-          tr
-            td 微信
-            td=n2 (n = agent_sum_month(@object, trade_month, 'wechat', 'amount'))
-            td=n2 (t1 = @object.profit(n, 'wechat'))
-          tr
-            td 支付宝
-            td=n2 (n = agent_sum_month(@object, trade_month, 'alipay', 'amount'))
-            td=n2 (t2 = @object.profit(n, 'alipay'))
-          tr
-            td T0
-            td=n2 (n = agent_sum_month(@object, trade_month, 't0', 'amount'))
-            td=n2 (t3 = @object.profit(n, 't0'))
-          tr
-            td T1
-            td=n2 (n = agent_sum_month(@object, trade_month, 't1', 'amount'))
-            td=n2 (t4 = @object.profit(n, 't1'))
-      .stats-link
-        a href='#'
-          span
-            | 分润合计:
-            =n2 t1 + t2 + t3 + t4
+h1.item-header 本月数据
+.row.index-show-area
+  .col-xs-4.col-item
+    strong.title 总交易
+    span.number=n2 agent_sum_month @object, trade_month, 'all', 'amount'
+    small
+      | 总笔数 :
+      =n0 agent_sum_month @object, trade_month, 'all', 'count'
+  .col-xs-4.col-item
+    strong.title 微信交易
+    span.number=n2 agent_sum_month @object, trade_month, 'wechat', 'amount'
+    small
+      | 笔数:
+      =n0 agent_sum_month @object, trade_month, 'wechat', 'count'
+  .col-xs-4.col-item
+    strong.title 入网商户
+    span.number= @object.clients.where("join_date like ?", Date.current.to_s[0..6] + '%').count
+    small
+      | 总商户数 :
+      = @object.clients.count
+h1.item-header 本月分润预计
+.agent_sum_month
+  table.table
+    thead
+      th 类型
+      th 交易金额
+      th 分润金额
+    tbody
+      tr
+        td 微信
+        td=n2 (n = agent_sum_month(@object, trade_month, 'wechat', 'amount'))
+        td=n2 (t1 = @object.profit(n, 'wechat'))
+      tr
+        td 支付宝
+        td=n2 (n = agent_sum_month(@object, trade_month, 'alipay', 'amount'))
+        td=n2 (t2 = @object.profit(n, 'alipay'))
+      tr
+        td T0
+        td=n2 (n = agent_sum_month(@object, trade_month, 't0', 'amount'))
+        td=n2 (t3 = @object.profit(n, 't0'))
+      tr
+        td T1
+        td=n2 (n = agent_sum_month(@object, trade_month, 't1', 'amount'))
+        td=n2 (t4 = @object.profit(n, 't1'))
+  p.bg-success.month-total
+    | 分润合计:
+    =n2 t1 + t2 + t3 + t4
 
-  .col-md-3
-    .widget.widget-stats.bg-red
-      .stats-icon
-        i.fa.fa-users
-      .stats-info
-        h4 本月入网商户
-        p= @object.clients.where("join_date like ?", Date.current.to_s[0..6] + '%').count
-      .stats-link
-        a href='#'
-          span 总商户数 :
-          span= @object.clients.count
 
 /
-.row
-  .col-md-12
-    .panel.panel-inverse
-      .panel-heading
-        .pull-right
-          = link_to '更多公告', notices_path, :style =>'color:#FFF;'
-        h4.panel-title 系统公告55
-      #agent_bbs
+h1.item-header 系统公告
+.home-notices-list
+  #agent_bbs
+  = link_to '更多公告', notices_path, class:"more-link"
 
 /最新入网商户
+h1.item-header 最新入网商户
 #new_clients_agent
 
 / .panel.panel-primary

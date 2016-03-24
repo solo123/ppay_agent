@@ -40,9 +40,32 @@
 
 .content-area{font-size: 120%; line-height: 150%;}
 
-.datalist-group .list-group-item{ margin-top: 8px; margin-bottom: 8px;}
+.datalist-group .list-group-item{ }
 .datalist-num{ margin: 8px auto; color: #333;}
 .datalist-num strong{color: #000;}
 .datalist-group .datalist-date{ margin-bottom: 0;}
 .datalist-group .datalist-date{ margin-bottom: 0;}
-.datalist-group .badge{background-color: #ea6753; font-size: 120%; font-weight:normal;}
+.datalist-group .badge{background-color: #dff0d8; color:#606060;font-size: 110%; font-weight:normal;}
+
+.clients-info{}
+.clients-info .col-xs-7{text-align: right;}
+
+/*= home---------------------*/
+.item-header{ padding-left: 15px; font-size: 150%; color: #708090;}
+.content .item-header:first-child{ margin-top: 0;}
+.index-show-area{ background-color: #fff; padding: 8px 0;}
+.index-show-area .col-item{ text-align: center; border-left: 1px solid #c0c0c0;}
+.index-show-area .col-item:first-child{border-left: 0 none;}
+.index-show-area .col-item strong, .index-show-area .col-item span, .index-show-area .col-item small{ display: block; margin: 8px auto;}
+.index-show-area .col-item .number{ font-size: 120%; font-weight: normal;}
+.index-show-area .col-item .title{ color: #ABABAB; font-weight: normal;}
+.index-show-area .col-item small{ color: #ABABAB; font-weight: normal;}
+
+.agent_sum_month{ background-color: #fff;}
+.agent_sum_month .month-total{ padding: 12px 0; font-size: 120%; text-align: center;}
+
+.home-notices-list{ background-color: #fff;}
+.home-notices-list ul{margin-bottom: 0px; }
+.home-notices-list ul li{}
+.more-link{ display: block; padding: 12px 0; text-align: center; }
+.more-link:active{ background-color: #dff0d8;}

@@ -1,11 +1,11 @@
-ol.breadcrumb.pull-right
-  li =link_to 'Home', '/'
-  li =link_to '商户资料', clients_path
-  li 详细信息
+/ol.breadcrumb.pull-right
+/  li =link_to 'Home', '/'
+/  li =link_to '商户资料', clients_path
+/  li 详细信息
 
 = render partial: 'info', locals: {client: @object}
 
-h4
+h1.item-header
   | 交易信息
   = link_to '详情', trades_path('q[client_id_eq]' => @object.id)
 .list-group.datalist-group
