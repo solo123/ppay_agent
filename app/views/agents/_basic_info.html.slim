@@ -1,54 +1,63 @@
-.panel.panel-primary
-  .panel-heading
-    h4.panel-title 合作商基础信息
-  .panel-body
-    .row
-      h4 机构信息
-      - if @object.company
-        table class='table table-hover'
-          tr
-          td 全称: #{@object.company.name}
-          td 简称: #{@object.company.short_name}
-          td 地区:
-          td 经营地址:
-    .row
-      h4 联系信息
-      table class='table table-hover'
-        - @object.contacts.each do |cc|
-          tr
-            td 联系人角色: #{cc.roles}
-            td 联系人: #{cc.name}
-            td 联系人手机: #{cc.tel}
-            td 邮箱:
-            td 地址: 
-    .row
-      h4 业务信息
-      table class='table table-hover'
-        tr
-          td 合作形式: #{@object.cooperation_type}
-          td 合作日期: #{@object.cooperation_date}
-          td 状态
-        tr
-          td 开通T0: #{if @object.t0_enabled then '是' else '否'}
-          td 合作收单类型: #{@object.bank_biz_types}
-          td 合作区域: #{@object.cooperation_location}
-          
-    .row
-      h4  结算信息
-      table class='table table-hover'
-        tr
-          td 银行开户行: #{}
-          td 银行开户支行: #{}
-          td 账户名: #{}
-          td 账户帐号: #{}             
-    .row
-      h4 财务信息
-      table class='table table-hover'
-        tr class='active'
-          td 保证金: #{@object.deposit}
-          td 待结算分润: #{@object.amounts_payable}
-    
-    .row
-      h4 分润合同
-      = render partial: 'contracts/list', locals: {agent: @object, contracts: @object.contracts}
-      
+
+.clients-info
+  h1.item-header 机构信息
+  - if @object.company
+    .list-group.datalist-group
+      .list-group-item
+        .row
+          .col-xs-5 全称:
+          .col-xs-7 #{@object.company.name}
+      .list-group-item
+        .row
+          .col-xs-5 简称:
+          .col-xs-7 #{@object.company.short_name}
+
+  h1.item-header 联系信息
+  .list-group.datalist-group
+    - @object.contacts.each do |cc|
+      .list-group-item
+        .row
+          .col-xs-5 联系人角色:
+          .col-xs-7 #{cc.roles}
+        .row
+          .col-xs-5 联系人:
+          .col-xs-7 #{cc.name}
+        .row
+          .col-xs-5 联系人手机:
+          .col-xs-7 #{cc.tel}
+
+  h1.item-header 业务信息
+  .list-group.datalist-group
+    .list-group-item
+      .row
+        .col-xs-5 合作形式:
+        .col-xs-7 #{@object.cooperation_type}
+    .list-group-item
+      .row
+        .col-xs-5 合作日期:
+        .col-xs-7 #{@object.cooperation_date}
+    .list-group-item
+      .row
+        .col-xs-5 开通T0:
+        .col-xs-7 #{if @object.t0_enabled then '是' else '否'}
+    .list-group-item
+      .row
+        .col-xs-5 合作收单类型:
+        .col-xs-7 #{@object.bank_biz_types}
+    .list-group-item
+      .row
+        .col-xs-5 合作区域:
+        .col-xs-7 #{@object.cooperation_location}
+  h1.item-header 财务信息
+  .list-group.datalist-group
+    .list-group-item
+      .row
+        .col-xs-5 保证金:
+        .col-xs-7 #{@object.deposit}
+    .list-group-item
+      .row
+        .col-xs-5 待结算分润:
+        .col-xs-7 #{@object.amounts_payable}
+
+h1.item-header 分润合同
+= render partial: 'contracts/list', locals: {agent: @object, contracts: @object.contracts}
