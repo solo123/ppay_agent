@@ -8,7 +8,8 @@ class ClientsController < PooulController
 
   def show
     @object = current_user.agent.clients.find(params[:id])
-    @trades = @object.trades.show_order.page(params[:pages]).per(100)
+    suc_code = CodeTable.find_by(name: 'trade_result').childs.where('name like ?', '交易成功').last
+    @trades = @object.trades.where(:trade_result=> suc_code).show_order.page(params[:pages]).per(100)
   end
 
 end

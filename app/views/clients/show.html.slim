@@ -6,7 +6,7 @@
 = render partial: 'info', locals: {client: @object}
 
 h1.item-header
-  | 交易信息
+  | 交易信息  #{@trades.count}
   = link_to '详情', trades_path('q[client_id_eq]' => @object.id)
 .list-group.datalist-group
   - @trades.each do |t|
@@ -16,4 +16,4 @@ h1.item-header
       span= t.pos_machine.serial_number if t.pos_machine
       p= t.trade_result.name if t.trade_result
       p.datalist-date= t.trade_date.strftime('%Y-%m-%d %H:%M:%S')
-= paginate @trades
+/= paginate @trades
