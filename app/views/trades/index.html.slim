@@ -41,10 +41,10 @@
         .col-md-9
           | 筛选结果: 交易笔数: #{@q.result.count},总金额: #{@q.result.sum("trade_amount")}
 
-.list-group.datalist-group
+.list-group.datalist-group.list-onclick
   - @collection.each do |obj|
-    .list-group-item
-      h4.list-group-item-heading = link_to "#{obj.client.shop_name}", client_path(obj.client_id)
+    .list-group-item onclick="location.href='#{client_path(obj.client_id)}'"
+      h4.list-group-item-heading= obj.client.shop_name
       span.badge=n2 obj.trade_amount
       -if obj.sub_account
         | 子帐号：

@@ -33,10 +33,13 @@
 .pagination > li > span:focus,.pagination > li > span:hover{
 	color: #707478;
 }
-
+.list-group{}
 .list-group-item{border-left: none 0; border-right: none 0;}
+.list-onclick .list-group-item{ cursor:pointer;}
+.list-onclick .list-group-item:hover{ background-color: #dff0d8;}
 .list-group-item:first-child{ border-top-left-radius:0; border-top-right-radius:0;}
 .list-group-item:last-child{ border-bottom-left-radius:0; border-bottom-right-radius:0;}
+.list-group-item .list-group-item-heading{ font-weight: normal; color: #707478;}
 
 .content-area{font-size: 120%; line-height: 150%;}
 

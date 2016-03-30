@@ -33,10 +33,10 @@
         | 筛选结果：
         strong #{@collection.count}
 
-.list-group.datalist-group
+.list-group.datalist-group.list-onclick
   - @collection.each do |r|
-    .list-group-item
-      h4.list-group-item-heading = link_to r.shop_name, client_url(r)
+    .list-group-item onclick="location.href='#{client_url(r)}'"
+      h4.list-group-item-heading= r.shop_name
       -if r.rate*100 == 0.38
         span.badge 费率：0.38
       -if r.rate*100 == 0.49
