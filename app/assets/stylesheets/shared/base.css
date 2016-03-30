@@ -49,6 +49,8 @@
 .datalist-group .datalist-date{ margin-bottom: 0;}
 .datalist-group .datalist-date{ margin-bottom: 0;}
 .datalist-group .badge{background-color: #dff0d8; color:#606060;font-size: 110%; font-weight:normal;}
+.datalist-group ul{ padding-left: 0; }
+.datalist-group ul li{ list-style: none;}
 
 .clients-info{}
 .clients-info .col-xs-7{text-align: right;}

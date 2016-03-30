@@ -1,7 +1,7 @@
-.list-group.datalist-group
+.list-group.datalist-group.list-onclick
   - @new_clients.each do |r|
-    .list-group-item
-      h4.list-group-item-heading = link_to(r.shop_name, client_path(r))
+    .list-group-item onclick="location.href='#{client_path(r)}'"
+      h4.list-group-item-heading= r.shop_name
       span.badge 费率：#{r.rate*100}
       | 入网手机：#{r.shop_tel}
       .list-group-item-text
